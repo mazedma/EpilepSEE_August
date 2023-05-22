@@ -21,12 +21,21 @@
             app:srcCompat="@drawable/ic_side_menu" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/contentsZoneView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -46,7 +55,7 @@
             app:srcCompat="@drawable/ic_status_menu" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/addButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
@@ -57,4 +66,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_add_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
