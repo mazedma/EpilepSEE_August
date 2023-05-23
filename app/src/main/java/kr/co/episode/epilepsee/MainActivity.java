@@ -2,6 +2,8 @@ package kr.co.episode.epilepsee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,9 +34,13 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.menu_profile){
                             Toast.makeText(MainActivity.this, "프로필 클릭", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                            startActivity(intent);
                         }
                         else {
                             Toast.makeText(MainActivity.this, "대발작 감지 기능", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                            startActivity(intent);
                         }
                         return false;
                     }

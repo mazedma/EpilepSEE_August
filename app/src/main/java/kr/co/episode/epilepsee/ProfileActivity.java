@@ -28,8 +28,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
     };
 
-
-
     ActivityProfileBinding activityProfileBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
