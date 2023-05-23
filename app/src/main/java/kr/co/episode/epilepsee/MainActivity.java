@@ -44,5 +44,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // add popup 버튼 연결
+        activityMainBinding.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
+                getMenuInflater().inflate(R.menu.popup_add,popupMenu.getMenu()); // menu xml에서 메뉴 리스트 가져오는듯
+
+                //아이템 클릭 리스너
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.add_seizure){
+                            Toast.makeText(MainActivity.this, "발작 선택", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (menuItem.getItemId() == R.id.add_s_effect) {
+                            Toast.makeText(MainActivity.this, "부작용 선택", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (menuItem.getItemId() == R.id.add_drug) {
+                            Toast.makeText(MainActivity.this, "약물 선택", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, "생리 선택", Toast.LENGTH_SHORT).show();
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 }
