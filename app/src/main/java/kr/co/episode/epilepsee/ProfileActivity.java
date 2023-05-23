@@ -35,6 +35,11 @@ public class ProfileActivity extends AppCompatActivity {
         activityProfileBinding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(activityProfileBinding.getRoot());
 
+        // 액션바 설정
+        getSupportActionBar().setTitle("Profile"); // 화면 제목 설정
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+
         activityProfileBinding.editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void updateLabel() {
-        String myFormat = "yyyy/MM/dd"; //출력형식 2021/07/26
+        String myFormat = "yyyy/MM/dd"; //출력 형식 2021/07/26
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.KOREA);
 
         activityProfileBinding.editDate.setText(simpleDateFormat.format(myCalendar.getTime()));
