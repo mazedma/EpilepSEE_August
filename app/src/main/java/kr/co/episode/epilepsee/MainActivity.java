@@ -33,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.menu_profile){
-                            Toast.makeText(MainActivity.this, "프로필 클릭", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "프로필 클릭", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(MainActivity.this, "대발작 감지 기능", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                            startActivity(intent);
+//                            Toast.makeText(MainActivity.this, "대발작 감지 기능", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                            startActivity(intent);
                         }
                         return false;
                     }
@@ -63,15 +63,19 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.add_seizure){
                             Toast.makeText(MainActivity.this, "발작 선택", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
                         }
                         else if (menuItem.getItemId() == R.id.add_s_effect) {
                             Toast.makeText(MainActivity.this, "부작용 선택", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
                         }
                         else if (menuItem.getItemId() == R.id.add_drug) {
                             Toast.makeText(MainActivity.this, "약물 선택", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
                         }
                         else {
                             Toast.makeText(MainActivity.this, "생리 선택", Toast.LENGTH_SHORT).show();
+//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
                         }
                         return false;
                     }
