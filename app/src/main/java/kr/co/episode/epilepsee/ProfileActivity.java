@@ -48,6 +48,8 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    //dlsk
+
     private void updateLabel() {
         String myFormat = "yyyy/MM/dd"; //출력 형식 2021/07/26
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.KOREA);
