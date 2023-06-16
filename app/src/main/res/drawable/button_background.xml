@@ -1,4 +1,5 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FF00FF"/> <!-- 보라색(#FF00FF)으로 설정 -->
-    <corners android:radius="8dp"/> <!-- 버튼의 모서리를 둥글게 설정 -->
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/button_pressed" />
+    <item android:state_focused="true" android:drawable="@drawable/button_focused" />
+    <item android:drawable="@drawable/button_normal" />
+</selector>
