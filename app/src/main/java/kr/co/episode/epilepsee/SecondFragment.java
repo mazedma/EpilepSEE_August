@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import org.w3c.dom.Text;
 
@@ -32,18 +34,21 @@ public class SecondFragment extends Fragment {
         btnPartialSeizure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedButton = "partial";
-                updateButtonVisibility();
-
+                Bundle bundle = new Bundle();
+                bundle.putString("seizureType", "부분발작");
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_secondFragment_to_fourthFragment_partialSeizure, bundle);
             }
         });
 
         btnGeneralSeizure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedButton = "general";
-                updateButtonVisibility();
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_secondFragment_to_thirdFragment);
             }
+
+
         });
 
         return rootView;
@@ -52,10 +57,7 @@ public class SecondFragment extends Fragment {
     public String getSelectedButton(){
         return selectedButton;
     }
-    private void updateButtonVisibility(){
-        SeizureActivity activity = (SeizureActivity) requireActivity();
-        activity.updateButtonVisibility();
-    }
+
         //데이터 저장 함수 작성
 }
 

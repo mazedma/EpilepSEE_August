@@ -6,6 +6,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -32,15 +35,64 @@ public class SeizureActivity extends AppCompatActivity {
     private Button nextButton;
     private Button prevButton;
 
-    private List<Fragment> fragmentList;
-    private int currentFragmentIndex;
+    private NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activitySeizureBinding = ActivitySeizureBinding.inflate(getLayoutInflater());
         setContentView(activitySeizureBinding.getRoot());
+        //버튼 찾기
         nextButton = activitySeizureBinding.nextButton;
         prevButton = activitySeizureBinding.prevButton;
+
+
+        //이전 버튼 설정
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(SeizureActivity.this, R.id.nav_host_fragment);
+                navController.navigateUp();
+            }
+        });
+        //다음 버튼 설정
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavController navController = Navigation.findNavController(SeizureActivity.this, R.id.nav_host_fragment);
+                NavDestination currentDestination = navController.getCurrentDestination();
+
+                if (currentDestination != null) {
+                    int currentDestinationId = currentDestination.getId();
+
+                    switch (currentDestinationId) {
+                        case R.id.firstFragment:
+                            navController.navigate(R.id.action_firstFragment_to_secondFragment);
+                            break;
+                        case R.id.secondFragment:
+                            navController.navigate(R.id.action_secondFragment_to_thirdFragment);
+                            break;
+                        case R.id.thirdFragment:
+                            navController.navigate(R.id.action_thirdFragment_to_fifthFragment);
+                            break;
+                        case R.id.fourthFragment:
+                            navController.navigate(R.id.action_fourthFragment_to_fifthFragment);
+                            break;
+                        case R.id.fifthFragment:
+                            navController.navigate(R.id.action_fifthFragment_to_sixthFragment);
+                            break;
+                        case R.id.sixthFragment:
+                            navController.navigate(R.id.action_sixthFragment_to_seventhFragment);
+                            break;
+                        case R.id.sevenFragment:
+                            // 마지막 프래그먼트에 도달했을 때 처리할 로직 작성
+                            break;
+                    }
+                }
+
+            }
+        });
+
 
         //액션바에 백 버튼 추가
         ActionBar actionBar = getSupportActionBar();
@@ -50,107 +102,19 @@ public class SeizureActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("발작 기록"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
-        //이전 버튼 설정
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPreviousFragment();
-            }
-        });
-        //다음 버튼 설정
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showNextFragment();
-            }
-        });
-
-        //프래그먼트 리스트 초기화
-
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new FirstFragment());
-        fragmentList.add(new SecondFragment());
-        fragmentList.add(new ThirdFragment());
-        fragmentList.add(new FourthFragment());
-        fragmentList.add(new FifthFragment());
-        fragmentList.add(new SixthFragment());
-        fragmentList.add(new SeventhFragment());
-
-        // 초기 프래그먼트 설정
-        currentFragmentIndex = 0;
-        Fragment initialFragment = fragmentList.get(currentFragmentIndex);
-        replaceFragment(initialFragment);
-        updateButtonVisibility();
     }
-
-    private void showPreviousFragment(){
-            if(currentFragmentIndex>0){
-                currentFragmentIndex--;
-                Fragment previousFragment = fragmentList.get(currentFragmentIndex);
-                replaceFragment(previousFragment);
-                updateButtonVisibility();
-            }
-        }
-    private void showNextFragment() {
-        if (currentFragmentIndex < fragmentList.size() - 1) {
-            currentFragmentIndex++;
-            Fragment nextFragment = fragmentList.get(currentFragmentIndex);
-            replaceFragment(nextFragment);
-            updateButtonVisibility();
-        } else {
-            returnToHomeScreen();
-            }
-        }
-//    private void showNextFragment() {
-//        if (currentFragmentIndex < fragmentList.size() - 1) {
-//            currentFragmentIndex++;
-//            Fragment nextFragment = fragmentList.get(currentFragmentIndex);
-//
-//        // SecondFragment에서 선택한 버튼에 따라 다음 Fragment 결정
-////            if (nextFragment instanceof FourthFragment) {
-////                String selectedButton = ((SecondFragment) fragmentList.get(1)).getSelectedButton();
-////                if (selectedButton != null && selectedButton.equals("partial")) {
-////                    nextFragment = fragmentList.get(3); // FourthFragment
-////                }
-////            } else if (nextFragment instanceof ThirdFragment) {
-////                String selectedButton = ((SecondFragment) fragmentList.get(1)).getSelectedButton();
-////                if (selectedButton != null && selectedButton.equals("general")) {
-////                    nextFragment = fragmentList.get(2); // ThirdFragment
-////                }
-////            }
-////
-////            replaceFragment(nextFragment);
-////            updateButtonVisibility();
-////        } else {
-////        returnToHomeScreen();
-////        }
-//}
-    private void replaceFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
+    // 액션바의 백 버튼 클릭 이벤트 처리
+    @Override
+    public boolean onSupportNavigateUp () {
+        onBackPressed();
+        return true;
     }
-
-    public void updateButtonVisibility() {
-        prevButton.setVisibility(currentFragmentIndex > 0 ? View.VISIBLE : View.INVISIBLE);
-        nextButton.setVisibility(currentFragmentIndex < fragmentList.size() - 1 ? View.VISIBLE : View.INVISIBLE);
-    }
-
+    // 메인 액티비티로 이동
     private void returnToHomeScreen() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
-
-
-
-        // 액션바의 백 버튼 클릭 이벤트 처리
-        @Override
-        public boolean onSupportNavigateUp () {
-            onBackPressed();
-            return true;
-        }
-
 }
+
+

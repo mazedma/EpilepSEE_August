@@ -63,12 +63,13 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.add_seizure){
                             Toast.makeText(MainActivity.this, "발작 선택", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), SeizureActivity.class);
-                                startActivity(intent);
+                            Intent intent = new Intent(getApplicationContext(), SeizureActivity.class);
+                            startActivity(intent);
                         }
                         else if (menuItem.getItemId() == R.id.add_s_effect) {
                             Toast.makeText(MainActivity.this, "부작용 선택", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), SideEffectActivity.class);
+                            startActivity(intent);
                         }
                         else if (menuItem.getItemId() == R.id.add_drug) {
                             Toast.makeText(MainActivity.this, "약물 선택", Toast.LENGTH_SHORT).show();
