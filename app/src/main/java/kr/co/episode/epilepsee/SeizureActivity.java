@@ -74,6 +74,7 @@ public class SeizureActivity extends AppCompatActivity {
         fragmentList.add(new FourthFragment());
         fragmentList.add(new FifthFragment());
         fragmentList.add(new SixthFragment());
+        fragmentList.add(new SeventhFragment());
 
         // 초기 프래그먼트 설정
         currentFragmentIndex = 0;
@@ -98,7 +99,7 @@ public class SeizureActivity extends AppCompatActivity {
             updateButtonVisibility();
         } else {
             returnToHomeScreen();
-            }
+        }
         }
 
     private void replaceFragment(Fragment fragment) {
