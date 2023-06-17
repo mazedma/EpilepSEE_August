@@ -175,4 +175,28 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="16sp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/medicineEditText"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="약물 이름을 입력하세요" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="추가" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/medicineListTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
 </LinearLayout>
