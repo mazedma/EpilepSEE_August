@@ -95,7 +95,7 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/sevenFragment"
+        android:id="@+id/seventhFragment"
         android:name="kr.co.episode.epilepsee.SeventhFragment"
         android:label="Seventh Fragment">
         <action

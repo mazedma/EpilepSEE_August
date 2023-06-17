@@ -84,8 +84,8 @@ public class SeizureActivity extends AppCompatActivity {
                         case R.id.sixthFragment:
                             navController.navigate(R.id.action_sixthFragment_to_seventhFragment);
                             break;
-                        case R.id.sevenFragment:
-                            // 마지막 프래그먼트에 도달했을 때 처리할 로직 작성
+                        case R.id.seventhFragment:
+                            returnToHomeScreen();
                             break;
                     }
                 }

@@ -2,7 +2,6 @@ package kr.co.episode.epilepsee;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
-import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 
 public class FirstFragment extends Fragment {
 
@@ -42,7 +36,7 @@ public class FirstFragment extends Fragment {
         timeButton = rootView.findViewById(R.id.timeButton);
         dateButton = rootView.findViewById(R.id.dateButton);
         selectedTimeTextView = rootView.findViewById(R.id.selectedTimeTextView);
-        selectedDateTextView = rootView.findViewById(R.id.selectedDateTextView);
+        selectedDateTextView = rootView.findViewById(R.id.selectedDrugDateTextView);
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +115,7 @@ public class FirstFragment extends Fragment {
             // Format the selected date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String selectedDate = dateFormat.format(calendar.getTime());
-            TextView selectedDateTextView = getActivity().findViewById(R.id.selectedDateTextView);
+            TextView selectedDateTextView = getActivity().findViewById(R.id.selectedDrugDateTextView);
             selectedDateTextView.setText(selectedDate);
         }
     }
