@@ -70,8 +70,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="showTimePickerDialog"
                 android:text="시간 선택"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

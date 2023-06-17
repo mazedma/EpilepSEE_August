@@ -9,39 +9,48 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
 
         <FrameLayout
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="589dp"
-            android:layout_above="@+id/nextButton"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="17dp">
+            android:layout_height="match_parent">
+
             <fragment
-                android:id="@+id/FirstFragment"
+                android:name="kr.co.episode.epilepsee.FirstFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="kr.co.episode.epilepsee.FirstFragment"/>
+                tools:layout="@layout/fragment_first" />
         </FrameLayout>
 
-        <Button
-
-            android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="160dp"
-            android:layout_marginEnd="163dp"
-            android:layout_marginBottom="48dp"
-            android:text="다음"
-            />
+            android:gravity="center">
 
+            <Button
+
+                android:id="@+id/prevButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:text="이전" />
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:text="다음" />
+        </LinearLayout>
     </RelativeLayout>
-
 </LinearLayout>
