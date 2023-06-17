@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.w3c.dom.Text;
 
@@ -31,6 +33,8 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 selectedButton = "partial";
+                updateButtonVisibility();
+
             }
         });
 
@@ -38,6 +42,7 @@ public class SecondFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 selectedButton = "general";
+                updateButtonVisibility();
             }
         });
 
@@ -46,6 +51,10 @@ public class SecondFragment extends Fragment {
 
     public String getSelectedButton(){
         return selectedButton;
+    }
+    private void updateButtonVisibility(){
+        SeizureActivity activity = (SeizureActivity) requireActivity();
+        activity.updateButtonVisibility();
     }
         //데이터 저장 함수 작성
 }

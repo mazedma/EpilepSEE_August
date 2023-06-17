@@ -47,11 +47,7 @@
             android:text="전신 발작" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+
 
 
 </LinearLayout>

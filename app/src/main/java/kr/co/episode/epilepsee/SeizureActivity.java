@@ -99,9 +99,32 @@ public class SeizureActivity extends AppCompatActivity {
             updateButtonVisibility();
         } else {
             returnToHomeScreen();
+            }
         }
-        }
-
+//    private void showNextFragment() {
+//        if (currentFragmentIndex < fragmentList.size() - 1) {
+//            currentFragmentIndex++;
+//            Fragment nextFragment = fragmentList.get(currentFragmentIndex);
+//
+//        // SecondFragment에서 선택한 버튼에 따라 다음 Fragment 결정
+////            if (nextFragment instanceof FourthFragment) {
+////                String selectedButton = ((SecondFragment) fragmentList.get(1)).getSelectedButton();
+////                if (selectedButton != null && selectedButton.equals("partial")) {
+////                    nextFragment = fragmentList.get(3); // FourthFragment
+////                }
+////            } else if (nextFragment instanceof ThirdFragment) {
+////                String selectedButton = ((SecondFragment) fragmentList.get(1)).getSelectedButton();
+////                if (selectedButton != null && selectedButton.equals("general")) {
+////                    nextFragment = fragmentList.get(2); // ThirdFragment
+////                }
+////            }
+////
+////            replaceFragment(nextFragment);
+////            updateButtonVisibility();
+////        } else {
+////        returnToHomeScreen();
+////        }
+//}
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -109,7 +132,7 @@ public class SeizureActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void updateButtonVisibility() {
+    public void updateButtonVisibility() {
         prevButton.setVisibility(currentFragmentIndex > 0 ? View.VISIBLE : View.INVISIBLE);
         nextButton.setVisibility(currentFragmentIndex < fragmentList.size() - 1 ? View.VISIBLE : View.INVISIBLE);
     }
