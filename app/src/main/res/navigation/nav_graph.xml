@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="kr.co.episode.epilepsee.FirstFragment"
+        android:name="kr.co.episode.epilepsee.fragments.FirstFragment"
         android:label="First Fragment">
         <action
             android:id="@+id/action_firstFragment_to_secondFragment"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/secondFragment"
-        android:name="kr.co.episode.epilepsee.SecondFragment"
+        android:name="kr.co.episode.epilepsee.fragments.SecondFragment"
         android:label="Second Fragment">
         <action
             android:id="@+id/action_secondFragment_to_thirdFragment"
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/thirdFragment"
-        android:name="kr.co.episode.epilepsee.ThirdFragment"
+        android:name="kr.co.episode.epilepsee.fragments.ThirdFragment"
         android:label="Third Fragment" >
         <action
             android:id="@+id/action_thirdFragment_to_fifthFragment"
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/fourthFragment"
-        android:name="kr.co.episode.epilepsee.FourthFragment"
+        android:name="kr.co.episode.epilepsee.fragments.FourthFragment"
         android:label="Fourth Fragment" >
         <action
             android:id="@+id/action_fourthFragment_to_fifthFragment"
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/fifthFragment"
-        android:name="kr.co.episode.epilepsee.FifthFragment"
+        android:name="kr.co.episode.epilepsee.fragments.FifthFragment"
         android:label="Fifth Fragment">
         <action
             android:id="@+id/action_fifthFragment_to_sixthFragment"
@@ -83,7 +83,7 @@
 
     <fragment
         android:id="@+id/sixthFragment"
-        android:name="kr.co.episode.epilepsee.SixthFragment"
+        android:name="kr.co.episode.epilepsee.fragments.SixthFragment"
         android:label="Sixth Fragment">
         <action
             android:id="@+id/action_sixthFragment_to_seventhFragment"
@@ -96,7 +96,7 @@
     </fragment>
     <fragment
         android:id="@+id/seventhFragment"
-        android:name="kr.co.episode.epilepsee.SeventhFragment"
+        android:name="kr.co.episode.epilepsee.fragments.SeventhFragment"
         android:label="Seventh Fragment">
         <action
             android:id="@+id/action_seventhFragment_to_sixthFragment"

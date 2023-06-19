@@ -12,16 +12,16 @@
         android:theme="@style/Theme.EpilepSEE"
         tools:targetApi="31">
         <activity
-            android:name=".MedicationScheduleActivity"
+            android:name=".activities.MedicationScheduleActivity"
             android:exported="false" />
         <activity
-            android:name=".PeriodRecordActivity"
+            android:name=".activities.PeriodRecordActivity"
             android:exported="false" />
         <activity
-            android:name=".SideEffectActivity"
+            android:name=".activities.SideEffectActivity"
             android:exported="false" />
         <activity
-            android:name=".SeizureActivity"
+            android:name=".activities.SeizureActivity"
             android:exported="false" />
         <activity
             android:name=".SettingActivity"

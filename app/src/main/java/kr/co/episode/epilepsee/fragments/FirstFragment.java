@@ -1,4 +1,4 @@
-package kr.co.episode.epilepsee;
+package kr.co.episode.epilepsee.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -20,6 +20,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import kr.co.episode.epilepsee.R;
 
 public class FirstFragment extends Fragment {
 

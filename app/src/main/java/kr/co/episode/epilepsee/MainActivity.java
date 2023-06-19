@@ -2,7 +2,6 @@ package kr.co.episode.epilepsee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,6 +9,10 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import kr.co.episode.epilepsee.activities.MedicationScheduleActivity;
+import kr.co.episode.epilepsee.activities.PeriodRecordActivity;
+import kr.co.episode.epilepsee.activities.SeizureActivity;
+import kr.co.episode.epilepsee.activities.SideEffectActivity;
 import kr.co.episode.epilepsee.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

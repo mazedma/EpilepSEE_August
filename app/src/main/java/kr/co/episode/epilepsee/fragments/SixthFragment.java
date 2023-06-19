@@ -1,4 +1,4 @@
-package kr.co.episode.epilepsee;
+package kr.co.episode.epilepsee.fragments;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -20,6 +20,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import kr.co.episode.epilepsee.R;
 
 public class SixthFragment extends Fragment {
 

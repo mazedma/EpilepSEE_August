@@ -1,4 +1,4 @@
-package kr.co.episode.epilepsee;
+package kr.co.episode.epilepsee.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import org.w3c.dom.Text;
+
+import kr.co.episode.epilepsee.R;
 
 public class SecondFragment extends Fragment {
     private Button btnPartialSeizure;

@@ -1,4 +1,4 @@
-package kr.co.episode.epilepsee;
+package kr.co.episode.epilepsee.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import kr.co.episode.epilepsee.R;
 import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 import kr.co.episode.epilepsee.databinding.ActivitySideEffectBinding;
 
