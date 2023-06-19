@@ -1,6 +1,6 @@
 package kr.co.episode.epilepsee.fragments;
 
-import static kr.co.episode.epilepsee.database.DatabaseHelper.TABLE_SEIZURE_RECORD;
+
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,9 +63,7 @@ public class SeventhFragment extends Fragment {
 
 
         //사용자 프로필 데이터베이스에 저장
-        dbHelper.addSeizureRecord(startTime,startDate);
-        Toast.makeText(this, "기록이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-        finish();
+
     }
 
 }
