@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">EpilepSEE</string>
-
-    <string-array name="ment_spinner_array">
-        <item>본 환자는 뇌전증 환자입니다. 심폐소생술을 시행하지 마십시오.</item>
-        <item>맥박을 확인해주세요. 맥박이 있다면 심폐소생술을 시행하지 마십시오.</item>
-        <item>심폐소생술을 시행하지 마십시오.</item>
-    </string-array>
-</resources>

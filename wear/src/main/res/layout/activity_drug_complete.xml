@@ -46,7 +46,6 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="10sp" />
-
         </LinearLayout>
 
     </FrameLayout>
