@@ -10,10 +10,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
 import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
+import kr.co.episode.epilepsee.fragments.FirstFragment;
+import kr.co.episode.epilepsee.fragments.SeventhFragment;
 
 public class SeizureActivity extends AppCompatActivity {
 
@@ -22,6 +27,26 @@ public class SeizureActivity extends AppCompatActivity {
     private Button prevButton;
 
     private NavController navController;
+
+    //멤버 변수
+    private int recordId;
+    private String startDate;
+    private String startTime;
+    private String seizureType;
+    private int preDetection;
+    private String location;
+    private int sleepState;
+    private String duration;
+    private String recoveryTime;
+    private String medicationUsed;
+    private String reactionAfter;
+    private String symptomBody;
+    private String symptomMovement;
+    private String symptomEyes;
+    private String symptomMouth;
+    private String symptomSkinColor;
+    private String symptomSuddenUrination;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +79,11 @@ public class SeizureActivity extends AppCompatActivity {
                     switch (currentDestinationId) {
                         case R.id.firstFragment:
                             navController.navigate(R.id.action_firstFragment_to_secondFragment);
+                            // 첫 번째 프래그먼트에서 입력된 데이터를 SeventhFragment의 멤버 변수에 저장
+                            FirstFragment firstFragment = new FirstFragment();
+                            startDate = firstFragment.getStartDate();
+
+
                             break;
                         case R.id.secondFragment:
                             navController.navigate(R.id.action_secondFragment_to_thirdFragment);

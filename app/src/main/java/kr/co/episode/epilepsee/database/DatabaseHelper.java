@@ -127,6 +127,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+
+    //발작 기록 추가,수정,삭제,조회 메소드 생성
+    //발작 기록 추가
+    public void addSeizureRecord(String startDate, String startTime, String seizureType, int preDetection, String location,
+                                 int sleepState, String duration, String recoveryTime, String medicationUsed, String reactionAfter,
+                                 String symptomBody, String symptomMovement, String symptomEyes, String symptomMouth,
+                                 String symptomSkinColor, String symptomSuddenUrination){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("START_DATE", startDate);
+        values.put("START_TIME", startTime);
+        values.put("SEIZURE_TYPE", seizureType);
+        values.put("PRE_DETECTION", preDetection);
+        values.put("LOCATION", location);
+        values.put("SLEEP_STATE", sleepState);
+        values.put("DURATION", duration);
+        values.put("RECOVERY_TIME", recoveryTime);
+        values.put("MEDICATION_USED", medicationUsed);
+        values.put("REACTION_AFTER", reactionAfter);
+        values.put("SYMPTOM_BODY", symptomBody);
+        values.put("SYMPTOM_MOVEMENT", symptomMovement);
+        values.put("SYMPTOM_EYES", symptomEyes);
+        values.put("SYMPTOM_MOUTH", symptomMouth);
+        values.put("SYMPTOM_SKIN_COLOR", symptomSkinColor);
+        values.put("SYMPTOM_SUDDEN_URINATION", symptomSuddenUrination);
+        db.insert(TABLE_SEIZURE_RECORD, null, values);
+        db.close();
+    }
+    // 발작 기록 수정
+    public void updateSeizureRecord(int recordId, String startDate, String startTime, String seizureType, int preDetection, String location,
+                                    int sleepState, String duration, String recoveryTime, String medicationUsed, String reactionAfter,
+                                    String symptomBody, String symptomMovement, String symptomEyes, String symptomMouth,
+                                    String symptomSkinColor, String symptomSuddenUrination) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("START_DATE", startDate);
+        values.put("START_TIME", startTime);
+        values.put("SEIZURE_TYPE", seizureType);
+        values.put("PRE_DETECTION", preDetection);
+        values.put("LOCATION", location);
+        values.put("SLEEP_STATE", sleepState);
+        values.put("DURATION", duration);
+        values.put("RECOVERY_TIME", recoveryTime);
+        values.put("MEDICATION_USED", medicationUsed);
+        values.put("REACTION_AFTER", reactionAfter);
+        values.put("SYMPTOM_BODY", symptomBody);
+        values.put("SYMPTOM_MOVEMENT", symptomMovement);
+        values.put("SYMPTOM_EYES", symptomEyes);
+        values.put("SYMPTOM_MOUTH", symptomMouth);
+        values.put("SYMPTOM_SKIN_COLOR", symptomSkinColor);
+        values.put("SYMPTOM_SUDDEN_URINATION", symptomSuddenUrination);
+        db.update(TABLE_SEIZURE_RECORD, values, "RECORD_ID=?", new String[]{String.valueOf(recordId)});
+        db.close();
+    }
+    // 발작 기록 삭제
+    public void deleteSeizureRecord(int recordId) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_SEIZURE_RECORD, "RECORD_ID=?", new String[]{String.valueOf(recordId)});
+        db.close();
+    }
+
+    // 발작 기록 조회
+    public Cursor getUserSeizureRecordsByDate(String date) {
+        SQLiteDatabase db = getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_SEIZURE_RECORD + " WHERE START_DATE = ?";
+        return db.rawQuery(selectQuery, new String[]{date});
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 데이터베이스 버전 업그레이드 시 수행할 작업을 작성해주세요

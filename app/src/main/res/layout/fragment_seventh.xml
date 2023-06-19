@@ -26,13 +26,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/checkboxlayout"
                 android:layout_width="match_parent"
@@ -45,8 +48,8 @@
                     android:layout_margin="10dp"
                     android:text="발작 후 반응"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="16sp"
-                    android:textColor="#800080"/>
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -85,7 +88,7 @@
                         android:text="무기력증"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-            </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -99,6 +102,7 @@
                         android:layout_weight="1"
                         android:text="근육통"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
                     <CheckBox
                         android:id="@+id/check_deepSleep"
                         android:layout_width="0dp"
@@ -114,7 +118,7 @@
                         android:layout_weight="1"
                         android:text="메스꺼움"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -131,8 +135,8 @@
                     android:layout_margin="10dp"
                     android:text="경련 증상"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="16sp"
-                    android:textColor="#800080"/>
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -180,8 +184,8 @@
                     android:layout_margin="10dp"
                     android:text="움직임"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="16sp"
-                    android:textColor="#800080"/>
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -224,8 +228,8 @@
                     android:layout_margin="10dp"
                     android:text="눈"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="16sp"
-                    android:textColor="#800080"/>
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -253,6 +257,7 @@
                         android:layout_weight="1"
                         android:text="눈동자 왼쪽" />
                 </RadioGroup>
+
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -287,99 +292,67 @@
                         android:text="기타" />
                 </RadioGroup>
             </LinearLayout>
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="입"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textSize="16sp"
-                android:textColor="#800080"/>
-
-            <RadioGroup
-                android:id="@+id/radioGroup2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/radioButton20"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="입마름" />
+                    android:layout_margin="10dp"
+                    android:text="입"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
 
-                <RadioButton
-                    android:id="@+id/radioButton21"
-                    android:layout_width="0dp"
+                <RadioGroup
+                    android:id="@+id/radioGroup2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="침흘림" />
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radioButton22"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="거품" />
+                    <RadioButton
+                        android:id="@+id/radioButton20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="입마름" />
 
-                <RadioButton
-                    android:id="@+id/radioButton23"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="혀깨물음"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textSize="13sp" />
+                    <RadioButton
+                        android:id="@+id/radioButton21"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="침흘림" />
 
-                <RadioButton
-                    android:id="@+id/radioButton24"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="기타" />
-            </RadioGroup>
-        </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/radioButton22"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="거품" />
 
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                    <RadioButton
+                        android:id="@+id/radioButton23"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="혀깨물음"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textSize="13sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="피부색"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_margin="10dp"
-            android:textSize="16sp"
-            android:textColor="#800080"/>
-
-        <RadioGroup
-            android:id="@+id/radioGroupSkinColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButtonBlueTint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="청색증" />
-
-            <RadioButton
-                android:id="@+id/radioButtonOtherSkinColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기타" />
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/radioButton24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="기타" />
+                </RadioGroup>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -388,17 +361,51 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="갑작스러운 배뇨"
                     android:layout_margin="10dp"
+                    android:text="피부색"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textSize="16sp"
-                    android:textColor="#800080"/>
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
 
-                    <RadioGroup
-                        android:id="@+id/radioGroupUrination"
-                        android:layout_width="match_parent"
+                <RadioGroup
+                    android:id="@+id/radioGroupSkinColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonBlueTint"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="청색증" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonOtherSkinColor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="기타" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="갑작스러운 배뇨"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#800080"
+                    android:textSize="16sp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupUrination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radioButtonUrine"
@@ -414,8 +421,15 @@
                 </RadioGroup>
             </LinearLayout>
 
+            <Button
+                android:id="@+id/buttonSeizureSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="저장" />
+
             <View
-                android:layout_width="60dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp" />
 
         </LinearLayout>

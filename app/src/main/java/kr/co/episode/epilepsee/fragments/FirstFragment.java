@@ -30,16 +30,22 @@ public class FirstFragment extends Fragment {
     TextView selectedTimeTextView;
     TextView selectedDateTextView;
 
+    private String startTime;
+    private String startDate;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_first, container, false);
+
 
         timeButton = rootView.findViewById(R.id.timeButton);
         dateButton = rootView.findViewById(R.id.dateButton);
         selectedTimeTextView = rootView.findViewById(R.id.selectedTimeTextView);
         selectedDateTextView = rootView.findViewById(R.id.selectedDrugDateTextView);
 
+        startTime = selectedTimeTextView.getText().toString();
+        startDate = selectedDateTextView.getText().toString();
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +62,18 @@ public class FirstFragment extends Fragment {
 
         return rootView;
     }
+
+    public void saveStartTime(String startTime){
+        this.startTime = startTime;
+    }
+    public void saveStartDate(String startDate){
+        this.startDate = startDate;
+    }
+
+
+
+
+
     public void showTimePickerDialog() {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getChildFragmentManager(), "timePicker");

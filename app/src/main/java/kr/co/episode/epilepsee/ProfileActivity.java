@@ -49,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(activityProfileBinding.getRoot());
 
         // 액션바 설정
-        getSupportActionBar().setTitle("Profile"); // 화면 제목 설정
+        getSupportActionBar().setTitle("프로필 설정"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
 
