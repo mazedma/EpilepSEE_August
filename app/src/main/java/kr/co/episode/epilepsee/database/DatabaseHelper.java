@@ -1,6 +1,8 @@
 package kr.co.episode.epilepsee.database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -91,6 +93,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(createMedicationTable);
 
     }
+
+    //사용자 프로필 데이터 추가,수정,삭제,조회
+    public void addUserProfile(String name, int age, String gender, String onsetDate ){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("NAME", name);
+        values.put("AGE", age);
+        values.put("GENDER", gender);
+        values.put("ONSET_DATE", onsetDate);
+        db.insert(TABLE_USER_PROFILE, null, values);
+        db.close();
+    }
+    public void updateUserProfile(int profileId, String name, int age, String gender, String onsetDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("NAME", name);
+        values.put("AGE", age);
+        values.put("GENDER", gender);
+        values.put("ONSET_DATE", onsetDate);
+        db.update(TABLE_USER_PROFILE, values, "PROFILE_ID=?", new String[]{String.valueOf(profileId)});
+        db.close();
+    }
+    public void deleteUserProfile(int profileId) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_USER_PROFILE, "PROFILE_ID=?", new String[]{String.valueOf(profileId)});
+        db.close();
+    }
+    public Cursor getUserProfiles() {
+        SQLiteDatabase db = getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_USER_PROFILE;
+        return db.rawQuery(selectQuery, null);
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

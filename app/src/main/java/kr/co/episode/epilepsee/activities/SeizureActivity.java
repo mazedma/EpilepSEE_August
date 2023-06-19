@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
+import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 
 public class SeizureActivity extends AppCompatActivity {
 

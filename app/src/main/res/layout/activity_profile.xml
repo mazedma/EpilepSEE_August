@@ -29,13 +29,14 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/etName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="홍길동"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:padding="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,13 +54,14 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/etAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="25"
-                android:inputType="number" />
+                android:inputType="number"
+                android:padding="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -77,8 +79,9 @@
                 android:textSize="20sp" />
 
             <RadioGroup
+                android:id="@+id/radioGroupGender"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:checkedButton="@id/MaleButton"
                 android:orientation="horizontal">
@@ -117,8 +120,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="2023/05/26"/>
+                android:hint="2023/05/26"
+                android:padding="20dp"/>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="수정" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="저장" />
         </LinearLayout>
 
     </LinearLayout>
