@@ -115,7 +115,7 @@ public class FirstFragment extends Fragment {
             // Format the selected date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String selectedDate = dateFormat.format(calendar.getTime());
-            TextView selectedDateTextView = getActivity().findViewById(R.id.selectedDrugDateTextView);
+            TextView selectedDateTextView = getActivity().findViewById(R.id.selectedDateTextView);
             selectedDateTextView.setText(selectedDate);
         }
     }

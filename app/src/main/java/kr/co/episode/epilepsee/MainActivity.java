@@ -73,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if (menuItem.getItemId() == R.id.add_drug) {
                             Toast.makeText(MainActivity.this, "약물 선택", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), MedicationScheduleActivity.class);
+                            startActivity(intent);
                         }
                         else {
                             Toast.makeText(MainActivity.this, "생리 선택", Toast.LENGTH_SHORT).show();
-//                            Intent intent = new Intent(getApplicationContext(), ???Activity.class);
+                            Intent intent = new Intent(getApplicationContext(), PeriodRecordActivity.class);
+                            startActivity(intent);
                         }
                         return false;
                     }

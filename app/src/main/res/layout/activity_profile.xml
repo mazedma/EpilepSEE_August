@@ -80,17 +80,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:checkedButton="@id/radioButton"
+                android:checkedButton="@id/MaleButton"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/MaleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="남성" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/FemaleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="여성" />
