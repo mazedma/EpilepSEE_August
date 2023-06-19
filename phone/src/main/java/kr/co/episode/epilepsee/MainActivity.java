@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -52,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        activityMainBinding.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                if (year == 2023 && month == 5 && dayOfMonth == 20) {
+                    Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         // add popup 버튼 연결
         activityMainBinding.addButton.setOnClickListener(new View.OnClickListener() {
