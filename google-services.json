@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "552950501520",
+    "project_id": "epilepsee-3a744",
+    "storage_bucket": "epilepsee-3a744.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552950501520:android:8f924d5108d7f7367c0815",
+        "android_client_info": {
+          "package_name": "kr.co.episode.epilepsee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552950501520-2nibgh880mkc88l9lvjq2bl2bha45bnc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLnoCwx67sHXFWeIn2hL_n5O0Se0KZVbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552950501520-2nibgh880mkc88l9lvjq2bl2bha45bnc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
