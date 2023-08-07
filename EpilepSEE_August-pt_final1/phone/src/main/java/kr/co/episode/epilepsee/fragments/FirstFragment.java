@@ -30,8 +30,6 @@ public class FirstFragment extends Fragment {
     TextView selectedTimeTextView;
     TextView selectedDateTextView;
 
-    private String startTime;
-    private String startDate;
 
     @Nullable
     @Override

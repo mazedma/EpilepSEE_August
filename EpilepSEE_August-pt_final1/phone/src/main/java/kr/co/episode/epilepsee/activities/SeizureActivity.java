@@ -28,25 +28,6 @@ public class SeizureActivity extends AppCompatActivity {
 
     private NavController navController;
 
-    //멤버 변수
-    private int recordId;
-    private String startDate;
-    private String startTime;
-    private String seizureType;
-    private int preDetection;
-    private String location;
-    private int sleepState;
-    private String duration;
-    private String recoveryTime;
-    private String medicationUsed;
-    private String reactionAfter;
-    private String symptomBody;
-    private String symptomMovement;
-    private String symptomEyes;
-    private String symptomMouth;
-    private String symptomSkinColor;
-    private String symptomSuddenUrination;
-    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

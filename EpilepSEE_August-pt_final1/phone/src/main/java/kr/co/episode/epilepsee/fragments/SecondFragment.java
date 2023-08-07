@@ -56,11 +56,6 @@ public class SecondFragment extends Fragment {
         return rootView;
     }
 
-    public String getSelectedButton(){
-        return selectedButton;
-    }
-
-        //데이터 저장 함수 작성
 }
 
 

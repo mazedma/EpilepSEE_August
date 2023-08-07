@@ -28,21 +28,6 @@ public class ThirdFragment extends Fragment {
 
         return rootView;
     }
-    private String getSelectedSeizure(){
-        String selectedSeizure = "";
 
-
-        if(general1.isSelected()){
-            selectedSeizure = "전신성 긴장간대발작";
-        } else if (general2.isSelected()) {
-            selectedSeizure = "전신성 소발작";
-        } else if (general3.isSelected()) {
-            selectedSeizure = "간대성근경련발작";
-        } else if (general4.isSelected()) {
-            selectedSeizure = "무긴장성 발작";
-        }
-
-        return selectedSeizure;
-    }
 
 }
