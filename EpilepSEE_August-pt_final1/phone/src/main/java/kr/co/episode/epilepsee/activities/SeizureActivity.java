@@ -1,5 +1,5 @@
 package kr.co.episode.epilepsee.activities;
-
+//깃헙 브랜치 연동 확인 23.08.07 이이나
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
