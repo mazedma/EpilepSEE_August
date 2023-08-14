@@ -95,7 +95,7 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/sleepCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -180,9 +180,10 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal">
+
         <EditText
-            android:id="@+id/medicineEditText"
-            android:layout_width="match_parent"
+            android:id="@+id/emergencyMedicationEditText"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:hint="약물 이름을 입력하세요" />
 
@@ -194,7 +195,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/medicineListTextView"
+        android:id="@+id/emergencyMedicationListTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
