@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,15 +23,16 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import kr.co.episode.epilepsee.R;
+import kr.co.episode.epilepsee.dataModel.SeizureViewModel;
 
 public class FirstFragment extends Fragment {
 
     Button timeButton;
     Button dateButton;
-    TextView selectedTimeTextView;
-    TextView selectedDateTextView;
+    TextView seizureTimeTextView;
+    TextView seizureDateTextView;
 
-
+    private SeizureViewModel seizureViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,8 +41,11 @@ public class FirstFragment extends Fragment {
 
         timeButton = rootView.findViewById(R.id.timeButton);
         dateButton = rootView.findViewById(R.id.dateButton);
-        selectedTimeTextView = rootView.findViewById(R.id.selectedTimeTextView);
-        selectedDateTextView = rootView.findViewById(R.id.selectedDrugDateTextView);
+        seizureTimeTextView = rootView.findViewById(R.id.seizureTimeTextView);
+        seizureDateTextView = rootView.findViewById(R.id.seizureDateTextView);
+
+        // ViewModelProvider를 통해 SeizureViewModel 인스턴스를 가져오기.
+        seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,9 +63,6 @@ public class FirstFragment extends Fragment {
 
         return rootView;
     }
-
-
-
 
 
     public void showTimePickerDialog() {
@@ -95,8 +97,14 @@ public class FirstFragment extends Fragment {
             // Format the selected time
             DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
             String selectedTime = timeFormat.format(calendar.getTime());
-            TextView selectedTimeTextView = getActivity().findViewById(R.id.selectedTimeTextView);
-            selectedTimeTextView.setText(selectedTime);
+            // 비정적 컨텍스트에서 seizureModel에 접근하도록 변경
+            FirstFragment parentFragment = (FirstFragment) getParentFragment();
+            if (parentFragment != null){
+                parentFragment.seizureViewModel.setSeizureTime(selectedTime);
+            }
+            //화면에 선택한 시간 표시
+            TextView seizureTimeTextView = getActivity().findViewById(R.id.seizureTimeTextView);
+            seizureTimeTextView.setText(selectedTime);
         }
     }
 
@@ -124,8 +132,14 @@ public class FirstFragment extends Fragment {
             // Format the selected date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String selectedDate = dateFormat.format(calendar.getTime());
-            TextView selectedDateTextView = getActivity().findViewById(R.id.selectedDateTextView);
-            selectedDateTextView.setText(selectedDate);
+            // 비정적 컨텍스트에서 seizureModel에 접근하도록 변경
+            FirstFragment parentFragment = (FirstFragment) getParentFragment();
+            if (parentFragment != null){
+                parentFragment.seizureViewModel.setSeizureDate(selectedDate);
+            }
+            //화면에 선택한 날짜 표시
+            TextView seizureDateTextView = getActivity().findViewById(R.id.seizureDateTextView);
+            seizureDateTextView.setText(selectedDate);
         }
     }
 }

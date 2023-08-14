@@ -44,7 +44,7 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/placeButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -53,7 +53,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/placeButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -62,7 +62,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/placeButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -71,7 +71,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/placeButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -80,7 +80,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/placeButton5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
