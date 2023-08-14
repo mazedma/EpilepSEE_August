@@ -3,6 +3,9 @@ package kr.co.episode.epilepsee;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,5 +29,12 @@ public class PeriodCompleteActivity extends Activity {
 
         //기록된 시간 출력
         activityPeriodCompleteBinding.textView8.setText(getTime);
+
+        // Firebase Database 레퍼런스
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        // 날짜를 가져오고, 날짜를 노드로 사용하여 데이터 저장
+        boolean menstrualBool = true;
+        databaseReference.child(getTime).child("menstrualData").setValue(new Menstrual(menstrualBool));
     }
 }
