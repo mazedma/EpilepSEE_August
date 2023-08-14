@@ -32,6 +32,14 @@ public class SeizureCompleteActivity extends Activity {
         binding.seizureStartTextview.setText(seizureTime);
         binding.seizureDurationTextview.setText(seizureDuration);
 
+        // Firebase Database 레퍼런스
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        // 날짜를 가져오고, 날짜를 노드로 사용하여 데이터 저장
+        String date = seizureTime.substring(0, 10); // "2023-08-14"
+        String time = seizureTime.substring(11, 16); // "20:59"
+        String duration = seizureDuration.substring(0,5); // mm:ss
+        databaseReference.child(date).child("seizureData").push().setValue(new Seizure(time, duration, date));
     }
 }
 
