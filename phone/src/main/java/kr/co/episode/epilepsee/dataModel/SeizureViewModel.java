@@ -1,5 +1,5 @@
 package kr.co.episode.epilepsee.dataModel;
-//23/08.15 브랜치확인용ㅇㅇㅈddddddd
+//23/08.ㅇ내ㅑ내
 
 import androidx.lifecycle.ViewModel;
 
