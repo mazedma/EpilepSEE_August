@@ -12,10 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
+
+import java.util.Date;
 
 import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
+import kr.co.episode.epilepsee.dataModel.SeizureData;
 import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 import kr.co.episode.epilepsee.fragments.FirstFragment;
 import kr.co.episode.epilepsee.fragments.SeventhFragment;
@@ -28,12 +34,18 @@ public class SeizureActivity extends AppCompatActivity {
 
     private NavController navController;
 
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activitySeizureBinding = ActivitySeizureBinding.inflate(getLayoutInflater());
         setContentView(activitySeizureBinding.getRoot());
+
+        // Firebase 데이터베이스 레퍼런스 생성
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        // 노드 생성 및 저장
+        createAndSaveSeizureNode();
         //버튼 찾기
         nextButton = activitySeizureBinding.nextButton;
         prevButton = activitySeizureBinding.prevButton;
@@ -99,6 +111,32 @@ public class SeizureActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("발작 기록"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
+    }
+
+    private void createAndSaveSeizureNode() {
+        // 사용자 입력을 받아 데이터 모델에 저장
+        SeizureData seizureData = new SeizureData();
+        seizureData.setSeizureTime(new Date());
+        seizureData.setSeizureTypePrimary("부분 발작");
+        seizureData.setSeizureTypeSecondary("단순부분발작"); // 발작 유형(구분2)
+        seizureData.setSeizurePredicted(true); // 발작 예측
+        seizureData.setSeizureLocation("집"); // 발생 장소
+        seizureData.setSeizureDuringSleep(false); // 수면중 여부
+        seizureData.setSeizureDuration("03:22"); // 발작 지속 시간
+        seizureData.setRecoveryTime("15"); // 회복에 걸린 시간
+        seizureData.setEmergencyMedication("약물 이름"); // 사용된 긴급 약물
+        seizureData.setSeizureReaction("두통"); // 발작 후 반응
+        seizureData.setSeizureSymptomBody("전체"); // 경련 증상-몸
+        seizureData.setSeizureSymptomMovement("움찔거림"); // 경련 증상-움직임
+        seizureData.setSeizureSymptomEyes("눈동자 위"); // 경련 증상-눈
+        seizureData.setSeizureSymptomMouth("입마름"); // 경련 증상-입
+        seizureData.setSeizureSymptomSkinColor("청색증"); // 경련 증상-피부색
+        seizureData.setSeizureSymptomSuddenUrinationDefecation("소변"); // 경련 증상-갑작스러운 배뇨 배변
+        seizureData.setSeizureMemo("추가 기록사항"); // 메모
+
+        // Firebase에 데이터 저장
+        String key = databaseReference.child("seizure_records").push().getKey();
+        databaseReference.child("seizure_records").child(key).setValue(seizureData);
     }
     // 액션바의 백 버튼 클릭 이벤트 처리
     @Override

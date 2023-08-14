@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import kr.co.episode.epilepsee.R;
-import kr.co.episode.epilepsee.database.DatabaseHelper;
+
 import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 
 public class SeventhFragment extends Fragment {
@@ -37,33 +37,19 @@ public class SeventhFragment extends Fragment {
     private String symptomSkinColor;
     private String symptomSuddenUrination;
     private Bundle bundle;
-    private DatabaseHelper dbHelper;
+
 
     private Button buttonSeizureSave;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_seventh, container, false);
-        dbHelper = new DatabaseHelper(requireActivity().getApplicationContext());
         buttonSeizureSave = rootView.findViewById(R.id.buttonSeizureSave);
 
-        buttonSeizureSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveSeizureRecord();
-            }
-        });
+
         return rootView;
     }
 
-    private void saveSeizureRecord(){
 
-        String startTime = getArguments().getString("startTime");
-        String startDate = getArguments().getString("startDate");
-
-
-        //사용자 프로필 데이터베이스에 저장
-
-    }
 
 }

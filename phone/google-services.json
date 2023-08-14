@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "939229039017",
-    "project_id": "myfirstproject-ad064",
-    "storage_bucket": "myfirstproject-ad064.appspot.com"
+    "project_number": "100263979032",
+    "project_id": "epilepsee-august",
+    "storage_bucket": "epilepsee-august.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:939229039017:android:a3d97b40d92ffb5114dcb8",
+        "mobilesdk_app_id": "1:100263979032:android:4621c4840cc9d45b097b6d",
         "android_client_info": {
-          "package_name": "kr.sm.myapplication_firebase"
+          "package_name": "kr.co.episode.epilepsee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "939229039017-lgd8o47b81cqkqk3frmemvgmo6dd2qh3.apps.googleusercontent.com",
+          "client_id": "100263979032-5sd07culdaqab03offiqhgv1dcc9jlsc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAfcoDV8ndKKktLdG1Upd-hxgTN-ROvJWE"
+          "current_key": "AIzaSyD7Og0k5mHBnhHREEzKkUmfvbke02ApsbA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "939229039017-lgd8o47b81cqkqk3frmemvgmo6dd2qh3.apps.googleusercontent.com",
+              "client_id": "100263979032-5sd07culdaqab03offiqhgv1dcc9jlsc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

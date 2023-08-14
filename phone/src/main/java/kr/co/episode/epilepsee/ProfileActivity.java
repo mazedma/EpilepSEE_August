@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import kr.co.episode.epilepsee.database.DatabaseHelper;
+
 import kr.co.episode.epilepsee.databinding.ActivityProfileBinding;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, month);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
+
         }
     };
 

@@ -42,8 +42,6 @@ public class FirstFragment extends Fragment {
         selectedTimeTextView = rootView.findViewById(R.id.selectedTimeTextView);
         selectedDateTextView = rootView.findViewById(R.id.selectedDrugDateTextView);
 
-        startTime = selectedTimeTextView.getText().toString();
-        startDate = selectedDateTextView.getText().toString();
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,13 +57,6 @@ public class FirstFragment extends Fragment {
         });
 
         return rootView;
-    }
-
-    public void saveStartTime(String startTime){
-        this.startTime = startTime;
-    }
-    public void saveStartDate(String startDate){
-        this.startDate = startDate;
     }
 
 
