@@ -23,7 +23,7 @@ public class SeizureActivity extends Activity {
     private long timeSwapBuff = 0L;
     private long updateTime = 0L;
 
-    private Date seizureStart = null;
+    private Date seizureTime = null;
     private long seizureDuration = 0L;
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -44,11 +44,11 @@ public class SeizureActivity extends Activity {
                     // Start button action
                     if (startTime == 0L) {
                         startTime = System.currentTimeMillis();
-                        seizureStart = new Date(startTime);
+                        seizureTime = new Date(startTime);
                     } else {
                         timeSwapBuff = 0L;
                         startTime = System.currentTimeMillis();
-                        seizureStart = new Date(startTime);
+                        seizureTime = new Date(startTime);
                     }
                     handler.postDelayed(runnable, 0);
                     binding.startStopButton.setText("멈춤");
@@ -58,13 +58,13 @@ public class SeizureActivity extends Activity {
                     handler.removeCallbacks(runnable);
                     binding.startStopButton.setText("발작 시작");
 
-                    if (seizureStart != null) {
+                    if (seizureTime != null) {
                         // Calculate seizure duration
-                        seizureDuration = System.currentTimeMillis() - seizureStart.getTime();
+                        seizureDuration = System.currentTimeMillis() - seizureTime.getTime();
 
                         // Open new activity to display seizure start and duration
                         Intent intent = new Intent(SeizureActivity.this, SeizureCompleteActivity.class);
-                        intent.putExtra("seizureStart", dateFormatter.format(seizureStart));
+                        intent.putExtra("seizureTime", dateFormatter.format(seizureTime));
                         intent.putExtra("seizureDuration", formatTime(seizureDuration));
                         startActivity(intent);
                         finish();
