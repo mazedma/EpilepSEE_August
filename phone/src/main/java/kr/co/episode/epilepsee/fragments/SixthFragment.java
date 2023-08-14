@@ -216,4 +216,5 @@ public class SixthFragment extends Fragment {
 
         seizureViewModel.setEmergencyMedication(medicationsText.toString());
     }
+    //여기까지 완료
 }
