@@ -33,6 +33,13 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.MedicationScheduleActivity"
             android:exported="false" />
@@ -50,8 +57,10 @@
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
         <activity
             android:name=".StatusMenuActivity"
             android:exported="false" />
