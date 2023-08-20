@@ -12,9 +12,52 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="복용량"
+        android:text="복용 일정"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/checkBoxMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="월" />
+
+        <CheckBox
+            android:id="@+id/checkBoxTue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="화" />
+        <CheckBox
+            android:id="@+id/checkBoxWed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수" />
+        <CheckBox
+            android:id="@+id/checkBoxLThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="목" />
+        <CheckBox
+            android:id="@+id/checkBoxFri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="금" />
+        <CheckBox
+            android:id="@+id/checkBoxSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="토" />
+        <CheckBox
+            android:id="@+id/checkBoxSun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,6 +110,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/checkBoxEarlyMorning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이른 아침" />
 
         <CheckBox
             android:id="@+id/checkBoxMorning"
@@ -107,7 +155,7 @@
                 android:id="@+id/radioButtonAfterMeal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="식후30분"
+                android:text="식후 30분"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#000000" />
 
