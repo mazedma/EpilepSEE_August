@@ -57,7 +57,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/check_headache"
+                        android:id="@+id/checkHeadache"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -65,7 +65,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <CheckBox
-                        android:id="@+id/check_confusion"
+                        android:id="@+id/checkConfusion"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -73,7 +73,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <CheckBox
-                        android:id="@+id/check_paralysis"
+                        android:id="@+id/checkParalysis"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -81,7 +81,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <CheckBox
-                        android:id="@+id/check_weakness"
+                        android:id="@+id/checkWeakness"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -96,7 +96,7 @@
                     android:orientation="horizontal">
 
                     <CheckBox
-                        android:id="@+id/check_musclePain"
+                        android:id="@+id/checkMusclePain"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -104,7 +104,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <CheckBox
-                        android:id="@+id/check_deepSleep"
+                        android:id="@+id/checkDeepSleep"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -112,7 +112,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <CheckBox
-                        android:id="@+id/check_nausea"
+                        android:id="@+id/checkNausea"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
