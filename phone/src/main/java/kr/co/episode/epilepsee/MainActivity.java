@@ -10,6 +10,8 @@ import android.widget.CalendarView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+
 import kr.co.episode.epilepsee.activities.MedicationScheduleActivity;
 import kr.co.episode.epilepsee.activities.PeriodRecordActivity;
 import kr.co.episode.epilepsee.activities.SeizureActivity;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
+
+        FirebaseApp.initializeApp(this); // Firebase 초기화
 
         // menu popup 버튼 연결
         activityMainBinding.menuButton.setOnClickListener(new View.OnClickListener() {
