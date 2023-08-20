@@ -19,24 +19,7 @@ import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 
 public class SeventhFragment extends Fragment {
 
-    private int recordId;
-    private String startDate;
-    private String startTime;
-    private String seizureType;
-    private int preDetection;
-    private String location;
-    private int sleepState;
-    private String duration;
-    private String recoveryTime;
-    private String medicationUsed;
-    private String reactionAfter;
-    private String symptomBody;
-    private String symptomMovement;
-    private String symptomEyes;
-    private String symptomMouth;
-    private String symptomSkinColor;
-    private String symptomSuddenUrination;
-    private Bundle bundle;
+    //브랜치 변경 확인
 
 
     private Button buttonSeizureSave;
