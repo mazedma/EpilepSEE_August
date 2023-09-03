@@ -108,6 +108,17 @@ public class MedicationScheduleActivity extends AppCompatActivity {
         String startDateStr = activityMedicationScheduleBinding.editTextStartDate.getText().toString();
         String endDateStr = activityMedicationScheduleBinding.editTextEndDate.getText().toString();
 
+        // 약물 복용 시간을 가져옵니다.
+        String dosageTimings = "";
+
+        if (activityMedicationScheduleBinding.radioButtonBeforeMeal.isChecked()) {
+            dosageTimings = "식전 30분";
+        } else if (activityMedicationScheduleBinding.radioButtonAfterMeal.isChecked()) {
+            dosageTimings = "식후 30분";
+        } else if (activityMedicationScheduleBinding.radioButtonImmediate.isChecked()) {
+            dosageTimings = "식후 즉시";
+        }
+
         // 시작 날짜와 종료 날짜를 Calendar 객체로 변환합니다.
         Calendar startCalendar = Calendar.getInstance();
         Calendar endCalendar = Calendar.getInstance();
@@ -158,7 +169,7 @@ public class MedicationScheduleActivity extends AppCompatActivity {
             if (selectedDays.contains(dayOfWeekStr)) {
                 DatabaseReference dateRef = medicationRef.child(sdf.format(date.getTime())); // 날짜를 "yyyy-MM-dd" 형식으로 포맷합니다.
                 DatabaseReference medicationListRef = dateRef.child("medicationList");
-                Medication medication = new Medication(medicationName, numPills + " 정", selectedTimings);
+                Medication medication = new Medication(medicationName, numPills + " 정", selectedTimings, dosageTimings);
                 DatabaseReference newMedicationRef = medicationListRef.push();
                 newMedicationRef.setValue(medication);
             }
