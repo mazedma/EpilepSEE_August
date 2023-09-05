@@ -42,6 +42,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
@@ -52,12 +53,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-
                     <RadioGroup
                         android:id="@+id/radioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </RadioGroup>
+
                 </LinearLayout>
             </ScrollView>
 

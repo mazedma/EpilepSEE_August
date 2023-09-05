@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import androidx.annotation.NonNull;
@@ -94,26 +95,31 @@ public class DrugActivity extends Activity {
                             String dosageTimings = medicationSnapshot.child("dosageTimings").getValue(String.class);
                             String medicationName = medicationSnapshot.child("medicationName").getValue(String.class);
 
+                            // "timing" 값을 ArrayList로 가져오기
+                            ArrayList<String> timingData = new ArrayList<>();
+                            for (DataSnapshot timingSnapshot : medicationSnapshot.child("timing").getChildren()) {
+                                String timingValue = timingSnapshot.getValue(String.class);
+                                timingData.add(timingValue);
+                            }
+
                             // 하나의 문자열로 합치기
                             String medicationInfo = dosage + " " + dosageTimings + " " + medicationName;
                             medicationListText.append(medicationInfo).append("\n");
+
+                            // "timing" 값을 radioButton으로 추가
+                            RadioGroup radioGroup = new RadioGroup(context_drug);
+                            for (String timing : timingData) {
+                                RadioButton radioButton = new RadioButton(context_drug);
+                                radioButton.setText(timing);
+                                radioGroup.addView(radioButton);
+                            }
+
+                            // radioGroup을 화면에 추가
+                            binding.radioGroup.addView(radioGroup);
                         }
 
                         // TextView에 값을 설정
                         binding.dosageTextView.setText(medicationListText.toString());
-
-                        // "timing" 아래의 데이터 가져오기
-                        DataSnapshot timingSnapshot = dataSnapshot.child("timing");
-                        RadioGroup radioGroup = findViewById(R.id.radioGroup);
-
-                        for (DataSnapshot timingDataSnapshot : timingSnapshot.getChildren()) {
-                            String timing = timingDataSnapshot.getValue(String.class);
-                            RadioButton radioButton = new RadioButton(DrugActivity.this);
-                            radioButton.setText(timing);
-                            radioGroup.addView(radioButton);
-                        }
-                    } else {
-                        binding.dosageTextView.setText("값이 존재하지 않음");
                     }
                 } else {
                     Log.e("FirebaseError", "Firebase 데이터베이스 오류: " + task.getException().getMessage());
@@ -121,5 +127,6 @@ public class DrugActivity extends Activity {
             }
         });
     }
+
 
 }
