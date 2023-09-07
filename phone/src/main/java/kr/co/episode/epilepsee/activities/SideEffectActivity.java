@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,6 +29,9 @@ public class SideEffectActivity extends AppCompatActivity {
 
     Button DrugdateButton;
     ActivitySideEffectBinding activitySideEffectBinding;
+
+    private Button btnSideEffectSave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,23 @@ public class SideEffectActivity extends AppCompatActivity {
             public void onClick(View view) { showDatePickerDialog();}
 
             });
+
+        //저장버튼
+        btnSideEffectSave = findViewById(R.id.btnSideEffectSave);
+        btnSideEffectSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //저장 데이터베이스 코드 구현
+                // 예시: Firebase Realtime Database에 저장하는 코드
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                String userId = "사용자 식별자"; // 사용자 식별자를 여기에 설정
+                String currentDateKey = selectedDate; // 날짜를 키로 사용
+                databaseReference.child("users").child(userId).child("SideEffectData").child(currentDateKey).setValue(selectedEffects);
+
+                // 저장이 완료되었다는 메시지 표시
+                Toast.makeText(this, "부작용 데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 }

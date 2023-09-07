@@ -141,31 +141,33 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/symptomBodyGroup"
+                    >
 
                     <RadioButton
-                        android:id="@+id/radioButton1"
+                        android:id="@+id/allSymptomBody"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="전체" />
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/rightSymptomBody"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="오른쪽" />
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/leftSymptomBody"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="왼쪽" />
 
                     <RadioButton
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/otherSymptomBody"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -190,24 +192,25 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/symptomMovementGroup">
 
                     <RadioButton
-                        android:id="@+id/radioButton5"
+                        android:id="@+id/twitchSymptomMovement"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="움찔거림" />
 
                     <RadioButton
-                        android:id="@+id/radioButton6"
+                        android:id="@+id/stiffnessSymptomMovement"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="뻣뻣해짐" />
 
                     <RadioButton
-                        android:id="@+id/radioButton7"
+                        android:id="@+id/otherSymptomMovement"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -234,24 +237,25 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/symptomEyesGroup">
 
                     <RadioButton
-                        android:id="@+id/radioButton8"
+                        android:id="@+id/aboveSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="눈동자 위" />
 
                     <RadioButton
-                        android:id="@+id/radioButton9"
+                        android:id="@+id/rightSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="눈동자 오른쪽" />
 
                     <RadioButton
-                        android:id="@+id/radioButton10"
+                        android:id="@+id/leftSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -261,31 +265,33 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/symptomEyesGroup2"
+                    >
 
                     <RadioButton
-                        android:id="@+id/radioButton11"
+                        android:id="@+id/closedSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="눈이 감김" />
 
                     <RadioButton
-                        android:id="@+id/radioButton12"
+                        android:id="@+id/stareSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="멍하게 응시" />
 
                     <RadioButton
-                        android:id="@+id/radioButton13"
+                        android:id="@+id/blinkSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="깜빡임" />
 
                     <RadioButton
-                        android:id="@+id/radioButton14"
+                        android:id="@+id/otherSymptomEyes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -309,34 +315,34 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroup2"
+                    android:id="@+id/symptomMouthGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioButton20"
+                        android:id="@+id/tinglingSymptomMouth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="입마름" />
 
                     <RadioButton
-                        android:id="@+id/radioButton21"
+                        android:id="@+id/droolingSymptomMouth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="침흘림" />
 
                     <RadioButton
-                        android:id="@+id/radioButton22"
+                        android:id="@+id/foamSymptomMouth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="거품" />
 
                     <RadioButton
-                        android:id="@+id/radioButton23"
+                        android:id="@+id/bitingSymptomMouth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -345,7 +351,7 @@
                         android:textSize="13sp" />
 
                     <RadioButton
-                        android:id="@+id/radioButton24"
+                        android:id="@+id/otherSymptomMouth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -368,19 +374,19 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroupSkinColor"
+                    android:id="@+id/symptomSkinColorGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioButtonBlueTint"
+                        android:id="@+id/blueSymptomSkinColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="청색증" />
 
                     <RadioButton
-                        android:id="@+id/radioButtonOtherSkinColor"
+                        android:id="@+id/otherSymptomSkinColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="기타" />
@@ -402,19 +408,19 @@
                     android:textSize="16sp" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroupUrination"
+                    android:id="@+id/symptomUrinationGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radioButtonUrine"
+                        android:id="@+id/urinationUrine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="소변" />
 
                     <RadioButton
-                        android:id="@+id/radioButtonStool"
+                        android:id="@+id/urinationStool"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="대변" />
@@ -422,7 +428,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/buttonSeizureSave"
+                android:id="@+id/btnSeizureSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

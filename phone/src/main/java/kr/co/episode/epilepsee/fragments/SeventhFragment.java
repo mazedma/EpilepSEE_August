@@ -3,11 +3,14 @@ package kr.co.episode.epilepsee.fragments;
 
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.co.episode.epilepsee.R;
 
@@ -25,28 +34,320 @@ public class SeventhFragment extends Fragment {
 
 
     private SeizureViewModel seizureViewModel;
-    private Button buttonSeizureSave;
+    private Button btnSeizureSave;
+    private CheckBox checkHeadache, checkConfusion, checkParalysis, checkWeakness, checkMusclePain,
+            checkDeepSleep, checkNausea;
+    private RadioButton allSymptomBody, rightSymptomBody, leftSymptomBody, otherSymptomBody,
+            twitchSymptomMovement, stiffnessSymptomMovement, otherSymptomMovement, aboveSymptomEyes,
+            rightSymptomEyes, leftSymptomEyes, closedSymptomEyes, stareSymptomEyes, blinkSymptomEyes,
+            otherSymptomEyes, tinglingSymptomMouth, droolingSymptomMouth, foamSymptomMouth,
+            bitingSymptomMouth, otherSymptomMouth, blueSymptomSkinColor, otherSymptomSkinColor,
+            urinationUrine, urinationStool;
+
+    //체크박스 저장용 리스트
+    private List<String> selectedItems = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_seventh, container, false);
-        buttonSeizureSave = rootView.findViewById(R.id.buttonSeizureSave);
+        btnSeizureSave = rootView.findViewById(R.id.btnSeizureSave);
 
         seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
 
         //발작 후 반응 체크박스
-        CheckBox checkHeadache = rootView.findViewById(R.id.checkHeadache);
-        CheckBox checkConfusion = rootView.findViewById(R.id.checkConfusion);
-        CheckBox checkParalysis = rootView.findViewById(R.id.checkParalysis);
-        CheckBox checkWeakness = rootView.findViewById(R.id.checkWeakness);
-        CheckBox checkMusclePain = rootView.findViewById(R.id.checkMusclePain);
-        CheckBox checkDeepSleep = rootView.findViewById(R.id.checkDeepSleep);
-        CheckBox checkNausea = rootView.findViewById(R.id.checkNausea);
+        checkHeadache = rootView.findViewById(R.id.checkHeadache);
+        checkConfusion = rootView.findViewById(R.id.checkConfusion);
+        checkParalysis = rootView.findViewById(R.id.checkParalysis);
+        checkWeakness = rootView.findViewById(R.id.checkWeakness);
+        checkMusclePain = rootView.findViewById(R.id.checkMusclePain);
+        checkDeepSleep = rootView.findViewById(R.id.checkDeepSleep);
+        checkNausea = rootView.findViewById(R.id.checkNausea);
+        //체크박스 리스너 설정
+        checkHeadache.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("두통", isChecked));
+        checkConfusion.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("혼란", isChecked));
+        checkParalysis.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("마비", isChecked));
+        checkWeakness.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("무기력증", isChecked));
+        checkMusclePain.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("근육통", isChecked));
+        checkDeepSleep.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("깊은 수면", isChecked));
+        checkNausea.setOnCheckedChangeListener((buttonView, isChecked) -> handleCheckboxChange("메스꺼움", isChecked));
 
-        //
+        //경련증상-몸
+        allSymptomBody = rootView.findViewById(R.id.allSymptomBody);
+        rightSymptomBody = rootView.findViewById(R.id.rightSymptomBody);
+        leftSymptomBody = rootView.findViewById(R.id.leftSymptomBody);
+        otherSymptomBody = rootView.findViewById(R.id.otherSymptomBody);
+
+        //경련증상-움직임
+        twitchSymptomMovement = rootView.findViewById(R.id.twitchSymptomMovement);
+        stiffnessSymptomMovement = rootView.findViewById(R.id.stiffnessSymptomMovement);
+        otherSymptomMovement = rootView.findViewById(R.id.otherSymptomMovement);
+
+        //경련증상-눈
+        aboveSymptomEyes = rootView.findViewById(R.id.aboveSymptomEyes);
+        rightSymptomEyes = rootView.findViewById(R.id.rightSymptomEyes);
+        leftSymptomEyes = rootView.findViewById(R.id.leftSymptomEyes);
+        closedSymptomEyes = rootView.findViewById(R.id.closedSymptomEyes);
+        stareSymptomEyes = rootView.findViewById(R.id.stareSymptomEyes);
+        blinkSymptomEyes = rootView.findViewById(R.id.blinkSymptomEyes);
+        otherSymptomEyes = rootView.findViewById(R.id.otherSymptomEyes);
+
+        //경련증상- 입
+        tinglingSymptomMouth = rootView.findViewById(R.id.tinglingSymptomMouth);
+        droolingSymptomMouth = rootView.findViewById(R.id.droolingSymptomMouth);
+        foamSymptomMouth = rootView.findViewById(R.id.foamSymptomMouth);
+        bitingSymptomMouth = rootView.findViewById(R.id.bitingSymptomMouth);
+        otherSymptomMouth = rootView.findViewById(R.id.otherSymptomMouth);
+
+        //피부색
+        blueSymptomSkinColor = rootView.findViewById(R.id.blueSymptomSkinColor);
+        otherSymptomSkinColor = rootView.findViewById(R.id.otherSymptomSkinColor);
+
+        //갑작스러운 배뇨
+        urinationUrine = rootView.findViewById(R.id.urinationUrine);
+        urinationStool = rootView.findViewById(R.id.urinationStool);
+
+        //경련증상- 몸 라디오버튼 리스너+ ViewModel로 전달
+        RadioGroup symptomBodyGroup = rootView.findViewById(R.id.symptomBodyGroup);
+        symptomBodyGroup.setOnCheckedChangeListener((group,checkedId)->{
+            String selectedBodySymptom;
+            // 선택된 라디오버튼의 ID를 기반으로 값을 설정합니다.
+            switch (checkedId) {
+                case R.id.allSymptomBody:
+                    selectedBodySymptom = "모든 몸 부위";
+                    break;
+                case R.id.rightSymptomBody:
+                    selectedBodySymptom = "오른쪽 몸 부위";
+                    break;
+                case R.id.leftSymptomBody:
+                    selectedBodySymptom = "왼쪽 몸 부위";
+                    break;
+                case R.id.otherSymptomBody:
+                    selectedBodySymptom = "기타 몸 부위";
+                    break;
+                default:
+                    selectedBodySymptom = null;
+            }
+
+            seizureViewModel.setSeizureSymptomBody(selectedBodySymptom);
+        });
+
+        //움직임 라디오그룹리스너+뷰모델로 전달
+        RadioGroup symptomMovementGroup = rootView.findViewById(R.id.symptomMovementGroup);
+        symptomMovementGroup.setOnCheckedChangeListener((group,checkedId)->{
+            String selectedMovementSymptom;
+
+            switch(checkedId){
+                case R.id.twitchSymptomMovement:
+                    selectedMovementSymptom = "움찔거림";
+                    break;
+                case R.id.stiffnessSymptomMovement:
+                    selectedMovementSymptom = "뻣뻣해짐";
+                    break;
+                case R.id.otherSymptomMovement:
+                    selectedMovementSymptom = "기타";
+                    break;
+                default:
+                    selectedMovementSymptom = null;
+
+            }
+            seizureViewModel.setSeizureSymptomMovement(selectedMovementSymptom);
+        });
+
+        //눈 라디오그룹 리스너 + 뷰모델로 전달
+        RadioGroup symptomEyesGroup = rootView.findViewById(R.id.symptomEyesGroup);
+        symptomEyesGroup.setOnCheckedChangeListener((group, checkedId)->{
+            String selectedEyesSymptom;
+
+            switch(checkedId){
+                case R.id.aboveSymptomEyes:
+                    selectedEyesSymptom = "위쪽 눈 부위";
+                    break;
+                case R.id.rightSymptomEyes:
+                    selectedEyesSymptom = "오른쪽 눈 부위";
+                    break;
+                case R.id.leftSymptomEyes:
+                    selectedEyesSymptom = "왼쪽 눈 부위";
+                    break;
+                default:
+                    selectedEyesSymptom = null;
+            }
+            seizureViewModel.setSeizureSymptomEyes(selectedEyesSymptom);
+        });
+
+        // 눈 증상2 리스너 및 뷰모델로 전달
+        RadioGroup symptomEyesGroup2 = rootView.findViewById(R.id.symptomEyesGroup2);
+        symptomEyesGroup2.setOnCheckedChangeListener((group,checkedId)->{
+            String selectedEyesSymptom2;
+
+            switch(checkedId){
+                case R.id.closedSymptomEyes:
+                    selectedEyesSymptom2 = "눈이 감김";
+                    break;
+                case R.id.stareSymptomEyes:
+                    selectedEyesSymptom2 = "멍하게 응시";
+                    break;
+                case R.id.blinkSymptomEyes:
+                    selectedEyesSymptom2 = "깜빡임";
+                    break;
+                case R.id.otherSymptomEyes:
+                    selectedEyesSymptom2 = "기타";
+                    break;
+                default:
+                    selectedEyesSymptom2 = null;
+            }
+            seizureViewModel.setSeizureSymptomEyes2(selectedEyesSymptom2);
+        });
+
+        // 입 증상 라디오 그룹 초기화
+        RadioGroup symptomMouthGroup = rootView.findViewById(R.id.symptomMouthGroup);
+
+        // 입 증상 라디오 그룹 리스너 설정
+        symptomMouthGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String selectedMouthSymptom;  // 기본값은 null로 설정
+
+            // 선택된 라디오버튼의 ID를 기반으로 값을 설정합니다.
+            switch (checkedId) {
+                case R.id.tinglingSymptomMouth:
+                    selectedMouthSymptom = "입마름";
+                    break;
+                case R.id.droolingSymptomMouth:
+                    selectedMouthSymptom = "침흘림";
+                    break;
+                case R.id.foamSymptomMouth:
+                    selectedMouthSymptom = "거품";
+                    break;
+                case R.id.bitingSymptomMouth:
+                    selectedMouthSymptom = "혀깨물음";
+                    break;
+                case R.id.otherSymptomMouth:
+                    selectedMouthSymptom = "기타";
+                    break;
+                default:
+                    selectedMouthSymptom = null;
+            }
+            // 선택된 값을 seizureViewModel에 저장
+            seizureViewModel.setSeizureSymptomMouth(selectedMouthSymptom);
+        });
+
+        // 피부색 라디오 그룹 초기화
+        RadioGroup symptomSkinColorGroup = rootView.findViewById(R.id.symptomSkinColorGroup);
+        // 피부색 라디오 그룹 리스너 설정
+        symptomSkinColorGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String selectedSkinColorSymptom;  // 기본값은 null로 설정
+
+            // 선택된 라디오버튼의 ID를 기반으로 값을 설정합니다.
+            switch (checkedId) {
+                case R.id.blueSymptomSkinColor:
+                    selectedSkinColorSymptom = "청색증";
+                    break;
+                case R.id.otherSymptomSkinColor:
+                    selectedSkinColorSymptom = "기타";
+                    break;
+                default:
+                    selectedSkinColorSymptom = null;
+            }
+
+            // 선택된 값을 seizureViewModel에 저장
+            seizureViewModel.setSeizureSymptomSkinColor(selectedSkinColorSymptom);
+        });
+
+        //갑작스러운 배뇨
+        RadioGroup symptomUrinationGroup = rootView.findViewById(R.id.symptomUrinationGroup);
+        symptomUrinationGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String selectedUrinationSymptom;
+
+            // 선택된 라디오버튼의 ID를 기반으로 값을 설정합니다.
+            switch (checkedId) {
+                case R.id.urinationUrine:
+                    selectedUrinationSymptom = "소변";
+                    break;
+                case R.id.urinationStool:
+                    selectedUrinationSymptom = "대변";
+                    break;
+                default:
+                    selectedUrinationSymptom = null;
+            }
+
+            // 설정된 값을 ViewModel에 저장합니다.
+            seizureViewModel.setSeizureSymptomSuddenUrinationDefecation(selectedUrinationSymptom);
+        });
+
+
+        //저장 버튼 클릭 이벤트 처리
+            btnSeizureSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // ViewModel에 저장된 데이터를 데이터베이스로 보내는 코드
+                saveAllDataToFirebase();
+            }
+        });
+
+        //편의성용 안되면 삭제 초기값 설정 코드
+
+        String initialBodySymptom = seizureViewModel.getSeizureSymptomBody();
+        if (initialBodySymptom != null && !initialBodySymptom.isEmpty()) {
+            switch (initialBodySymptom) {
+                case "모든 몸 부위":
+                    allSymptomBody.setChecked(true);
+                    break;
+                case "오른쪽 몸 부위":
+                    rightSymptomBody.setChecked(true);
+                    break;
+                case "왼쪽 몸 부위":
+                    leftSymptomBody.setChecked(true);
+                    break;
+                case "기타 몸 부위":
+                    otherSymptomBody.setChecked(true);
+                    break;
+            }
+        }
+
         return rootView;
     }
 
+    //체크박스 리스트를 SeizureReaction에 추가
+    private void handleCheckboxChange(String item, boolean isChecked){
+        if(isChecked){
+            //체크됐을 때 리스트에 추가
+            selectedItems.add(item);
+        }else {
+            selectedItems.remove(item);
+        }
 
+        seizureViewModel.setSeizureReaction(selectedItems);
+    }
 
+    private void saveAllDataToFirebase(){
+        //ViewModel을 통해서 데이터 가져오기
+        SeizureViewModel seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
+
+        //Firebase 데이터베이스 루트 레퍼런스 가져오기.
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        // 발작 데이터를 저장할 날짜를 가져옴 (yyyy-MM-dd 형식)
+        String seizureDate = seizureViewModel.getSeizureDate();
+        // 날짜를 기준으로 데이터 저장
+        DatabaseReference dateReference = databaseReference.child(seizureDate);
+        // 발작 시각 등의 데이터를 저장
+        DatabaseReference seizureReference = dateReference.push();
+        seizureReference.child("seizureTime").setValue(seizureViewModel.getSeizureTime());
+        seizureReference.child("seizureTypePrimary").setValue(seizureViewModel.getSeizureTypePrimary());
+        seizureReference.child("seizureTypeSecondary").setValue(seizureViewModel.getSeizureTypeSecondary());
+        seizureReference.child("seizurePredicted").setValue(seizureViewModel.isSeizurePredicted());
+        seizureReference.child("seizureLocation").setValue(seizureViewModel.getSeizureLocation());
+        seizureReference.child("seizureDuringSleep").setValue(seizureViewModel.isSeizureDuringSleep());
+        seizureReference.child("seizureDuration").setValue(seizureViewModel.getSeizureDuration());
+        seizureReference.child("recoveryTime").setValue(seizureViewModel.getRecoveryTime());
+        seizureReference.child("emergencyMedication").setValue(seizureViewModel.getEmergencyMedication());
+        seizureReference.child("seizureReaction").setValue(seizureViewModel.getSeizureReaction());
+        seizureReference.child("seizureSymptomBody").setValue(seizureViewModel.getSeizureSymptomBody());
+        seizureReference.child("seizureSymptomMovement").setValue(seizureViewModel.getSeizureSymptomMovement());
+        seizureReference.child("seizureSymptomEyes").setValue(seizureViewModel.getSeizureSymptomEyes());
+        seizureReference.child("seizureSymptomEyes2").setValue(seizureViewModel.getSeizureSymptomEyes2());
+        seizureReference.child("seizureSymptomMouth").setValue(seizureViewModel.getSeizureSymptomMouth());
+        seizureReference.child("seizureSymptomSkinColor").setValue(seizureViewModel.getSeizureSymptomSkinColor());
+        seizureReference.child("seizureSymptomSuddenUrinationDefecation").setValue(seizureViewModel.getSeizureSymptomSuddenUrinationDefecation());
+        // 저장이 완료되었다는 메시지 표시
+        Toast.makeText(requireContext(), "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+    }
 }
