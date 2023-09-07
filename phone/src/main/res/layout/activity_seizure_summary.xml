@@ -6,22 +6,14 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/dateTextView"
+        android:id="@+id/parentKeyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textColor="#000000"
-        android:text="선택한 날짜: "
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
-    <TextView
-        android:id="@+id/seizureTimeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="#000000"/>
-    <ListView
-        android:id="@+id/seizureTimeListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
+    <!-- Add more views for additional information if needed -->
+
 </LinearLayout>

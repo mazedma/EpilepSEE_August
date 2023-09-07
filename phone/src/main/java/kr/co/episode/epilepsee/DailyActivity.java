@@ -5,6 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -45,6 +49,12 @@ public class DailyActivity extends AppCompatActivity {
         // 날짜를 표시할 TextView를 찾아옵니다.
         final TextView dateTextView = findViewById(R.id.dateTextView);
 
+        // selectedDate를 dateTextView에 출력
+        dateTextView.setText("선택한 날짜: " + selectedDate);
+
+// ListView를 찾아옵니다.
+        final ListView seizureTimeListView = findViewById(R.id.seizureTimeListView);
+
 // Firebase에서 해당 날짜의 데이터를 가져와서 화면에 출력합니다.
         databaseReference.child(selectedDate).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -56,7 +66,7 @@ public class DailyActivity extends AppCompatActivity {
                         DataSnapshot seizureDataSnapshot = dataSnapshot.child("seizureData");
 
                         // seizureTime을 저장할 문자열 목록을 만듭니다.
-                        ArrayList<String> seizureTimeList = new ArrayList<>();
+                        final ArrayList<String> seizureTimeList = new ArrayList<>();
 
                         // seizureData 하위의 모든 자식 노드를 순회합니다.
                         for (DataSnapshot childSnapshot : seizureDataSnapshot.getChildren()) {
@@ -65,16 +75,26 @@ public class DailyActivity extends AppCompatActivity {
                             seizureTimeList.add(seizureTime);
                         }
 
-                        // seizureTime 목록을 화면에 출력하거나 다른 작업을 수행하세요.
-                        TextView seizureTimeTextView = findViewById(R.id.seizureTimeTextView);
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (String time : seizureTimeList) {
-                            stringBuilder.append(time).append("\n");
-                        }
-                        seizureTimeTextView.setText(stringBuilder.toString());
+                        // seizureTime 목록을 ListView에 표시합니다.
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(DailyActivity.this, android.R.layout.simple_list_item_1, seizureTimeList);
+                        seizureTimeListView.setAdapter(adapter);
 
-                        // selectedDate를 dateTextView에 출력
-                        dateTextView.setText("선택한 날짜: " + selectedDate);
+                        // ListView의 항목 클릭 이벤트 처리
+                        seizureTimeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                // 클릭한 항목의 seizureTime 가져오기
+                                String selectedSeizureTime = seizureTimeList.get(position);
+
+                                // 해당 seizureTime의 상위 노드의 키값 가져오기
+                                String parentKey = getParentKey(selectedSeizureTime, dataSnapshot);
+
+                                // 다음 액티비티로 데이터 전달
+                                Intent intent = new Intent(DailyActivity.this, SeizureSummaryActivity.class);
+                                intent.putExtra("parentKey", parentKey);
+                                startActivity(intent);
+                            }
+                        });
                     } else {
                         // 해당 날짜의 데이터가 없을 경우 처리
                         Log.d("DailyActivity", "해당 날짜의 데이터가 없습니다.");
@@ -86,6 +106,7 @@ public class DailyActivity extends AppCompatActivity {
                 }
             }
         });
+
 
     }
 
@@ -101,5 +122,19 @@ public class DailyActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private String getParentKey(String targetValue, DataSnapshot dataSnapshot) {
+        if (targetValue != null) {
+            for (DataSnapshot snapshot : dataSnapshot.child("seizureData").getChildren()) {
+                String seizureTime = snapshot.child("seizureTime").getValue(String.class);
+                if (targetValue.equals(seizureTime)) {
+                    return snapshot.getKey();
+                }
+            }
+        }
+        return null; // 대상 값이 null이거나 찾지 못한 경우
+    }
+
+
 }
 
