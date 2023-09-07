@@ -1,7 +1,10 @@
 package kr.co.episode.epilepsee.fragments;
 
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +14,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -37,6 +43,7 @@ public class SixthFragment extends Fragment {
 
     private Spinner recoveryTimeSpinner;
     private TextView recoveryTimeTextView;
+    private TextView seizureDurationTextView;
 
     //발생장소 버튼
     private Button placeButton1;
@@ -56,7 +63,6 @@ public class SixthFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.frament_sixth, container, false);
-
         // ViewModelProvider를 통해 SeizureViewModel 인스턴스를 가져오기.
         seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
 
@@ -144,10 +150,11 @@ public class SixthFragment extends Fragment {
 
         //발작 지속 시간선택
         Button timeSet = rootView.findViewById(R.id.timeSet);
+        seizureDurationTextView = rootView.findViewById(R.id.seizureDurationTextView);
         timeSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTimePickerDialog();
+                showDurationPickerDialog();
             }
         });
 
@@ -164,6 +171,7 @@ public class SixthFragment extends Fragment {
                 if(!medicine.isEmpty()){
                     addedMedications.add(medicine);
                     updateEmergencyMedicationListTextView();
+                    seizureViewModel.setEmergencyMedication(addedMedications);
                     emergencyMedicationEditText.setText("");
                 }
             }
@@ -172,39 +180,54 @@ public class SixthFragment extends Fragment {
 
     }
 
+    //지속시간 선택다이얼로그
+    private void showDurationPickerDialog() {
+        final NumberPicker minutePicker = new NumberPicker(requireContext());
+        minutePicker.setMinValue(0);
+        minutePicker.setMaxValue(59);
+        minutePicker.setValue(selectedMinute);
 
-    private  void showTimePickerDialog(){
-        Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = currentTime.get(Calendar.MINUTE);
+        final NumberPicker secondPicker = new NumberPicker(requireContext());
+        secondPicker.setMinValue(0);
+        secondPicker.setMaxValue(59);
+        secondPicker.setValue(selectedSecond);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(
-                requireContext(),
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        selectedMinute = minute;
-                        selectedSecond = 0; // Reset the selected second to 0
+        LinearLayout layout = new LinearLayout(requireContext());
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.addView(minutePicker);
+        layout.addView(secondPicker);
 
-                        //선택한 총 지속 시간 계산
-                        int totalDuration = (hourOfDay * 60) + minute;
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("지속 시간 선택");
+        builder.setView(layout);
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int selectedMinute = minutePicker.getValue();
+                int selectedSecond = secondPicker.getValue();
 
-                        String formattedDuration = String.format("%02d:%02d", hourOfDay, minute);
-                        // UI 업데이트하여 선택한 지속 시간 표시
-                        recoveryTimeTextView.setText(formattedDuration);
+                String formattedDuration = String.format("%02d:%02d", selectedMinute, selectedSecond);
+                if (seizureDurationTextView != null) {
+                    seizureDurationTextView.setText(formattedDuration);
+                    seizureViewModel.setSeizureDuration(formattedDuration);
+                } else {
+                    // TextView가 null인 경우에 대한 처리
+                    Log.e("SeizureFragment", "seizureDurationTextView is null");
+                }
+            }
 
-                        // 선택한 지속 시간을 SeizureViewModel에 저장
-                        seizureViewModel.setSeizureDuration(formattedDuration);
-                    }
-                },
-                hour,
-                minute,
-                true
-        );
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
 
-        timePickerDialog.show();
-
+        builder.show();
     }
+
+
     // emergencyMedicationListTextView 업데이트
     private void updateEmergencyMedicationListTextView(){
         StringBuilder medicationsText = new StringBuilder();
@@ -214,7 +237,6 @@ public class SixthFragment extends Fragment {
         }
         emergencyMedicationListTextView.setText(medicationsText.toString());
 
-        seizureViewModel.setEmergencyMedication(medicationsText.toString());
     }
-    //여기까지 완료
+
 }

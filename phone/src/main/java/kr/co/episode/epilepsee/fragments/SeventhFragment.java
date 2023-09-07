@@ -2,6 +2,7 @@ package kr.co.episode.epilepsee.fragments;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
 
 import kr.co.episode.epilepsee.dataModel.SeizureViewModel;
@@ -50,6 +52,7 @@ public class SeventhFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_seventh, container, false);
+
         btnSeizureSave = rootView.findViewById(R.id.btnSeizureSave);
 
         seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
@@ -280,6 +283,7 @@ public class SeventhFragment extends Fragment {
 
                 // ViewModel에 저장된 데이터를 데이터베이스로 보내는 코드
                 saveAllDataToFirebase();
+
             }
         });
 
@@ -327,7 +331,7 @@ public class SeventhFragment extends Fragment {
         // 발작 데이터를 저장할 날짜를 가져옴 (yyyy-MM-dd 형식)
         String seizureDate = seizureViewModel.getSeizureDate();
         // 날짜를 기준으로 데이터 저장
-        DatabaseReference dateReference = databaseReference.child(seizureDate);
+        DatabaseReference dateReference = databaseReference.child(seizureDate).child("SeizureData");
         // 발작 시각 등의 데이터를 저장
         DatabaseReference seizureReference = dateReference.push();
         seizureReference.child("seizureTime").setValue(seizureViewModel.getSeizureTime());
@@ -349,5 +353,9 @@ public class SeventhFragment extends Fragment {
         seizureReference.child("seizureSymptomSuddenUrinationDefecation").setValue(seizureViewModel.getSeizureSymptomSuddenUrinationDefecation());
         // 저장이 완료되었다는 메시지 표시
         Toast.makeText(requireContext(), "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+        // 메인 화면으로 이동
+        Intent mainIntent = new Intent(getActivity(), MainActivity.class);
+        startActivity(mainIntent);
+        requireActivity().finish(); // 현재 액티비티 종료
     }
 }

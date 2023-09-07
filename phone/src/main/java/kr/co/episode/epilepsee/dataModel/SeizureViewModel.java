@@ -16,7 +16,7 @@ public class SeizureViewModel extends ViewModel {
     private boolean seizureDuringSleep; //수면중 여부
     private String seizureDuration; //발작 지속 시간
     private String recoveryTime; //회복에 걸린 시간
-    private String emergencyMedication; //사용된 긴급 약물
+    private List<String> emergencyMedication; //사용된 긴급 약물
     private List<String> seizureReaction; //발작 후 반응
     private String seizureSymptomBody; //경련 증상
     private String seizureSymptomMovement; //경련 증상-움직임
@@ -55,7 +55,7 @@ public class SeizureViewModel extends ViewModel {
     public String getRecoveryTime() {
         return recoveryTime;
     }
-    public String getEmergencyMedication() {
+    public List<String> getEmergencyMedication() {
         return emergencyMedication;
     }
     public List<String> getSeizureReaction() {
@@ -111,7 +111,7 @@ public class SeizureViewModel extends ViewModel {
     public void setRecoveryTime(String recoveryTime) {
         this.recoveryTime = recoveryTime;
     }
-    public void setEmergencyMedication(String emergencyMedication) {
+    public void setEmergencyMedication(List<String> emergencyMedication) {
         this.emergencyMedication = emergencyMedication;
     }
     public void setSeizureReaction(List<String> seizureReaction) {

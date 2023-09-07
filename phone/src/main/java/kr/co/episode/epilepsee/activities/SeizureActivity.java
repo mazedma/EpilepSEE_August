@@ -10,21 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
-
-import java.util.Date;
 
 import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
-import kr.co.episode.epilepsee.dataModel.SeizureData;
 import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
-import kr.co.episode.epilepsee.fragments.FirstFragment;
-import kr.co.episode.epilepsee.fragments.SeventhFragment;
 
 public class SeizureActivity extends AppCompatActivity {
 
@@ -116,6 +105,15 @@ public class SeizureActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 }
 
 

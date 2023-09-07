@@ -82,28 +82,28 @@
                         android:layout_height="match_parent">
 
                         <ToggleButton
-                            android:id="@+id/toggleButton2"
+                            android:id="@+id/toggleBtnHeadache"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="두통"
                             android:textOn="두통" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton13"
+                            android:id="@+id/toggleBtnNausea"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="배탈"
                             android:textOn="배탈" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton8"
+                            android:id="@+id/toggleBtnHairLoss"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="모발 결손"
                             android:textOn="모발 결손" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton14"
+                            android:id="@+id/toggleBtnHandTremors"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="손떨림"
@@ -115,28 +115,28 @@
                         android:layout_height="match_parent">
 
                         <ToggleButton
-                            android:id="@+id/toggleButton5"
+                            android:id="@+id/toggleBtnTension"
                             android:layout_width="68dp"
                             android:layout_height="wrap_content"
                             android:textOff="긴장"
                             android:textOn="긴장" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton4"
+                            android:id="@+id/toggleBtnFatigue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="피로함"
                             android:textOn="피로함" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton3"
+                            android:id="@+id/toggleBtnAnxiety"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="불안정함"
                             android:textOn="불안정함" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton17"
+                            android:id="@+id/toggleBtnDepression"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="우울감"
@@ -149,28 +149,28 @@
                         android:layout_height="match_parent">
 
                         <ToggleButton
-                            android:id="@+id/toggleButton9"
+                            android:id="@+id/toggleBtnSkinIssues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="피부 문제"
                             android:textOn="피부 문제" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton16"
+                            android:id="@+id/toggleBtnWeightGain"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="체중증가"
                             android:textOn="체중증가" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton10"
+                            android:id="@+id/toggleBtnOralIssues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="구강,잇몸 문제"
                             android:textOn="구강,잇몸 문제" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton7"
+                            android:id="@+id/toggleBtnAggressiveEmotions"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="공격적인 감정"
@@ -183,28 +183,28 @@
                         android:layout_height="match_parent">
 
                         <ToggleButton
-                            android:id="@+id/toggleButton15"
+                            android:id="@+id/toggleBtnDizziness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="어지럼증"
                             android:textOn="어지럼증" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton11"
+                            android:id="@+id/toggleBtnBlurryVision"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="중첩/흐린 시각"
                             android:textOn="중첩/흐린 시각" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton12"
+                            android:id="@+id/toggleBtnConcentrationIssues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="집중력 저하"
                             android:textOn="집중력 저하" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton6"
+                            android:id="@+id/toggleBtnConfusion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="안절부절 못함"
@@ -217,21 +217,21 @@
                         android:layout_height="match_parent">
 
                         <ToggleButton
-                            android:id="@+id/toggleButton18"
+                            android:id="@+id/toggleBtnMemoryIssues"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="기억력 문제"
                             android:textOn="기억력 문제" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton19"
+                            android:id="@+id/toggleBtnSleepDisturbance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="수면 방해"
                             android:textOn="수면 방해" />
 
                         <ToggleButton
-                            android:id="@+id/toggleButton20"
+                            android:id="@+id/toggleBtnDrowsiness"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="졸림"
