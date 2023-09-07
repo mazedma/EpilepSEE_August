@@ -110,9 +110,9 @@ public class DailyActivity extends AppCompatActivity {
                                 // 해당 데이터가 "seizureTime" 또는 "sideEffectTime"에 따라 텍스트를 설정합니다.
                                 TimeData timeData = timeDataList.get(position);
                                 if (timeData.getSeizureTime() != null) {
-                                    textView.setText("발작 시간: " + timeData.getSeizureTime());
+                                    textView.setText("[발작] " + timeData.getSeizureTime());
                                 } else if (timeData.getSideEffectTime() != null) {
-                                    textView.setText("부작용 시간: " + timeData.getSideEffectTime());
+                                    textView.setText("[부작용] " + timeData.getSideEffectTime());
                                 }
 
                                 return view;
