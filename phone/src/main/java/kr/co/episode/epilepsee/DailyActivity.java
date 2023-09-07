@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +29,25 @@ import java.util.ArrayList;
 public class DailyActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
+
+    // "seizureTime" 및 "sideEffectTime"을 모두 보관하는 사용자 지정 객체를 생성합니다.
+    public class TimeData {
+        private String seizureTime;
+        private String sideEffectTime;
+
+        public TimeData(String seizureTime, String sideEffectTime) {
+            this.seizureTime = seizureTime;
+            this.sideEffectTime = sideEffectTime;
+        }
+
+        public String getSeizureTime() {
+            return seizureTime;
+        }
+
+        public String getSideEffectTime() {
+            return sideEffectTime;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +74,7 @@ public class DailyActivity extends AppCompatActivity {
         dateTextView.setText("선택한 날짜: " + selectedDate);
 
 // ListView를 찾아옵니다.
-        final ListView seizureTimeListView = findViewById(R.id.seizureTimeListView);
+        final ListView timeListView = findViewById(R.id.timeListView);
 
 // Firebase에서 해당 날짜의 데이터를 가져와서 화면에 출력합니다.
         databaseReference.child(selectedDate).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -62,79 +83,71 @@ public class DailyActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DataSnapshot dataSnapshot = task.getResult();
                     if (dataSnapshot.exists()) {
-                        // 해당 날짜의 데이터를 가져옵니다.
                         DataSnapshot seizureDataSnapshot = dataSnapshot.child("seizureData");
+                        DataSnapshot sideEffectDataSnapshot = dataSnapshot.child("sideEffectData");
 
-                        // seizureTime을 저장할 문자열 목록을 만듭니다.
-                        final ArrayList<String> seizureTimeList = new ArrayList<>();
+                        final ArrayList<TimeData> timeDataList = new ArrayList<>();
 
-                        // seizureData 하위의 모든 자식 노드를 순회합니다.
+                        // "seizureTime" 데이터를 가져옵니다.
                         for (DataSnapshot childSnapshot : seizureDataSnapshot.getChildren()) {
-                            // 각 자식 노드에서 seizureTime 값을 가져와 목록에 추가합니다.
                             String seizureTime = childSnapshot.child("seizureTime").getValue(String.class);
-                            seizureTimeList.add(seizureTime);
+                            timeDataList.add(new TimeData(seizureTime, null));
+                        }
+                        // "sideEffectTime" 데이터를 가져옵니다.
+                        for (DataSnapshot childSnapshot : sideEffectDataSnapshot.getChildren()) {
+                            String sideEffectTime = childSnapshot.child("sideEffectTime").getValue(String.class);
+                            timeDataList.add(new TimeData(null, sideEffectTime));
                         }
 
-                        // seizureTime 목록을 ListView에 표시합니다.
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(DailyActivity.this, android.R.layout.simple_list_item_1, seizureTimeList);
-                        seizureTimeListView.setAdapter(adapter);
+                        // "seizureTime" 및 "sideEffectTime"을 모두 표시하는 사용자 지정 어댑터를 생성합니다.
+                        ArrayAdapter<TimeData> adapter = new ArrayAdapter<>(DailyActivity.this, android.R.layout.simple_list_item_1, timeDataList) {
+                            @NonNull
+                            @Override
+                            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                                View view = super.getView(position, convertView, parent);
+                                TextView textView = view.findViewById(android.R.id.text1);
+
+                                // 해당 데이터가 "seizureTime" 또는 "sideEffectTime"에 따라 텍스트를 설정합니다.
+                                TimeData timeData = timeDataList.get(position);
+                                if (timeData.getSeizureTime() != null) {
+                                    textView.setText("발작 시간: " + timeData.getSeizureTime());
+                                } else if (timeData.getSideEffectTime() != null) {
+                                    textView.setText("부작용 시간: " + timeData.getSideEffectTime());
+                                }
+
+                                return view;
+                            }
+                        };
+
+                        timeListView.setAdapter(adapter);
 
                         // ListView의 항목 클릭 이벤트 처리
-                        seizureTimeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        timeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                // 클릭한 항목의 seizureTime 가져오기
-                                String selectedSeizureTime = seizureTimeList.get(position);
+                                TimeData selectedTimeData = timeDataList.get(position);
 
-                                // 해당 seizureTime의 상위 노드의 키값 가져오기
-                                String parentKey = getParentKey(selectedSeizureTime, dataSnapshot);
-
-                                // 다음 액티비티로 데이터 전달
-                                Intent intent = new Intent(DailyActivity.this, SeizureSummaryActivity.class);
-                                intent.putExtra("parentKey", parentKey);
-                                startActivity(intent);
+                                if (selectedTimeData.getSeizureTime() != null) {
+                                    // 발작 시간에 대한 클릭 처리
+                                    // ...
+                                } else if (selectedTimeData.getSideEffectTime() != null) {
+                                    // 부작용 시간에 대한 클릭 처리
+                                    // ...
+                                }
                             }
                         });
                     } else {
-                        // 해당 날짜의 데이터가 없을 경우 처리
-                        Log.d("DailyActivity", "해당 날짜의 데이터가 없습니다.");
+                        // 선택한 날짜에 대한 데이터가 없을 때 처리
+                        Log.d("DailyActivity", "선택한 날짜에 대한 데이터가 없습니다.");
                     }
                 } else {
-                    // 데이터를 가져오는 도중 오류가 발생한 경우 처리
+                    // 데이터를 가져오는 동안 발생한 오류 처리
                     Exception exception = task.getException();
-                    Log.e("DailyActivity", "데이터를 가져오는 도중 오류가 발생했습니다: " + exception.getMessage());
+                    Log.e("DailyActivity", "데이터를 가져오는 동안 오류 발생: " + exception.getMessage());
                 }
             }
         });
 
-
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        // ActionBar의 백 버튼을 누를 때
-        if (id == android.R.id.home) {
-            finish(); // 현재 Activity를 종료합니다.
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private String getParentKey(String targetValue, DataSnapshot dataSnapshot) {
-        if (targetValue != null) {
-            for (DataSnapshot snapshot : dataSnapshot.child("seizureData").getChildren()) {
-                String seizureTime = snapshot.child("seizureTime").getValue(String.class);
-                if (targetValue.equals(seizureTime)) {
-                    return snapshot.getKey();
-                }
-            }
-        }
-        return null; // 대상 값이 null이거나 찾지 못한 경우
-    }
-
-
 }
 

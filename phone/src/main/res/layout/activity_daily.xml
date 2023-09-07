@@ -21,7 +21,7 @@
         android:textSize="18sp"
         android:textColor="#000000"/>
     <ListView
-        android:id="@+id/seizureTimeListView"
+        android:id="@+id/timeListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>
