@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 // 클릭한 날짜 정보를 문자열로 만듭니다.
-                String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                String selectedDate = String.format("%d-%02d-%02d", year, month + 1, dayOfMonth);
 
                 // 새로운 Activity로 전달할 Intent를 생성합니다.
                 Intent intent = new Intent(MainActivity.this, DailyActivity.class);
