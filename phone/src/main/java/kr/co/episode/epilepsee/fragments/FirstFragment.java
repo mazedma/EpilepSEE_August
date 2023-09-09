@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import kr.co.episode.epilepsee.R;
 import kr.co.episode.epilepsee.dataModel.SeizureViewModel;
@@ -46,6 +47,20 @@ public class FirstFragment extends Fragment {
 
         // ViewModelProvider를 통해 SeizureViewModel 인스턴스를 가져오기.
         seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
+
+        //현재 날짜와 시간 가져오기
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm",Locale.getDefault());
+
+        String selectedDate = dateFormat.format(calendar.getTime());
+        String selectedTime = timeFormat.format(calendar.getTime());
+
+        //textView와 데이터베이스의 초기값 배정
+        seizureDateTextView.setText(selectedDate);
+        seizureTimeTextView.setText(selectedTime);
+        seizureViewModel.setSeizureDate(selectedDate);
+        seizureViewModel.setSeizureTime(selectedTime);
 
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +139,7 @@ public class FirstFragment extends Fragment {
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"));
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, day);

@@ -116,16 +116,16 @@ public class SeventhFragment extends Fragment {
             // 선택된 라디오버튼의 ID를 기반으로 값을 설정합니다.
             switch (checkedId) {
                 case R.id.allSymptomBody:
-                    selectedBodySymptom = "모든 몸 부위";
+                    selectedBodySymptom = "전체";
                     break;
                 case R.id.rightSymptomBody:
-                    selectedBodySymptom = "오른쪽 몸 부위";
+                    selectedBodySymptom = "오른쪽";
                     break;
                 case R.id.leftSymptomBody:
-                    selectedBodySymptom = "왼쪽 몸 부위";
+                    selectedBodySymptom = "왼쪽";
                     break;
                 case R.id.otherSymptomBody:
-                    selectedBodySymptom = "기타 몸 부위";
+                    selectedBodySymptom = "기타";
                     break;
                 default:
                     selectedBodySymptom = null;
@@ -163,13 +163,13 @@ public class SeventhFragment extends Fragment {
 
             switch(checkedId){
                 case R.id.aboveSymptomEyes:
-                    selectedEyesSymptom = "위쪽 눈 부위";
+                    selectedEyesSymptom = "눈동자 위";
                     break;
                 case R.id.rightSymptomEyes:
-                    selectedEyesSymptom = "오른쪽 눈 부위";
+                    selectedEyesSymptom = "눈동자 오른쪽";
                     break;
                 case R.id.leftSymptomEyes:
-                    selectedEyesSymptom = "왼쪽 눈 부위";
+                    selectedEyesSymptom = "눈동자 왼쪽";
                     break;
                 default:
                     selectedEyesSymptom = null;
@@ -280,29 +280,116 @@ public class SeventhFragment extends Fragment {
             btnSeizureSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // ViewModel에 저장된 데이터를 데이터베이스로 보내는 코드
                 saveAllDataToFirebase();
-
             }
         });
 
-        //편의성용 안되면 삭제 초기값 설정 코드
-
+        //[편의성(삭제 가능)] 초기값 설정 코드/ 화면 이동 시에도 체크 상태를 저장하기 위한 코드
         String initialBodySymptom = seizureViewModel.getSeizureSymptomBody();
         if (initialBodySymptom != null && !initialBodySymptom.isEmpty()) {
             switch (initialBodySymptom) {
-                case "모든 몸 부위":
+                case "전체":
                     allSymptomBody.setChecked(true);
                     break;
-                case "오른쪽 몸 부위":
+                case "오른쪽":
                     rightSymptomBody.setChecked(true);
                     break;
-                case "왼쪽 몸 부위":
+                case "왼쪽":
                     leftSymptomBody.setChecked(true);
                     break;
-                case "기타 몸 부위":
+                case "기타":
                     otherSymptomBody.setChecked(true);
+                    break;
+            }
+        }
+        String initialMovementSymptom = seizureViewModel.getSeizureSymptomMovement();
+        if(initialMovementSymptom != null && !initialMovementSymptom.isEmpty()){
+        switch(initialMovementSymptom){
+            case "움찔거림":
+                twitchSymptomMovement.setChecked(true);
+                break;
+            case "뻣뻣해짐":
+                stiffnessSymptomMovement.setChecked(true);
+                break;
+            case "기타":
+                otherSymptomMovement.setChecked(true);
+                break;
+            }
+        }
+
+        String initialEyesSymptom = seizureViewModel.getSeizureSymptomEyes();
+        if(initialEyesSymptom !=null && !initialEyesSymptom.isEmpty()){
+            switch(initialEyesSymptom) {
+                case "눈동자 위":
+                    aboveSymptomEyes.setChecked(true);
+                    break;
+                case "눈동자 오른쪽":
+                    rightSymptomEyes.setChecked(true);
+                    break;
+                case "눈동자 왼쪽":
+                    leftSymptomEyes.setChecked(true);
+                    break;
+            }
+        }
+        String initialEyesSymptom2 = seizureViewModel.getSeizureSymptomEyes2();
+        if(initialEyesSymptom2 !=null && !initialEyesSymptom2.isEmpty()){
+            switch(initialEyesSymptom2) {
+                case "눈이 감김":
+                    closedSymptomEyes.setChecked(true);
+                    break;
+                case "멍하게 응시":
+                    stareSymptomEyes.setChecked(true);
+                    break;
+                case "깜빡임":
+                    blinkSymptomEyes.setChecked(true);
+                    break;
+                case "기타":
+                    otherSymptomEyes.setChecked(true);
+                    break;
+            }
+        }
+        String initialMouthSymptom = seizureViewModel.getSeizureSymptomMouth();
+            if(initialMouthSymptom != null && !initialMouthSymptom.isEmpty()) {
+                switch (initialMouthSymptom) {
+                    case "입마름":
+                        tinglingSymptomMouth.setChecked(true);
+                        break;
+                    case "침흘림":
+                        droolingSymptomMouth.setChecked(true);
+                        break;
+                    case "거품":
+                        foamSymptomMouth.setChecked(true);
+                        break;
+                    case "혀깨물음":
+                        bitingSymptomMouth.setChecked(true);
+                        break;
+                    case "기타":
+                        otherSymptomMouth.setChecked(true);
+                        break;
+                }
+            }
+
+            String initialSkinSymptom = seizureViewModel.getSeizureSymptomSkinColor();
+            if (initialSkinSymptom != null && !initialSkinSymptom.isEmpty()){
+                switch (initialSkinSymptom) {
+                    case "청색증":
+                        blueSymptomSkinColor.setChecked(true);
+                        break;
+                    case "기타":
+                        otherSymptomSkinColor.setChecked(true);
+                        break;
+                }
+            }
+
+        String initialUrinationSymptom = seizureViewModel.getSeizureSymptomSuddenUrinationDefecation();
+        if (initialUrinationSymptom != null && !initialUrinationSymptom.isEmpty()){
+            switch (initialUrinationSymptom) {
+                case "소변":
+                    urinationUrine.setChecked(true);
+                    break;
+                case "대변":
+                    urinationStool.setChecked(true);
                     break;
             }
         }
