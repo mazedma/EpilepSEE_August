@@ -1,7 +1,8 @@
 package kr.co.episode.epilepsee.dataModel;
-//23/08.ㅇ내ㅑ내
 
 import androidx.lifecycle.ViewModel;
+
+import java.util.List;
 
 //프레그먼트 데이터 저장할 ViewModel 생성 23.08.14
 public class SeizureViewModel extends ViewModel {
@@ -15,11 +16,12 @@ public class SeizureViewModel extends ViewModel {
     private boolean seizureDuringSleep; //수면중 여부
     private String seizureDuration; //발작 지속 시간
     private String recoveryTime; //회복에 걸린 시간
-    private String emergencyMedication; //사용된 긴급 약물
-    private String seizureReaction; //발작 후 반응
-    private String seizureSymptomBody; //경련 증상-몸
+    private List<String> emergencyMedication; //사용된 긴급 약물
+    private List<String> seizureReaction; //발작 후 반응
+    private String seizureSymptomBody; //경련 증상
     private String seizureSymptomMovement; //경련 증상-움직임
     private String seizureSymptomEyes; //경련 증상-눈
+    private String seizureSymptomEyes2; //경련 증상-눈2
     private String seizureSymptomMouth; // 경련 증상-입
     private String seizureSymptomSkinColor; //경련 증상- 피부색
     private String seizureSymptomSuddenUrinationDefecation; //경련증상-갑작스러운배뇨,배변
@@ -53,21 +55,21 @@ public class SeizureViewModel extends ViewModel {
     public String getRecoveryTime() {
         return recoveryTime;
     }
-    public String getEmergencyMedication() {
+    public List<String> getEmergencyMedication() {
         return emergencyMedication;
     }
-    public String getSeizureReaction() {
+    public List<String> getSeizureReaction() {
         return seizureReaction;
     }
+
     public String getSeizureSymptomBody() {
         return seizureSymptomBody;
     }
     public String getSeizureSymptomMovement() {
         return seizureSymptomMovement;
     }
-    public String getSeizureSymptomEyes() {
-        return seizureSymptomEyes;
-    }
+    public String getSeizureSymptomEyes() {return seizureSymptomEyes;}
+    public String getSeizureSymptomEyes2(){return seizureSymptomEyes2;}
     public String getSeizureSymptomMouth() {
         return seizureSymptomMouth;
     }
@@ -109,10 +111,10 @@ public class SeizureViewModel extends ViewModel {
     public void setRecoveryTime(String recoveryTime) {
         this.recoveryTime = recoveryTime;
     }
-    public void setEmergencyMedication(String emergencyMedication) {
+    public void setEmergencyMedication(List<String> emergencyMedication) {
         this.emergencyMedication = emergencyMedication;
     }
-    public void setSeizureReaction(String seizureReaction) {
+    public void setSeizureReaction(List<String> seizureReaction) {
         this.seizureReaction = seizureReaction;
     }
     public void setSeizureSymptomBody(String seizureSymptomBody) {
@@ -123,6 +125,9 @@ public class SeizureViewModel extends ViewModel {
     }
     public void setSeizureSymptomEyes(String seizureSymptomEyes) {
         this.seizureSymptomEyes = seizureSymptomEyes;
+    }
+    public void setSeizureSymptomEyes2(String seizureSymptomEyes2){
+        this.seizureSymptomEyes2 = seizureSymptomEyes2;
     }
     public void setSeizureSymptomMouth(String seizureSymptomMouth) {
         this.seizureSymptomMouth = seizureSymptomMouth;
