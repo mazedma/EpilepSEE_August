@@ -15,10 +15,10 @@ public class SideEffectSummaryActivity extends AppCompatActivity {
 
         // Intent로부터 parentKey 값을 가져옵니다.
         Intent intent = getIntent();
-        String parentKey = intent.getStringExtra("parentKey");
+        String selectedKey = intent.getStringExtra("selectedKey");
 
         // parentKey를 TextView에 출력합니다.
-        TextView parentKeyTextView = findViewById(R.id.parentKeyTextView);
-        parentKeyTextView.setText("Parent Key: " + parentKey);
+        TextView selectedKeyTextView = findViewById(R.id.selectedKeyTextView);
+        selectedKeyTextView.setText("selectedKey: " + selectedKey);
     }
 }
