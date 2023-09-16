@@ -2,11 +2,13 @@ package kr.co.episode.epilepsee;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +49,80 @@ public class DailyActivity extends AppCompatActivity {
         // 선택한 날짜에 해당하는 노드로 참조
         DatabaseReference selectedDateReference = databaseReference.child(selectedDate);
 
+
+
+        // ValueEventListener를 사용하여 menstrualData의 데이터를 가져옵니다.
+        selectedDateReference.child("menstrualData").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // "menstrualBool" 필드가 존재하는 경우에만 처리
+                    boolean menstrualBool = dataSnapshot.child("menstrualBool").getValue(Boolean.class);
+
+                    // "O" 또는 "X"를 표시할 TextView를 찾아옵니다.
+                    TextView menstrualTextView = findViewById(R.id.menstrualTextView);
+
+                    // menstrualBool 값에 따라 "O" 또는 "X"를 설정합니다.
+                    if (menstrualBool) {
+                        menstrualTextView.setText("O");
+                    } else {
+                        menstrualTextView.setText("X");
+                    }
+                } else {
+                    // 데이터가 없을 때 처리할 내용 추가
+                    // 예를 들어, TextView에 "데이터 없음" 또는 기본 값을 설정할 수 있습니다.
+                    TextView menstrualTextView = findViewById(R.id.menstrualTextView);
+                    menstrualTextView.setText("데이터 없음");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 에러 처리
+            }
+        });
+
+        // ValueEventListener를 사용하여 StatusData의 데이터를 가져옵니다.
+        selectedDateReference.child("StatusData").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // 기본값 설정
+                int mood = 0;
+                int sleepQuality = 0;
+
+                // mood와 sleepQuality 값을 가져와서 TextView에 설정합니다.
+
+                DataSnapshot moodSnapshot = dataSnapshot.child("mood");
+                if (moodSnapshot.exists()) {
+                    mood = moodSnapshot.getValue(Integer.class);
+                    // mood 값에 대한 처리 추가
+                    ProgressBar moodProgressBar = findViewById(R.id.moodProgressBar);
+                    moodProgressBar.setProgress(mood);
+                }
+
+                DataSnapshot sleepQualitySnapshot = dataSnapshot.child("sleepQuality");
+                if (sleepQualitySnapshot.exists()) {
+                    sleepQuality = sleepQualitySnapshot.getValue(Integer.class);
+                    // sleepQuality 값에 대한 처리 추가
+                    ProgressBar sleepQualityProgressBar = findViewById(R.id.sleepQualityProgressBar);
+                    sleepQualityProgressBar.setProgress(sleepQuality);
+                }
+
+
+                // mood와 sleepQuality 값을 ProgressBar에 설정합니다.
+                ProgressBar moodProgressBar = findViewById(R.id.moodProgressBar);
+                moodProgressBar.setProgress(mood);
+                ProgressBar sleepQualityProgressBar = findViewById(R.id.sleepQualityProgressBar);
+                sleepQualityProgressBar.setProgress(sleepQuality);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 에러 처리
+            }
+        });
+
+        // seizureData 및 sideEffectData 가져오기
         // 시간 정보와 키값을 저장할 리스트 생성
         List<String> timeList = new ArrayList<>();
 
@@ -59,18 +135,24 @@ public class DailyActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // seizureData 가져오기
                 DataSnapshot seizureDataSnapshot = dataSnapshot.child("seizureData");
-                for (DataSnapshot snapshot : seizureDataSnapshot.getChildren()) {
-                    String seizureKey = snapshot.getKey();
-                    String seizureTime = snapshot.child("seizureTime").getValue(String.class);
-                    timeList.add("Seizure Key: " + seizureKey + "\nSeizure Time: " + seizureTime);
+                if(seizureDataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : seizureDataSnapshot.getChildren()) {
+                        String seizureKey = snapshot.getKey();
+                        String seizureTime = snapshot.child("seizureTime").getValue(String.class);
+                        Log.d("SeizureData", "Seizure Key: " + seizureKey + ", Seizure Time: " + seizureTime);
+                        timeList.add("Seizure Key: " + seizureKey + "\nSeizure Time: " + seizureTime);
+                    }
                 }
+
 
                 // sideEffectData 가져오기
                 DataSnapshot sideEffectDataSnapshot = dataSnapshot.child("sideEffectData");
-                for (DataSnapshot snapshot : sideEffectDataSnapshot.getChildren()) {
-                    String sideEffectKey = snapshot.getKey();
-                    String sideEffectTime = snapshot.child("sideEffectTime").getValue(String.class);
-                    timeList.add("Side Effect Key: " + sideEffectKey + "\nSide Effect Time: " + sideEffectTime);
+                if(sideEffectDataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : sideEffectDataSnapshot.getChildren()) {
+                        String sideEffectKey = snapshot.getKey();
+                        String sideEffectTime = snapshot.child("sideEffectTime").getValue(String.class);
+                        timeList.add("Side Effect Key: " + sideEffectKey + "\nSide Effect Time: " + sideEffectTime);
+                    }
                 }
 
                 // timeList를 사용하여 ListView 어댑터를 설정하고 표시
@@ -96,7 +178,7 @@ public class DailyActivity extends AppCompatActivity {
 
                         // 선택된 키값을 인텐트로 전달
                         summaryIntent.putExtra("selectedKey", key);
-                        summaryIntent.putExtra("selectedDate",selectedDate);
+                        summaryIntent.putExtra("selectedDate",selectedDate); //이나수정
                         startActivity(summaryIntent);
                     }
                 });
