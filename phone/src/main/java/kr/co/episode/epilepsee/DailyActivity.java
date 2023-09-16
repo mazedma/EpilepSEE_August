@@ -70,9 +70,9 @@ public class DailyActivity extends AppCompatActivity {
                     }
                 } else {
                     // 데이터가 없을 때 처리할 내용 추가
-                    // 예를 들어, TextView에 "데이터 없음" 또는 기본 값을 설정할 수 있습니다.
+                    // 예를 들어, TextView에 "X" 표시
                     TextView menstrualTextView = findViewById(R.id.menstrualTextView);
-                    menstrualTextView.setText("데이터 없음");
+                    menstrualTextView.setText("X");
                 }
             }
 
