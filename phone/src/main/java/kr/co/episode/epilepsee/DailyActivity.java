@@ -96,6 +96,7 @@ public class DailyActivity extends AppCompatActivity {
 
                         // 선택된 키값을 인텐트로 전달
                         summaryIntent.putExtra("selectedKey", key);
+                        summaryIntent.putExtra("selectedDate",selectedDate);
                         startActivity(summaryIntent);
                     }
                 });
