@@ -34,6 +34,15 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+            <TextView
+                android:id="@+id/dosageTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
@@ -44,30 +53,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
 
-
                     <RadioGroup
                         android:id="@+id/radioGroup"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
-                        <RadioButton
-                            android:id="@+id/radioButton1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="아침약" />
-
-                        <RadioButton
-                            android:id="@+id/radioButton2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="점심약" />
-
-                        <RadioButton
-                            android:id="@+id/radioButton3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="저녁약" />
                     </RadioGroup>
+
                 </LinearLayout>
             </ScrollView>
 

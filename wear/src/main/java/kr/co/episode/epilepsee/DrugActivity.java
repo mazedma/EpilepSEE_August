@@ -4,12 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import kr.co.episode.epilepsee.databinding.ActivityDrugBinding;
 
 public class DrugActivity extends Activity {
@@ -33,18 +45,21 @@ public class DrugActivity extends Activity {
         binding = ActivityDrugBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.date.setText(getTime); //오늘날짜 화면에 출력
+        binding.date.setText(getTime); // 오늘날짜 화면에 출력
 
-        //라디오버튼 결과값 관련
+        // 라디오버튼 결과값 관련
         context_drug = this; // onCreate에서 this 할당
+
+        // Firebase로부터 데이터 가져오기
+        getDataFromFirebase();
 
         // 기록하기 버튼 클릭 리스너
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 라디오버튼 결과값 할당
-                int checkedRadioButtonId = binding.radioGroup.getCheckedRadioButtonId(); //체크된 라디오버튼 아이디 가져오기
-                RadioButton radioButton = (RadioButton)findViewById(checkedRadioButtonId); // 받은 id 값으로 해당 뷰 불러오기
+                int checkedRadioButtonId = binding.radioGroup.getCheckedRadioButtonId(); // 체크된 라디오버튼 아이디 가져오기
+                RadioButton radioButton = findViewById(checkedRadioButtonId); // 받은 id 값으로 해당 뷰 불러오기
                 checkedRadioDrug = radioButton.getText().toString(); // text값 가져와서 변수에 저장
 
                 recordedTimeDrug = mDate; // 현재시간 할당
@@ -56,4 +71,62 @@ public class DrugActivity extends Activity {
             }
         });
     }
+
+    private void getDataFromFirebase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(); // 루트 경로를 가져옴
+        String todayDate = getTime; // 오늘 날짜를 가져옴
+
+        // 오늘 날짜를 사용하여 경로 설정
+        DatabaseReference todayDataReference = databaseReference.child(todayDate);
+
+        // 데이터 가져오기
+        todayDataReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DataSnapshot dataSnapshot = task.getResult();
+                    if (dataSnapshot.exists()) {
+                        // "medicationList" 아래의 데이터 가져오기
+                        DataSnapshot medicationListSnapshot = dataSnapshot.child("medicationList");
+                        StringBuilder medicationListText = new StringBuilder();
+
+                        for (DataSnapshot medicationSnapshot : medicationListSnapshot.getChildren()) {
+                            String dosage = medicationSnapshot.child("dosage").getValue(String.class);
+                            String dosageTimings = medicationSnapshot.child("dosageTimings").getValue(String.class);
+                            String medicationName = medicationSnapshot.child("medicationName").getValue(String.class);
+
+                            // "timing" 값을 ArrayList로 가져오기
+                            ArrayList<String> timingData = new ArrayList<>();
+                            for (DataSnapshot timingSnapshot : medicationSnapshot.child("timing").getChildren()) {
+                                String timingValue = timingSnapshot.getValue(String.class);
+                                timingData.add(timingValue);
+                            }
+
+                            // 하나의 문자열로 합치기
+                            String medicationInfo = dosage + " " + dosageTimings + " " + medicationName;
+                            medicationListText.append(medicationInfo).append("\n");
+
+                            // "timing" 값을 radioButton으로 추가
+                            RadioGroup radioGroup = new RadioGroup(context_drug);
+                            for (String timing : timingData) {
+                                RadioButton radioButton = new RadioButton(context_drug);
+                                radioButton.setText(timing);
+                                radioGroup.addView(radioButton);
+                            }
+
+                            // radioGroup을 화면에 추가
+                            binding.radioGroup.addView(radioGroup);
+                        }
+
+                        // TextView에 값을 설정
+                        binding.dosageTextView.setText(medicationListText.toString());
+                    }
+                } else {
+                    Log.e("FirebaseError", "Firebase 데이터베이스 오류: " + task.getException().getMessage());
+                }
+            }
+        });
+    }
+
+
 }

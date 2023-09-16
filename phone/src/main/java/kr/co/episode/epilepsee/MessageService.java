@@ -25,6 +25,5 @@ public class MessageService extends WearableListenerService{
         else {
             super.onMessageReceived(messageEvent);
         }
-
     }
 }

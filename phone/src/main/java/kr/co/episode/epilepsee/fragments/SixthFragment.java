@@ -171,7 +171,6 @@ public class SixthFragment extends Fragment {
                 if(!medicine.isEmpty()){
                     addedMedications.add(medicine);
                     updateEmergencyMedicationListTextView();
-                    seizureViewModel.setEmergencyMedication(addedMedications);
                     emergencyMedicationEditText.setText("");
                 }
             }
@@ -236,6 +235,8 @@ public class SixthFragment extends Fragment {
 
         }
         emergencyMedicationListTextView.setText(medicationsText.toString());
+
+        seizureViewModel.setEmergencyMedication(addedMedications);
 
     }
 

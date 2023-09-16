@@ -1,5 +1,6 @@
 package kr.co.episode.epilepsee;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
+import com.google.firebase.FirebaseApp;
 
 import kr.co.episode.epilepsee.activities.MedicationScheduleActivity;
 import kr.co.episode.epilepsee.activities.PeriodRecordActivity;
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
+
+        FirebaseApp.initializeApp(this); // Firebase 초기화
 
         // menu popup 버튼 연결
         activityMainBinding.menuButton.setOnClickListener(new View.OnClickListener() {
@@ -57,12 +62,20 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                if (year == 2023 && month == 5 && dayOfMonth == 20) {
-                    Intent intent = new Intent(MainActivity.this, SummaryActivity.class);
-                    startActivity(intent);
-                }
+                // 클릭한 날짜 정보를 문자열로 만듭니다.
+                String selectedDate = String.format("%d-%02d-%02d", year, month + 1, dayOfMonth);
+
+                // 새로운 Activity로 전달할 Intent를 생성합니다.
+                Intent intent = new Intent(MainActivity.this, DailyActivity.class);
+
+                // 클릭한 날짜를 Intent에 추가합니다.
+                intent.putExtra("selectedDate", selectedDate);
+
+                // 새로운 Activity를 시작합니다.
+                startActivity(intent);
             }
         });
+
 
         // add popup 버튼 연결
         activityMainBinding.addButton.setOnClickListener(new View.OnClickListener() {

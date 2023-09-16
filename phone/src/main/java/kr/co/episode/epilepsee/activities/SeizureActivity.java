@@ -1,5 +1,5 @@
 package kr.co.episode.epilepsee.activities;
-//깃헙 브랜치 연동 확인 23.09.07
+//깃헙 브랜치 연동 확인 23.08.07 이이나
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,6 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
@@ -105,15 +108,6 @@ public class SeizureActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    @Override
-    public void onBackPressed(){
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-
 }
 
 
