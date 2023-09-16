@@ -27,7 +27,6 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:background="#FFFFFF">
             <LinearLayout
                 android:orientation="vertical"
@@ -109,19 +108,71 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:background="#FFFFFF">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:text="발작"/>
+                <TextView
+                    android:id="@+id/seizureCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:text="발작 기록이 없습니다."/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:text="약물 부작용"/>
+                <TextView
+                    android:id="@+id/sideEffectCountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:text="약물 부작용 기록이 없습니다."/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#FFFFFF">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:text="약물 복용"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textColor="#000000"
+                    android:text="약물 복용 기록이 없습니다."/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </LinearLayout>
-
-    <!-- seizureTimeTextView를 추가합니다. -->
-    <TextView
-        android:id="@+id/seizureTimeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="#000000"/>
 
     <!-- ListView를 추가하고 아래에 여백을 추가합니다. -->
     <ListView

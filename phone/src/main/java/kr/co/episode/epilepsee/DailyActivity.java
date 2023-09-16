@@ -23,6 +23,8 @@ import java.util.List;
 public class DailyActivity extends AppCompatActivity {
 
     private ListView timeListView;
+    int seizureCount;
+    int sideEffectCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,9 @@ public class DailyActivity extends AppCompatActivity {
         // ListView를 찾아옵니다.
         timeListView = findViewById(R.id.timeListView);
 
+        TextView seizureCountTextView = findViewById(R.id.seizureCountTextView);
+        TextView sideEffectCountTextView = findViewById(R.id.sideEffectCountTextView);
+
         // seizureData 및 sideEffectData 가져오기
 
         selectedDateReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,23 +142,32 @@ public class DailyActivity extends AppCompatActivity {
                 // seizureData 가져오기
                 DataSnapshot seizureDataSnapshot = dataSnapshot.child("seizureData");
                 if(seizureDataSnapshot.exists()) {
+                    seizureCount = 0; // 초기값 0으로 설정된 변수
                     for (DataSnapshot snapshot : seizureDataSnapshot.getChildren()) {
                         String seizureKey = snapshot.getKey();
                         String seizureTime = snapshot.child("seizureTime").getValue(String.class);
                         Log.d("SeizureData", "Seizure Key: " + seizureKey + ", Seizure Time: " + seizureTime);
                         timeList.add("Seizure Key: " + seizureKey + "\nSeizure Time: " + seizureTime);
+                        seizureCount++; // 값을 1씩 증가시킵니다.
                     }
+                    // TextView에 seizure 데이터 수를 표시합니다.
+                    seizureCountTextView.setText("총 " + seizureCount +"회의 발작이 발생했습니다.");
                 }
+
 
 
                 // sideEffectData 가져오기
                 DataSnapshot sideEffectDataSnapshot = dataSnapshot.child("sideEffectData");
                 if(sideEffectDataSnapshot.exists()) {
+                    sideEffectCount = 0; // 초기값 0으로 설정된 변수
                     for (DataSnapshot snapshot : sideEffectDataSnapshot.getChildren()) {
                         String sideEffectKey = snapshot.getKey();
                         String sideEffectTime = snapshot.child("sideEffectTime").getValue(String.class);
                         timeList.add("Side Effect Key: " + sideEffectKey + "\nSide Effect Time: " + sideEffectTime);
+                        sideEffectCount++; // 값을 1씩 증가시킵니다.
                     }
+                    // TextView에 sideEffect 데이터 수를 표시합니다.
+                    sideEffectCountTextView.setText("총 " + sideEffectCount +"회의 약물 부작용이 발생했습니다.");
                 }
 
                 // timeList를 사용하여 ListView 어댑터를 설정하고 표시
