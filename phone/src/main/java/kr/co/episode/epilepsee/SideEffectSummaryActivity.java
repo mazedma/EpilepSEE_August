@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +37,7 @@ public class SideEffectSummaryActivity extends AppCompatActivity {
         sideEffectDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // 부작용 데이터를 리스트로 변환
+
                 List<String> sideEffects = (List<String>) dataSnapshot.getValue();
 
                 if (sideEffects != null && !sideEffects.isEmpty()) {
@@ -50,11 +51,13 @@ public class SideEffectSummaryActivity extends AppCompatActivity {
                     // 부작용 데이터가 없는 경우 메시지를 표시합니다.
                     sideEffectInfoTextView.setText("부작용 데이터가 없습니다.");
                 }
+                Log.d("SideEffectSummaryActivity", "부작용 데이터를 가져옴");
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // 에러 처리
+                Log.e("SideEffectSummaryActivity", "부작용 데이터 가져오기 실패: " + databaseError.getMessage()); // 에러 로그 출력
             }
         });
     }
