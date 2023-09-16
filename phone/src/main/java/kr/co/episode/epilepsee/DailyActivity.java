@@ -83,7 +83,7 @@ public class DailyActivity extends AppCompatActivity {
         });
 
         // ValueEventListener를 사용하여 StatusData의 데이터를 가져옵니다.
-        selectedDateReference.child("StatusData").addListenerForSingleValueEvent(new ValueEventListener() {
+        selectedDateReference.child("statusData").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // 기본값 설정
@@ -130,6 +130,7 @@ public class DailyActivity extends AppCompatActivity {
         timeListView = findViewById(R.id.timeListView);
 
         // seizureData 및 sideEffectData 가져오기
+
         selectedDateReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
