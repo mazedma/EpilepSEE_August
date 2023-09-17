@@ -1,0 +1,16 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#6528F7"> <!-- 클릭 효과 색상 -->
+
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="?android:colorActivatedHighlight" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#A076F9" /> <!-- 기본 배경색 -->
+        </shape>
+    </item>
+
+</ripple>

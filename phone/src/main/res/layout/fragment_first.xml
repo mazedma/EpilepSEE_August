@@ -34,6 +34,7 @@
                 android:id="@+id/seizureDateTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:text="날짜 정보"
@@ -43,9 +44,13 @@
                 android:id="@+id/dateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_round_general"
+                android:fontFamily="@font/notosans2"
                 android:onClick="showDatePickerDialog"
                 android:text="날짜 선택"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -59,6 +64,7 @@
                 android:id="@+id/seizureDrugTimeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:text="시간 정보"
@@ -68,9 +74,12 @@
                 android:id="@+id/DrugTimeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/button_round_general"
                 android:onClick="showTimePickerDialog"
                 android:text="시간 선택"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

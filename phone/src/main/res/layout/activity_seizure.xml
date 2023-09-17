@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#EDE4FF"
     tools:context=".activities.SeizureActivity">
 
     <RelativeLayout
@@ -41,18 +42,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-                android:text="이전" />
+                android:background="@drawable/button_round_general"
+                android:fontFamily="@font/notosans3"
+                android:text="이전"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
             <Button
                 android:id="@+id/nextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
-                android:text="다음" />
+                android:background="@drawable/button_round_general"
+                android:fontFamily="@font/notosans3"
+                android:text="다음"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

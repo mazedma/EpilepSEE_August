@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#9D76C1" /> <!-- 배경색 -->
+    <solid android:color="#A076F9" /> <!-- 배경색 -->
     <corners android:radius="30dp" /> <!-- 라운드 모양 설정 -->
 </shape>

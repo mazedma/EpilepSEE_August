@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_background"
+                android:background="@drawable/default_button_background"
+                android:fontFamily="@font/notosans3"
                 android:text="전신성 긴장간대발작" />
 
             <Button
@@ -44,7 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_background"
+                android:background="@drawable/default_button_background"
+                android:fontFamily="@font/notosans3"
                 android:text="전신성 소발작" />
         </LinearLayout>
 
@@ -59,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_background"
+                android:background="@drawable/default_button_background"
+                android:fontFamily="@font/notosans3"
                 android:text="간대성 근경련 발작" />
 
             <Button
@@ -67,9 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_background"
+                android:background="@drawable/default_button_background"
+                android:fontFamily="@font/notosans3"
                 android:text="무긴장성 발작" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

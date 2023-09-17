@@ -1,21 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recoveryTimeView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EDE4FF"
     android:gravity="center"
     android:orientation="vertical">
 
 
     <!-- Add more views for additional information if needed -->
 
-    <TextView
-        android:id="@+id/seizureTimeSummaryTextView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="발작 시각: "
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/seizureTypePrimaryView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans"
+            android:hint="발작 유형1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#D7BBF5" />
+
+        <TextView
+            android:id="@+id/seizureTypeSecondaryView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans2"
+            android:hint="발작 유형2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#6528F7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/seizureTimeSummaryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="발작 시각"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/seizureDurationSummaryTextView"
@@ -23,21 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:textColor="#000000"
         android:text="지속 시간: "
+        android:textColor="#000000"
         android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/seizureTypePrimaryView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="발작 유형 1 : " />
-
-    <TextView
-        android:id="@+id/seizureTypeSecondaryView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="발작 유형 2 : " />
 
     <TextView
         android:id="@+id/seizurePredictedView"

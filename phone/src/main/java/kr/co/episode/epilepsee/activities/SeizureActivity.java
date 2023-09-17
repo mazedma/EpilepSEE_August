@@ -109,18 +109,19 @@ public class SeizureActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("발작 기록 중단");
         builder.setMessage("정말로 발작 기록을 중단하시겠습니까?");
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // 사용자가 아니오를 선택한 경우
+            }
+        });
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 returnToHomeScreen();
             }
         });
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                // 사용자가 아니오를 선택한 경우 아무 작업도 필요하지 않습니다.
-            }
-        });
+
         builder.show();
     }
     // 메인 액티비티로 이동

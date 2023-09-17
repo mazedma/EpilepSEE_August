@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#6528F7">
+
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="?android:colorActivatedHighlight" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="8dp" />
+            <solid android:color="#A076F9" /> <!-- 버튼의 기본 배경색을 9D76C1로 설정 -->
+        </shape>
+    </item>
+
+</ripple>

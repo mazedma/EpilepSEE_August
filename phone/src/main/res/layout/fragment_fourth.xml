@@ -33,7 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_ripple"
+            android:fontFamily="@font/notosans3"
             android:id="@+id/partial1"
             android:text="단순 부분 발작" />
 
@@ -41,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_ripple"
+            android:fontFamily="@font/notosans3"
             android:id="@+id/partial2"
             android:text="복합 부분 발작" />
 
@@ -49,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_ripple"
+            android:fontFamily="@font/notosans3"
             android:id="@+id/partial3"
             android:text="2차성 전신 발작"/>
     </LinearLayout>

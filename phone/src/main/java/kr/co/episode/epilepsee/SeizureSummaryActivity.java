@@ -1,5 +1,6 @@
 package kr.co.episode.epilepsee;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -66,8 +67,8 @@ public class SeizureSummaryActivity extends AppCompatActivity {
                                 // seizureDuration과 seizureTime을 가져와 TextView에 설정합니다.
                                 seizureDurationSummaryTextView.setText("발작 지속 시간: " + seizureData.getSeizureDuration());
                                 seizureTimeSummaryTextView.setText("발작 시각: " + seizureData.getSeizureTime());
-                                seizureTypePrimaryView.setText("발작 주요 유형: " + seizureData.getSeizureTypePrimary());
-                                seizureTypeSecondaryView.setText("발작 부차 유형: " + seizureData.getSeizureTypeSecondary());
+                                seizureTypePrimaryView.setText(seizureData.getSeizureTypePrimary());
+                                seizureTypeSecondaryView.setText(seizureData.getSeizureTypeSecondary());
                                 seizurePredictedView.setText("발작 예측 여부: " + (seizureData.isSeizurePredicted() ? "예측됨" : "예측되지 않음"));
                                 seizureLocationView.setText("발생 장소: " + seizureData.getSeizureLocation());
                                 seizureDuringSleepView.setText("수면 중 발작 여부: " + (seizureData.isSeizureDuringSleep() ? "수면 중" : "일반 상태"));
@@ -98,6 +99,19 @@ public class SeizureSummaryActivity extends AppCompatActivity {
                         Log.e("SeizureSummaryActivity", "Firebase 데이터 가져오기 오류: " + databaseError.getMessage());
                     }
                 });
+
+        //액션바에 백 버튼 추가
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        getSupportActionBar().setTitle("발작 상세 정보"); // 화면 제목 설정
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+    }
+    @Override
+    public boolean onSupportNavigateUp () {
+        onBackPressed();
+        return true;
     }
 
 }

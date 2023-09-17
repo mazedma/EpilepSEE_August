@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
                 getMenuInflater().inflate(R.menu.popup_menu,popupMenu.getMenu()); // menu xml에서 메뉴 리스트 가져오는듯
 
+
                 //아이템 클릭 리스너
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
