@@ -37,6 +37,9 @@ android {
 dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
 
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+
     //firebase realtime
     implementation platform('com.google.firebase:firebase-bom:32.2.2')
     implementation("com.google.firebase:firebase-database")
