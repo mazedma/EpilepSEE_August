@@ -61,8 +61,10 @@ public class SideEffectActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true); // 오프라인 지원을 활성화하려는 경우
 
+        //버튼 초기화
         DrugdateButton = activitySideEffectBinding.DrugdateButton;
         DrugTimeButton = activitySideEffectBinding.DrugTimeButton;
+
         //액션바에 백 버튼 추가
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -70,6 +72,19 @@ public class SideEffectActivity extends AppCompatActivity {
         }
         getSupportActionBar().setTitle("약물 부작용"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
+        // 추가: 앱이 튕길 때 로그 메시지 출력
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                Log.e("AppCrash", "앱이 비정상 종료되었습니다.", ex);
+                // 원하는 추가 작업을 수행할 수도 있습니다.
+                // 예: 오류 보고 또는 앱 종료 처리 등
+                finish(); // 현재 액티비티 종료
+                System.exit(0); // 앱 종료
+            }
+        });
+
 
         DrugdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +106,14 @@ public class SideEffectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(selectedDate.isEmpty()){
                     Toast.makeText(SideEffectActivity.this,"날짜를 선택하세요.",Toast.LENGTH_SHORT).show();
-                    Log.e("SideEffectActivity", "날짜를 선택하지 않고 저장 버튼 클릭됨");
+                    return;
+                }
+                if(selectedTime.isEmpty()){
+                    Toast.makeText(SideEffectActivity.this,"시간을 선택하세요.",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (selectedEffects.isEmpty()){
                     Toast.makeText(SideEffectActivity.this,"부작용을 선택하세요",Toast.LENGTH_SHORT).show();
-                    Log.e("SideEffectActivity", "부작용을 선택하지 않고 저장 버튼 클릭됨"); // 에러 로그 출력
                 }else{
                 saveSideEffectsToDatabase();}
                 Log.d("SideEffectActivity", "부작용 데이터가 저장되었습니다."); // 성공 로그 출력
