@@ -1,24 +1,39 @@
 package kr.co.episode.epilepsee.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
+import kr.co.episode.epilepsee.R;
 import kr.co.episode.epilepsee.databinding.ActivityPeriodRecordBinding;
 
 public class PeriodRecordActivity extends AppCompatActivity {
@@ -26,14 +41,55 @@ public class PeriodRecordActivity extends AppCompatActivity {
     ActivityPeriodRecordBinding activityPeriodRecordBinding;
     DatabaseReference databaseReference;
 
+    private MaterialCalendarView calendarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityPeriodRecordBinding = ActivityPeriodRecordBinding.inflate(getLayoutInflater());
         setContentView(activityPeriodRecordBinding.getRoot());
 
+        ArrayList<String> menstrualDates = new ArrayList<>();
         // Firebase Database 초기화
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        // meterialCanlender 초기화
+        calendarView = activityPeriodRecordBinding.calendarView;
+
+
+        // "menstrualData" 하위의 데이터를 가져오기 위한 ValueEventListener 생성
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // 모든 날짜에 대해 반복
+                for (DataSnapshot dateSnapshot : dataSnapshot.getChildren()) {
+                    // "menstrualData" 하위의 데이터를 가져옴
+                    DataSnapshot menstrualDataSnapshot = dateSnapshot.child("menstrualData");
+                    if (menstrualDataSnapshot.exists()) {
+                        // "menstrualData" 하위에 "menstrualBool" 키가 있는 경우
+                        Boolean menstrualBool = menstrualDataSnapshot.child("menstrualBool").getValue(Boolean.class);
+                        if (menstrualBool != null && menstrualBool) {
+                            // "menstrualBool"이 true인 경우, 해당 날짜를 ArrayList에 추가
+                            menstrualDates.add(dateSnapshot.getKey());
+                        }
+                    }
+                }
+
+                // menstrualDates ArrayList에 저장된 날짜를 로그로 출력
+                for (String date : menstrualDates) {
+                    Log.d("MenstrualDate", date);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 데이터 가져오기 실패 시 처리
+                Log.e("FirebaseError", "Failed to retrieve data", databaseError.toException());
+            }
+        };
+
+        // "menstrualData" 하위의 데이터를 가져오기 위한 ValueEventListener를 추가
+        databaseReference.addListenerForSingleValueEvent(eventListener);
+
 
         // 액션바에 백 버튼 추가
         ActionBar actionBar = getSupportActionBar();
@@ -42,6 +98,7 @@ public class PeriodRecordActivity extends AppCompatActivity {
         }
         getSupportActionBar().setTitle("생리 기록"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+
 
         activityPeriodRecordBinding.startDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +121,8 @@ public class PeriodRecordActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     // DatePicker를 표시하는 메서드
     private void showDatePickerDialog(final EditText editText) {
