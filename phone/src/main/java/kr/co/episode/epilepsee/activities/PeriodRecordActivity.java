@@ -1,16 +1,12 @@
 package kr.co.episode.epilepsee.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,13 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -78,6 +71,8 @@ public class PeriodRecordActivity extends AppCompatActivity {
                 for (String date : menstrualDates) {
                     Log.d("MenstrualDate", date);
                 }
+
+                displayMenstrualDatesInTextView(menstrualDates);
             }
 
             @Override
@@ -123,7 +118,6 @@ public class PeriodRecordActivity extends AppCompatActivity {
     }
 
 
-
     // DatePicker를 표시하는 메서드
     private void showDatePickerDialog(final EditText editText) {
         final Calendar calendar = Calendar.getInstance();
@@ -143,6 +137,16 @@ public class PeriodRecordActivity extends AppCompatActivity {
                     }
                 }, year, month, day);
         datePickerDialog.show();
+    }
+
+    // "MenstrualDate"를 화면의 TextView에 표시하는 메서드
+    private void displayMenstrualDatesInTextView(List<String> menstrualDates) {
+        StringBuilder builder = new StringBuilder();
+        for (String date : menstrualDates) {
+            builder.append(date).append("\n");
+        }
+        TextView menstrualDateTextView = findViewById(R.id.menstrualDateTextView);
+        menstrualDateTextView.setText("Menstrual Dates:\n" + builder.toString());
     }
 
     // 데이터를 Firebase에 저장하는 메서드
