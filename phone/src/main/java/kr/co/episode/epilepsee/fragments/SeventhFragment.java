@@ -418,7 +418,7 @@ public class SeventhFragment extends Fragment {
         // 발작 데이터를 저장할 날짜를 가져옴 (yyyy-MM-dd 형식)
         String seizureDate = seizureViewModel.getSeizureDate();
         // 날짜를 기준으로 데이터 저장
-        DatabaseReference dateReference = databaseReference.child(seizureDate).child("SeizureData");
+        DatabaseReference dateReference = databaseReference.child(seizureDate).child("seizureData");
         // 발작 시각 등의 데이터를 저장
         DatabaseReference seizureReference = dateReference.push();
         seizureReference.child("seizureTime").setValue(seizureViewModel.getSeizureTime());

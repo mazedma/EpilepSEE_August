@@ -1,18 +1,23 @@
 package kr.co.episode.epilepsee.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -29,18 +34,22 @@ import java.util.Locale;
 
 import kr.co.episode.epilepsee.MainActivity;
 import kr.co.episode.epilepsee.R;
+import kr.co.episode.epilepsee.dataModel.SideEffectData;
 import kr.co.episode.epilepsee.databinding.ActivitySeizureBinding;
 import kr.co.episode.epilepsee.databinding.ActivitySideEffectBinding;
+import kr.co.episode.epilepsee.fragments.FirstFragment;
 
 public class SideEffectActivity extends AppCompatActivity {
 
-    Button DrugdateButton;
+    Button DrugdateButton, DrugTimeButton;
     ActivitySideEffectBinding activitySideEffectBinding;
 
     private Button btnSideEffectSave;
 
     private List<String> selectedEffects = new ArrayList<>();
     private String selectedDate = "";
+
+    private String selectedTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,9 @@ public class SideEffectActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true); // 오프라인 지원을 활성화하려는 경우
 
+        //버튼 초기화
         DrugdateButton = activitySideEffectBinding.DrugdateButton;
+        DrugTimeButton = activitySideEffectBinding.DrugTimeButton;
 
         //액션바에 백 버튼 추가
         ActionBar actionBar = getSupportActionBar();
@@ -62,12 +73,32 @@ public class SideEffectActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("약물 부작용"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
+        // 추가: 앱이 튕길 때 로그 메시지 출력
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+                Log.e("AppCrash", "앱이 비정상 종료되었습니다.", ex);
+                // 원하는 추가 작업을 수행할 수도 있습니다.
+                // 예: 오류 보고 또는 앱 종료 처리 등
+                finish(); // 현재 액티비티 종료
+                System.exit(0); // 앱 종료
+            }
+        });
+
+
         DrugdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { showDatePickerDialog();}
-
+            public void onClick(View view) {
+                showDatePickerDialog();
+                Log.d("SideEffectActivity", "DrugdateButton 클릭됨");}
             });
 
+        DrugTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog();
+            }
+        });
         //저장버튼
         btnSideEffectSave = findViewById(R.id.btnSideEffectSave);
         btnSideEffectSave.setOnClickListener(new View.OnClickListener() {
@@ -77,10 +108,15 @@ public class SideEffectActivity extends AppCompatActivity {
                     Toast.makeText(SideEffectActivity.this,"날짜를 선택하세요.",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(selectedTime.isEmpty()){
+                    Toast.makeText(SideEffectActivity.this,"시간을 선택하세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (selectedEffects.isEmpty()){
                     Toast.makeText(SideEffectActivity.this,"부작용을 선택하세요",Toast.LENGTH_SHORT).show();
                 }else{
                 saveSideEffectsToDatabase();}
+                Log.d("SideEffectActivity", "부작용 데이터가 저장되었습니다."); // 성공 로그 출력
                 // 메인 화면으로 이동
                 Intent mainIntent = new Intent(SideEffectActivity.this, MainActivity.class);
                 startActivity(mainIntent);
@@ -129,7 +165,38 @@ public class SideEffectActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
 
     }
+    public void showTimePickerDialog() {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+    public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
+        @NonNull
+        @Override
+        public TimePickerDialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute, false);
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+
+            // Format the selected time
+            DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            String selectedTime = timeFormat.format(calendar.getTime());
+            //화면에 선택한 시간 표시
+            TextView seizureDrugTimeTextView = getActivity().findViewById(R.id.seizureDrugTimeTextView);
+            seizureDrugTimeTextView.setText(selectedTime);
+            ((SideEffectActivity) getActivity()).setSelectedTime(selectedTime);
+        }
+    }
 
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
@@ -166,12 +233,26 @@ public class SideEffectActivity extends AppCompatActivity {
         selectedDate = date;
     }
 
+    private void setSelectedTime(String time){
+        selectedTime = time;
+    }
     private void saveSideEffectsToDatabase(){
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(selectedDate).child("SideEffectData").setValue(selectedEffects);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference sideEffectDataRef = database.getReference(selectedDate).child("sideEffectData");
+
+        // 랜덤 키 생성
+        String key = sideEffectDataRef.push().getKey();
+
+        // 선택된 부작용 데이터를 Firebase에 저장
+        DatabaseReference entryRef = sideEffectDataRef.child(key); // 랜덤 키값 레퍼런스 가져오기
+        entryRef.child("sideEffectTime").setValue(selectedTime); // DrugTime 저장
+        entryRef.child("sideEffectType").setValue(selectedEffects); // 부작용 내용 저장
+
+
         // 저장이 완료되었다는 메시지 표시
         Toast.makeText(this, "부작용 데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
 
     }
     @Override

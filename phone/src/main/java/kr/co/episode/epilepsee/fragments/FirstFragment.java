@@ -40,9 +40,9 @@ public class FirstFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_first, container, false);
 
 
-        timeButton = rootView.findViewById(R.id.timeButton);
+        timeButton = rootView.findViewById(R.id.DrugTimeButton);
         dateButton = rootView.findViewById(R.id.dateButton);
-        seizureTimeTextView = rootView.findViewById(R.id.seizureTimeTextView);
+        seizureTimeTextView = rootView.findViewById(R.id.seizureDrugTimeTextView);
         seizureDateTextView = rootView.findViewById(R.id.seizureDateTextView);
 
         // ViewModelProvider를 통해 SeizureViewModel 인스턴스를 가져오기.
@@ -118,7 +118,7 @@ public class FirstFragment extends Fragment {
                 parentFragment.seizureViewModel.setSeizureTime(selectedTime);
             }
             //화면에 선택한 시간 표시
-            TextView seizureTimeTextView = getActivity().findViewById(R.id.seizureTimeTextView);
+            TextView seizureTimeTextView = getActivity().findViewById(R.id.seizureDrugTimeTextView);
             seizureTimeTextView.setText(selectedTime);
         }
     }

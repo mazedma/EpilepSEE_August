@@ -1,11 +1,13 @@
 package kr.co.episode.epilepsee.activities;
 //깃헙 브랜치 연동 확인 23.08.07 이이나
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -99,8 +101,27 @@ public class SeizureActivity extends AppCompatActivity {
     // 액션바의 백 버튼 클릭 이벤트 처리
     @Override
     public boolean onSupportNavigateUp () {
-        onBackPressed();
+        showConfirmationDialog();
         return true;
+    }
+
+    private void showConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("발작 기록 중단");
+        builder.setMessage("정말로 발작 기록을 중단하시겠습니까?");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                returnToHomeScreen();
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // 사용자가 아니오를 선택한 경우 아무 작업도 필요하지 않습니다.
+            }
+        });
+        builder.show();
     }
     // 메인 액티비티로 이동
     private void returnToHomeScreen() {
