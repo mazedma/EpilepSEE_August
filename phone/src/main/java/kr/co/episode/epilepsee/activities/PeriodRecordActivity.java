@@ -88,31 +88,39 @@ public class PeriodRecordActivity extends AppCompatActivity {
 
     // 데이터를 Firebase에 저장하는 메서드
     private void savePeriodData() {
-        String startDate = activityPeriodRecordBinding.startDateEditText.getText().toString();
-        String endDate = activityPeriodRecordBinding.endDateEditText.getText().toString();
+        String startDateStr = activityPeriodRecordBinding.startDateEditText.getText().toString();
+        String endDateStr = activityPeriodRecordBinding.endDateEditText.getText().toString();
 
-        if (!startDate.isEmpty() && !endDate.isEmpty()) {
-            // startDate와 endDate 사이의 모든 날짜를 저장
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        if (!startDateStr.isEmpty() && !endDateStr.isEmpty()) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+                Date startDate = sdf.parse(startDateStr);
+                Date endDate = sdf.parse(endDateStr);
 
-            while (!sdf.format(calendar.getTime()).equals(endDate)) {
-                String currentDate = sdf.format(calendar.getTime());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(startDate);
 
-                // Firebase에 데이터 저장
-                DatabaseReference currentDateRef = databaseReference.child("periodData").child(currentDate);
-                currentDateRef.child("menstrualData").child("menstrualBool").setValue(true);
+                while (!calendar.getTime().after(endDate)) {
+                    String currentDate = sdf.format(calendar.getTime());
 
-                // 다음 날짜로 이동
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                    // Firebase에 데이터 저장
+                    DatabaseReference currentDateRef = databaseReference.child(currentDate);
+                    currentDateRef.child("menstrualData").child("menstrualBool").setValue(true);
+
+                    // 다음 날짜로 이동
+                    calendar.add(Calendar.DAY_OF_MONTH, 1);
+                }
+
+                Toast.makeText(this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "날짜 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
             }
-
-            Toast.makeText(this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "시작 날짜와 종료 날짜를 입력하세요.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     // 액션바의 백 버튼 클릭 이벤트 처리
     @Override
