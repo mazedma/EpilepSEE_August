@@ -37,6 +37,7 @@ public class PeriodRecordActivity extends AppCompatActivity {
 
     ActivityPeriodRecordBinding activityPeriodRecordBinding;
     DatabaseReference databaseReference;
+    ValueEventListener eventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +49,8 @@ public class PeriodRecordActivity extends AppCompatActivity {
         // Firebase Database 초기화
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        // 예시: 빨간색으로 표시할 날짜의 컬렉션 생성
-        HashSet<CalendarDay> eventDates = new HashSet<>();
-        eventDates.add(CalendarDay.from(2023, 9, 1));
-        eventDates.add(CalendarDay.from(2023, 9, 5));
-        eventDates.add(CalendarDay.from(2023, 9, 10));
-
-        EventDecorator eventDecorator = new EventDecorator(Color.RED, eventDates);
-
-        // MaterialCalendarView에 Decorator 추가
-        activityPeriodRecordBinding.calendarView.addDecorator(eventDecorator);
-
-
-
         // "menstrualData" 하위의 데이터를 가져오기 위한 ValueEventListener 생성
-        ValueEventListener eventListener = new ValueEventListener() {
+        eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // 모든 날짜에 대해 반복
@@ -85,6 +73,27 @@ public class PeriodRecordActivity extends AppCompatActivity {
                 }
 
                 displayMenstrualDatesInTextView(menstrualDates);
+
+                // menstrualDates 리스트에서 CalendarDay 객체로 변환하여 빨간색으로 표시할 날짜의 컬렉션 생성
+                HashSet<CalendarDay> eventDates = new HashSet<>();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                for (String date : menstrualDates) {
+                    try {
+                        Date parsedDate = sdf.parse(date);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(parsedDate);
+                        eventDates.add(CalendarDay.from(calendar));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                EventDecorator eventDecorator = new EventDecorator(Color.RED, eventDates);
+
+                // MaterialCalendarView에 Decorator 추가
+                activityPeriodRecordBinding.calendarView.addDecorator(eventDecorator);
+
             }
 
             @Override
@@ -96,6 +105,7 @@ public class PeriodRecordActivity extends AppCompatActivity {
 
         // "menstrualData" 하위의 데이터를 가져오기 위한 ValueEventListener를 추가
         databaseReference.addListenerForSingleValueEvent(eventListener);
+
 
 
         // 액션바에 백 버튼 추가
@@ -157,8 +167,6 @@ public class PeriodRecordActivity extends AppCompatActivity {
         for (String date : menstrualDates) {
             builder.append(date).append("\n");
         }
-        TextView menstrualDateTextView = findViewById(R.id.menstrualDateTextView);
-        menstrualDateTextView.setText("Menstrual Dates:\n" + builder.toString());
     }
 
     // 데이터를 Firebase에 저장하는 메서드
@@ -185,6 +193,9 @@ public class PeriodRecordActivity extends AppCompatActivity {
                     // 다음 날짜로 이동
                     calendar.add(Calendar.DAY_OF_MONTH, 1);
                 }
+
+                // "save" 버튼을 누를 때 ValueEventListener를 다시 실행
+                databaseReference.addListenerForSingleValueEvent(eventListener);
 
                 Toast.makeText(this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
