@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,15 +18,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
+import kr.co.episode.epilepsee.EventDecorator;
 import kr.co.episode.epilepsee.R;
 import kr.co.episode.epilepsee.databinding.ActivityPeriodRecordBinding;
 
@@ -33,8 +37,6 @@ public class PeriodRecordActivity extends AppCompatActivity {
 
     ActivityPeriodRecordBinding activityPeriodRecordBinding;
     DatabaseReference databaseReference;
-
-    private MaterialCalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,18 @@ public class PeriodRecordActivity extends AppCompatActivity {
         ArrayList<String> menstrualDates = new ArrayList<>();
         // Firebase Database 초기화
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        // meterialCanlender 초기화
-        calendarView = activityPeriodRecordBinding.calendarView;
+
+        // 예시: 빨간색으로 표시할 날짜의 컬렉션 생성
+        HashSet<CalendarDay> eventDates = new HashSet<>();
+        eventDates.add(CalendarDay.from(2023, 9, 1));
+        eventDates.add(CalendarDay.from(2023, 9, 5));
+        eventDates.add(CalendarDay.from(2023, 9, 10));
+
+        EventDecorator eventDecorator = new EventDecorator(Color.RED, eventDates);
+
+        // MaterialCalendarView에 Decorator 추가
+        activityPeriodRecordBinding.calendarView.addDecorator(eventDecorator);
+
 
 
         // "menstrualData" 하위의 데이터를 가져오기 위한 ValueEventListener 생성
