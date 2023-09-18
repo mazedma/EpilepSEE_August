@@ -135,6 +135,7 @@ public class MedicationScheduleActivity extends AppCompatActivity {
         }
 
         // 선택한 날짜 범위 내에 데이터 저장
+        // 선택한 날짜 범위 내에 데이터 저장
         DatabaseReference medicationRef = databaseReference;
         for (Calendar date = startCalendar; !date.after(endCalendar); date.add(Calendar.DATE, 1)) {
             int dayOfWeek = date.get(Calendar.DAY_OF_WEEK);
@@ -170,13 +171,13 @@ public class MedicationScheduleActivity extends AppCompatActivity {
                 DatabaseReference dateRef = medicationRef.child(sdf.format(date.getTime())); // 날짜를 "yyyy-MM-dd" 형식으로 포맷합니다.
                 DatabaseReference medicationListRef = dateRef.child("medicationList");
                 Medication medication = new Medication(medicationName, numPills + " 정", selectedTimings, dosageTimings);
-                DatabaseReference newMedicationRef = medicationListRef.push();
-                newMedicationRef.setValue(medication);
+                medicationListRef.setValue(medication); // 바로 medicationList 아래에 데이터를 저장합니다.
             }
         }
     }
 
-    // 선택한 요일을 반환하는 메서드
+
+        // 선택한 요일을 반환하는 메서드
     private ArrayList<String> getSelectedDays() {
         ArrayList<String> selectedDays = new ArrayList<>();
         CheckBox checkBoxMon = activityMedicationScheduleBinding.checkBoxMon;
