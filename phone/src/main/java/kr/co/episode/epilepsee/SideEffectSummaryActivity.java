@@ -27,6 +27,7 @@ public class SideEffectSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_side_effect_summary);
 
+
         //Firebase Database 참조 가져오기
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

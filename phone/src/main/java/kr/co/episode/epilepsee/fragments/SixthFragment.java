@@ -2,6 +2,9 @@ package kr.co.episode.epilepsee.fragments;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -23,6 +26,7 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -51,6 +55,7 @@ public class SixthFragment extends Fragment {
     private Button placeButton3;
     private Button placeButton4;
     private Button placeButton5;
+    private Button selectedButton;
     private CheckBox sleepCheckbox;
 
     private EditText emergencyMedicationEditText;
@@ -77,6 +82,7 @@ public class SixthFragment extends Fragment {
         placeButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(placeButton1,"#6528F7");
                 seizureViewModel.setSeizureLocation("집");
             }
         });
@@ -84,12 +90,15 @@ public class SixthFragment extends Fragment {
         placeButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(placeButton2,"#6528F7");
                 seizureViewModel.setSeizureLocation("학교");
             }
         });
         placeButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                selectButton(placeButton3,"#6528F7");
                 seizureViewModel.setSeizureLocation("직장");
             }
         });
@@ -97,6 +106,7 @@ public class SixthFragment extends Fragment {
         placeButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(placeButton4,"#6528F7");
                 seizureViewModel.setSeizureLocation("이동 중");
             }
         });
@@ -104,6 +114,7 @@ public class SixthFragment extends Fragment {
         placeButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(placeButton5,"#6528F7");
                 seizureViewModel.setSeizureLocation("기타");
             }
         });
@@ -238,6 +249,19 @@ public class SixthFragment extends Fragment {
 
         seizureViewModel.setEmergencyMedication(addedMedications);
 
+    }
+
+    private void selectButton(Button button, String backgroundColor) {
+        if (selectedButton != null) {
+            // 다른 버튼을 선택하면 이전 버튼의 색상을 원래대로 되돌리기
+            selectedButton.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.button_ripple_round));
+        }
+        // 선택한 버튼의 클릭 효과 적용
+        Drawable drawable = ContextCompat.getDrawable(requireContext(), R.drawable.button_ripple_round);
+        drawable.setColorFilter(Color.parseColor(backgroundColor), PorterDuff.Mode.SRC);
+        button.setBackground(drawable);
+
+        selectedButton = button;
     }
 
 }

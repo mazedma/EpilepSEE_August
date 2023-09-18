@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.SideEffectActivity">
+    tools:context=".activities.SideEffectActivity"
+    android:background="#EDE4FF">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -52,6 +53,7 @@
                         android:layout_marginEnd="10dp"
                         android:onClick="showDatePickerDialog"
                         android:text="날짜 선택"
+                        android:background="@drawable/button_round_general"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
@@ -79,6 +81,7 @@
                         android:layout_marginRight="10dp"
                         android:onClick="showTimePickerDialog"
                         android:text="시간 선택"
+                        android:background="@drawable/button_round_general"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>
 
@@ -261,7 +264,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textOff="졸림"
-                            android:textOn="졸림" />
+                            android:textOn="졸림"
+                            />
 
 
                     </TableRow>
@@ -271,19 +275,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:orientation="vertical">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+                android:layout_height="73dp"
+                android:orientation="vertical" />
 
             <Button
                 android:id="@+id/btnSideEffectSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_horizontal"
+                android:background="@drawable/button_round_general"
                 android:text="저장"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>

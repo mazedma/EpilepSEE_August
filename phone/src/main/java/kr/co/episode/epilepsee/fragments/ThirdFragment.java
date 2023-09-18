@@ -1,5 +1,6 @@
 package kr.co.episode.epilepsee.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class ThirdFragment extends Fragment {
     private Button general2;
     private Button general3;
     private Button general4;
+    private Button selectedButton;
 
     private SeizureViewModel seizureViewModel;
 
@@ -36,9 +38,11 @@ public class ThirdFragment extends Fragment {
         // ViewModelProvider를 통해 SeizureViewModel 인스턴스를 가져오기.
         seizureViewModel = new ViewModelProvider(requireActivity()).get(SeizureViewModel.class);
 
+        // 버튼 클릭 이벤트 처리
         general1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(general1, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("전신성 긴장간대발작");
             }
         });
@@ -46,6 +50,7 @@ public class ThirdFragment extends Fragment {
         general2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(general2, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("전신성 소발작");
             }
         });
@@ -53,6 +58,7 @@ public class ThirdFragment extends Fragment {
         general3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(general3, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("간대성 근경련 발작");
             }
         });
@@ -60,9 +66,23 @@ public class ThirdFragment extends Fragment {
         general4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(general4, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("무긴장성 발작");
             }
         });
+
+
         return rootView;
+    }
+    // 선택한 버튼의 스타일 변경
+    private void selectButton(Button button, String backgroundColor) {
+        if (selectedButton != null) {
+            // 다른 버튼을 선택하면 이전 버튼의 색상을 원래대로 되돌리기
+            selectedButton.setBackgroundResource(R.drawable.default_button_background);
+        }
+
+        // 선택한 버튼의 스타일 변경
+        button.setBackgroundColor(Color.parseColor(backgroundColor));
+        selectedButton = button;
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="#E5CFF7">
+    android:background="#EDE4FF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
             android:layout_height="60dp"
             android:layout_margin="10dp"
             android:layout_weight="0"
+            android:background="@drawable/rounded_rectangle_button"
             app:srcCompat="@drawable/ic_side_menu" />
     </LinearLayout>
 
@@ -47,7 +48,7 @@
             android:id="@+id/statusButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_button"
             app:layout_constraintBottom_toBottomOf="parent"

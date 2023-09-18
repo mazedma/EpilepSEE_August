@@ -1,5 +1,6 @@
 package kr.co.episode.epilepsee.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ public class FourthFragment extends Fragment {
     private Button partial1;
     private Button partial2;
     private Button partial3;
-
+    private Button selectedButton;
     private SeizureViewModel seizureViewModel;
     @Nullable
     @Override
@@ -35,6 +36,7 @@ public class FourthFragment extends Fragment {
         partial1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(partial1, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("단순 부분 발작");
             }
         });
@@ -42,6 +44,7 @@ public class FourthFragment extends Fragment {
         partial2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(partial2, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("복합 부분 발작");
             }
         });
@@ -49,10 +52,21 @@ public class FourthFragment extends Fragment {
         partial3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                selectButton(partial3, "#6528F7");
                 seizureViewModel.setSeizureTypeSecondary("2차성 전신 발작");
             }
         });
         return rootView;
 
+    }
+    private void selectButton(Button button, String backgroundColor) {
+        if (selectedButton != null) {
+            // 다른 버튼을 선택하면 이전 버튼의 색상을 원래대로 되돌리기
+            selectedButton.setBackgroundResource(R.drawable.default_button_background);
+        }
+
+        // 선택한 버튼의 스타일 변경
+        button.setBackgroundColor(Color.parseColor(backgroundColor));
+        selectedButton = button;
     }
 }
