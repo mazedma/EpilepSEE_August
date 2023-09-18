@@ -7,8 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,7 +54,8 @@ public class DailyActivity extends AppCompatActivity {
         // 선택한 날짜에 해당하는 노드로 참조
         DatabaseReference selectedDateReference = databaseReference.child(selectedDate);
 
-
+        //약물정보 받아오기
+        getDataFromFirebase();
 
         // ValueEventListener를 사용하여 menstrualData의 데이터를 가져옵니다.
         selectedDateReference.child("menstrualData").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -218,4 +222,63 @@ public class DailyActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    // Firebase에서 복용 약물 정보 가져오기
+    private void getDataFromFirebase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        String selectedDate = getIntent().getStringExtra("selectedDate"); // DailyActivity에서 선택한 날짜 가져오기
+
+        // 선택한 날짜를 사용하여 경로 설정
+        DatabaseReference selectedDateReference = databaseReference.child(selectedDate);
+
+        // 데이터 가져오기
+        selectedDateReference.child("medicationList").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    StringBuilder medicationListText = new StringBuilder();
+
+                    for (DataSnapshot medicationSnapshot : dataSnapshot.getChildren()) {
+                        String dosage = medicationSnapshot.child("dosage").getValue(String.class);
+                        String dosageTimings = medicationSnapshot.child("dosageTimings").getValue(String.class);
+                        String medicationName = medicationSnapshot.child("medicationName").getValue(String.class);
+
+                        // "timing" 값을 ArrayList로 가져오기
+                        ArrayList<String> timingData = new ArrayList<>();
+                        for (DataSnapshot timingSnapshot : medicationSnapshot.child("timing").getChildren()) {
+                            String timingValue = timingSnapshot.getValue(String.class);
+                            timingData.add(timingValue);
+                        }
+
+                        // 하나의 문자열로 합치기
+                        String medicationInfo = dosage + " " + dosageTimings + " " + medicationName;
+                        medicationListText.append(medicationInfo).append("\n");
+
+                        // "timing" 값을 RadioButton으로 추가
+                        RadioGroup radioGroup = new RadioGroup(DailyActivity.this);
+                        for (String timing : timingData) {
+                            RadioButton radioButton = new RadioButton(DailyActivity.this);
+                            radioButton.setText(timing);
+                            radioGroup.addView(radioButton);
+                        }
+
+                        // radioGroup을 화면에 추가
+                        // 여기서는 DailyActivity의 레이아웃을 사용하므로 변경이 필요할 수 있습니다.
+                        LinearLayout radioGroupContainer = findViewById(R.id.radioGroupContainer); // 적절한 레이아웃 ID로 변경
+                        radioGroupContainer.addView(radioGroup);
+                    }
+
+                    // TextView에 값을 설정
+                    TextView medicationInfoTextView = findViewById(R.id.medicationInfoTextView);
+                    medicationInfoTextView.setText(medicationListText.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // 에러 처리
+            }
+        });
+    }
+
 }
