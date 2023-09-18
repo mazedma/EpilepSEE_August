@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -37,6 +38,9 @@ public class DrugCompleteActivity extends Activity {
     Date mDate = ((DrugActivity) DrugActivity.context_drug).recordedTimeDrug;
     String getTime = simpleDate.format(mDate);
 
+    // 복용 시기
+    private String checkedRadio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +48,10 @@ public class DrugCompleteActivity extends Activity {
         binding = ActivityDrugCompleteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // SideEffectActivity에서 선택된 라디오버튼의 text값 가져오기
-        String checkedRadio = ((DrugActivity) DrugActivity.context_drug).checkedRadioDrug;
+        // DrugActivity에서 선택된 라디오버튼의 text값 가져오기
+        checkedRadio = getIntent().getStringExtra("checkedRadioDrug"); // Intent로 전달된 값 추출
+        Log.d("TAG", "checkedRadio: " + checkedRadio);
+
         binding.textView6.setText(checkedRadio); //text값 출력
 
         // 기록된 시간 출력

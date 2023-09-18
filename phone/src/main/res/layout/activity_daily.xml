@@ -162,29 +162,18 @@
                     android:textColor="#000000"
                     android:text="약물 복용"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textColor="#000000"
-                    android:text="약물 복용 기록이 없습니다."/>
-                <TextView
                     android:id="@+id/medicationInfoTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textColor="#000000"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp" />
+                    android:text="약물 복용 기록이 없습니다."/>
                 <!-- RadioGroup을 추가할 컨테이너 레이아웃 -->
                 <LinearLayout
                     android:id="@+id/radioGroupContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="vertical">
                     <!-- Firebase에서 동적으로 추가될 RadioGroup 및 RadioButton이 여기에 추가됩니다. -->
                 </LinearLayout>
             </LinearLayout>

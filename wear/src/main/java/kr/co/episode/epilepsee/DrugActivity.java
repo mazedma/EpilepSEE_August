@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -33,6 +34,10 @@ public class DrugActivity extends Activity {
     SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); // 시간을 나타낼 포맷 설정
     String getTime = simpleDate.format(mDate); // getTime 변수에 값을 저장
 
+    // 동적으로 생성한 RadioGroup 객체와 선택된 라디오 버튼을 저장할 변수 선언
+    private RadioGroup dynamicRadioGroup;
+    private RadioButton selectedRadioButton;
+
     // 다른 Activity 접근
     public static Context context_drug; // context 변수 선언
     public String checkedRadioDrug; // 다른 Activity에서 접근할 변수 : 라디오 선택값
@@ -47,29 +52,35 @@ public class DrugActivity extends Activity {
 
         binding.date.setText(getTime); // 오늘날짜 화면에 출력
 
-        // 라디오버튼 결과값 관련
-        context_drug = this; // onCreate에서 this 할당
-
         // Firebase로부터 데이터 가져오기
         getDataFromFirebase();
+
+        // 동적으로 생성한 RadioGroup 객체 초기화
+        dynamicRadioGroup = new RadioGroup(this);
+        // 라디오버튼 결과값 관련
+        context_drug = this; // onCreate에서 this 할당
 
         // 기록하기 버튼 클릭 리스너
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 라디오버튼 결과값 할당
-                int checkedRadioButtonId = binding.radioGroup.getCheckedRadioButtonId(); // 체크된 라디오버튼 아이디 가져오기
-                RadioButton radioButton = findViewById(checkedRadioButtonId); // 받은 id 값으로 해당 뷰 불러오기
-                checkedRadioDrug = radioButton.getText().toString(); // text값 가져와서 변수에 저장
+                // 선택된 라디오 버튼의 값을 가져와서 사용
+                if (selectedRadioButton != null) {
+                    String selectedText = selectedRadioButton.getText().toString();
+                    recordedTimeDrug = mDate; // 현재시간 할당
 
-                recordedTimeDrug = mDate; // 현재시간 할당
-
-                // 확인 화면 띄우기
-                Intent intent = new Intent(getApplicationContext(), DrugCompleteActivity.class);
-                startActivity(intent);
-                finish();
+                    // 확인 화면 띄우기
+                    Intent intent = new Intent(getApplicationContext(), DrugCompleteActivity.class);
+                    intent.putExtra("checkedRadioDrug", selectedText); // 선택된 라디오 버튼의 텍스트 값을 인텐트에 추가
+                    startActivity(intent);
+                    finish();
+                } else {
+                    // 선택된 라디오 버튼이 없을 때 처리
+                    // 예: 사용자에게 선택하도록 메시지 표시
+                }
             }
         });
+
     }
 
     private void getDataFromFirebase() {
@@ -107,19 +118,29 @@ public class DrugActivity extends Activity {
                             medicationListText.append(medicationInfo).append("\n");
 
                             // "timing" 값을 radioButton으로 추가
-                            RadioGroup radioGroup = new RadioGroup(context_drug);
                             for (String timing : timingData) {
                                 RadioButton radioButton = new RadioButton(context_drug);
                                 radioButton.setText(timing);
-                                radioGroup.addView(radioButton);
-                            }
+                                dynamicRadioGroup.addView(radioButton);
 
-                            // radioGroup을 화면에 추가
-                            binding.radioGroup.addView(radioGroup);
+                                // 라디오 버튼에 선택 리스너 추가
+                                radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                    @Override
+                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                        if (isChecked) {
+                                            // 사용자가 라디오 버튼을 선택한 경우, 선택된 라디오 버튼을 저장
+                                            selectedRadioButton = radioButton;
+                                        }
+                                    }
+                                });
+                            }
                         }
 
                         // TextView에 값을 설정
                         binding.dosageTextView.setText(medicationListText.toString());
+
+                        // dynamicRadioGroup을 화면에 추가
+                        binding.radioGroup.addView(dynamicRadioGroup);
                     }
                 } else {
                     Log.e("FirebaseError", "Firebase 데이터베이스 오류: " + task.getException().getMessage());
@@ -127,6 +148,4 @@ public class DrugActivity extends Activity {
             }
         });
     }
-
-
 }
