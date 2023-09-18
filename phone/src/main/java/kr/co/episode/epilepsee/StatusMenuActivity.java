@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -23,6 +26,8 @@ public class StatusMenuActivity extends AppCompatActivity {
     Button saveButton;
     Calendar selectedDate;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,8 @@ public class StatusMenuActivity extends AppCompatActivity {
         moodSeekBar = findViewById(R.id.moodSeekBar);
         sleepQualitySeekBar = findViewById(R.id.sleepQualitySeekBar);
         saveButton = findViewById(R.id.saveButton);
+        SeekBar moodSeekBar = findViewById(R.id.moodSeekBar);
+        SeekBar sleepQualitySeekBar = findViewById(R.id.sleepQualitySeekBar);
 
         // 날짜를 선택하기 위한 EditText 클릭 이벤트 처리
         dateEditText.setOnClickListener(new View.OnClickListener() {
@@ -41,8 +48,42 @@ public class StatusMenuActivity extends AppCompatActivity {
             }
         });
 
-        // 나머지 코드 및 기능 구현을 진행합니다.
-        // ...
+
+
+// SeekBar의 최대 값을 10으로 설정
+        moodSeekBar.setMax(10);
+        sleepQualitySeekBar.setMax(10);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Firebase Realtime Database에 데이터를 저장하기 위한 DatabaseReference 생성
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+                if (selectedDate != null) {
+                    // 선택한 날짜를 "yyyy-MM-dd" 형식으로 포맷팅
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    String formattedDate = sdf.format(selectedDate.getTime());
+
+                    // 저장할 데이터를 생성 (mood와 sleepQuality 값을 가져옴)
+                    int moodValue = moodSeekBar.getProgress();
+                    int sleepQualityValue = sleepQualitySeekBar.getProgress();
+
+                    // moodValue와 sleepQualityValue를 그대로 저장
+                    // Firebase에 데이터를 저장할 때는 0부터 10까지의 범위로 나누지 않고 그대로 저장
+                    DatabaseReference statusDataReference = databaseReference.child(formattedDate).child("statusData");
+                    statusDataReference.child("mood").setValue(moodValue);
+                    statusDataReference.child("sleepQuality").setValue(sleepQualityValue);
+
+                    Toast.makeText(StatusMenuActivity.this, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(StatusMenuActivity.this, "날짜를 선택하세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
     }
 
     // 달력 다이얼로그 표시 메서드
@@ -72,6 +113,4 @@ public class StatusMenuActivity extends AppCompatActivity {
     }
 
 
-    // 나머지 코드와 기능을 구현합니다.
-    // ...
 }
