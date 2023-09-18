@@ -30,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this); // Firebase 초기화
 
+        //혜원 추가 0919
+        activityMainBinding.statusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, StatusMenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         // menu popup 버튼 연결
         activityMainBinding.menuButton.setOnClickListener(new View.OnClickListener() {
             @Override

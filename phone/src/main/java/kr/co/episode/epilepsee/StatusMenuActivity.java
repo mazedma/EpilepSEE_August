@@ -17,10 +17,5 @@ public class StatusMenuActivity extends AppCompatActivity {
         activityStatusMenuBinding = ActivityStatusMenuBinding.inflate(getLayoutInflater());
         setContentView(activityStatusMenuBinding.getRoot());
 
-        //뒷배경이 반투명한 activity 만들기
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
     }
 }
