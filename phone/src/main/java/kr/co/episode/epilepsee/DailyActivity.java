@@ -241,18 +241,26 @@ public class DailyActivity extends AppCompatActivity {
                     String dosageTimings = dataSnapshot.child("dosageTimings").getValue(String.class);
                     String medicationName = dataSnapshot.child("medicationName").getValue(String.class);
 
-                    String medicationInfo = medicationName + dosageTimings + dosage  ;
+                    String medicationInfo = medicationName +" / "+ dosageTimings+" / " + dosage  ;
 
                     // 예: TextView에 값을 설정
                     TextView medicationInfoTextView = findViewById(R.id.medicationInfoTextView);
                     medicationInfoTextView.setText(medicationInfo);
+
+
+                    DataSnapshot doneSnapshot = dataSnapshot.child("done");
 
                     // "timing" 값을 ArrayList로 가져오기
                     DataSnapshot timingSnapshot = dataSnapshot.child("timing");
                     List<String> timingList = new ArrayList<>();
                     for (DataSnapshot timingData : timingSnapshot.getChildren()) {
                         String timingValue = timingData.getValue(String.class);
-                        timingList.add(timingValue);
+                        boolean doneValue = false; // 기본적으로 false로 설정
+                        if (doneSnapshot.hasChild(timingValue)) {
+                            // 자식 노드가 있을 때 값을 가져옴
+                            doneValue = doneSnapshot.child(timingValue).getValue(Boolean.class);
+                        }
+                        timingList.add(timingValue + (doneValue ? " (O)" : " (X)"));
                     }
 
                     // ListView 어댑터 설정
