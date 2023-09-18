@@ -169,13 +169,12 @@
                     android:textColor="#000000"
                     android:text="약물 복용 기록이 없습니다."/>
                 <!-- RadioGroup을 추가할 컨테이너 레이아웃 -->
-                <LinearLayout
-                    android:id="@+id/radioGroupContainer"
+                <ListView
+                    android:id="@+id/timingListView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <!-- Firebase에서 동적으로 추가될 RadioGroup 및 RadioButton이 여기에 추가됩니다. -->
-                </LinearLayout>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp" />
             </LinearLayout>
 
 

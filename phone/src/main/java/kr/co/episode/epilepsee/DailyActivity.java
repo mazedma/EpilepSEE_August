@@ -229,48 +229,40 @@ public class DailyActivity extends AppCompatActivity {
         String selectedDate = getIntent().getStringExtra("selectedDate"); // DailyActivity에서 선택한 날짜 가져오기
 
         // 선택한 날짜를 사용하여 경로 설정
-        DatabaseReference selectedDateReference = databaseReference.child(selectedDate);
+        DatabaseReference selectedDateReference = databaseReference.child(selectedDate).child("medicationList");
 
         // 데이터 가져오기
-        selectedDateReference.child("medicationList").addListenerForSingleValueEvent(new ValueEventListener() {
+        selectedDateReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    StringBuilder medicationListText = new StringBuilder();
+                    // "dosage", "dosageTimings", "medicationName" 값을 가져와서 한 줄에 표시
+                    String dosage = dataSnapshot.child("dosage").getValue(String.class);
+                    String dosageTimings = dataSnapshot.child("dosageTimings").getValue(String.class);
+                    String medicationName = dataSnapshot.child("medicationName").getValue(String.class);
 
-                    for (DataSnapshot medicationSnapshot : dataSnapshot.getChildren()) {
-                        String dosage = medicationSnapshot.child("dosage").getValue(String.class);
-                        String dosageTimings = medicationSnapshot.child("dosageTimings").getValue(String.class);
-                        String medicationName = medicationSnapshot.child("medicationName").getValue(String.class);
+                    String medicationInfo = "용량: " + dosage + " / 복용 시간: " + dosageTimings + " / 약물 이름: " + medicationName;
 
-                        // "timing" 값을 ArrayList로 가져오기
-                        ArrayList<String> timingData = new ArrayList<>();
-                        for (DataSnapshot timingSnapshot : medicationSnapshot.child("timing").getChildren()) {
-                            String timingValue = timingSnapshot.getValue(String.class);
-                            timingData.add(timingValue);
-                        }
+                    // 예: TextView에 값을 설정
+                    TextView medicationInfoTextView = findViewById(R.id.medicationInfoTextView);
+                    medicationInfoTextView.setText(medicationInfo);
 
-                        // 하나의 문자열로 합치기
-                        String medicationInfo = dosage + " " + dosageTimings + " " + medicationName;
-                        medicationListText.append(medicationInfo).append("\n");
-
-                        // "timing" 값을 RadioButton으로 추가
-                        RadioGroup radioGroup = new RadioGroup(DailyActivity.this);
-                        for (String timing : timingData) {
-                            RadioButton radioButton = new RadioButton(DailyActivity.this);
-                            radioButton.setText(timing);
-                            radioGroup.addView(radioButton);
-                        }
-
-                        // radioGroup을 화면에 추가
-                        // 여기서는 DailyActivity의 레이아웃을 사용하므로 변경이 필요할 수 있습니다.
-                        LinearLayout radioGroupContainer = findViewById(R.id.radioGroupContainer); // 적절한 레이아웃 ID로 변경
-                        radioGroupContainer.addView(radioGroup);
+                    // "timing" 값을 ArrayList로 가져오기
+                    DataSnapshot timingSnapshot = dataSnapshot.child("timing");
+                    List<String> timingList = new ArrayList<>();
+                    for (DataSnapshot timingData : timingSnapshot.getChildren()) {
+                        String timingValue = timingData.getValue(String.class);
+                        timingList.add(timingValue);
                     }
 
-                    // TextView에 값을 설정
-                    TextView medicationInfoTextView = findViewById(R.id.medicationInfoTextView);
-                    medicationInfoTextView.setText(medicationListText.toString());
+                    // ListView 어댑터 설정
+                    ArrayAdapter<String> timingAdapter = new ArrayAdapter<>(DailyActivity.this, android.R.layout.simple_list_item_1, timingList);
+
+                    // ListView 찾아오기
+                    ListView timingListView = findViewById(R.id.timingListView);
+
+                    // ListView에 어댑터 설정
+                    timingListView.setAdapter(timingAdapter);
                 }
             }
 
@@ -280,5 +272,6 @@ public class DailyActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }
