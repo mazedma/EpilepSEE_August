@@ -241,7 +241,7 @@ public class DailyActivity extends AppCompatActivity {
                     String dosageTimings = dataSnapshot.child("dosageTimings").getValue(String.class);
                     String medicationName = dataSnapshot.child("medicationName").getValue(String.class);
 
-                    String medicationInfo = "용량: " + dosage + " / 복용 시간: " + dosageTimings + " / 약물 이름: " + medicationName;
+                    String medicationInfo = medicationName + dosageTimings + dosage  ;
 
                     // 예: TextView에 값을 설정
                     TextView medicationInfoTextView = findViewById(R.id.medicationInfoTextView);
