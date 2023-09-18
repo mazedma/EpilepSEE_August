@@ -33,6 +33,8 @@ public class DrugActivity extends Activity {
     Date mDate = new Date(now); // Date 형식으로 고치기
     SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd"); // 시간을 나타낼 포맷 설정
     String getTime = simpleDate.format(mDate); // getTime 변수에 값을 저장
+    DatabaseReference todayDataReference;
+
 
     // 동적으로 생성한 RadioGroup 객체와 선택된 라디오 버튼을 저장할 변수 선언
     private RadioGroup dynamicRadioGroup;
@@ -69,6 +71,9 @@ public class DrugActivity extends Activity {
                     String selectedText = selectedRadioButton.getText().toString();
                     recordedTimeDrug = mDate; // 현재시간 할당
 
+                    // Firebase에 데이터 추가
+                    addDataToFirebase(selectedText);
+
                     // 확인 화면 띄우기
                     Intent intent = new Intent(getApplicationContext(), DrugCompleteActivity.class);
                     intent.putExtra("checkedRadioDrug", selectedText); // 선택된 라디오 버튼의 텍스트 값을 인텐트에 추가
@@ -83,12 +88,21 @@ public class DrugActivity extends Activity {
 
     }
 
+    // Firebase에 데이터 추가하는 메서드
+    private void addDataToFirebase(String selectedText) {
+        if (todayDataReference != null) {
+            // "done" 아래에 새로운 노드를 만들고 선택된 텍스트를 추가
+            DatabaseReference doneReference = todayDataReference.child("medicationList").child("done").child(selectedText);
+            doneReference.setValue(true);
+        }
+    }
+
     private void getDataFromFirebase() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(); // 루트 경로를 가져옴
         String todayDate = getTime; // 오늘 날짜를 가져옴
 
         // 오늘 날짜를 사용하여 경로 설정
-        DatabaseReference todayDataReference = databaseReference.child(todayDate);
+        todayDataReference = databaseReference.child(todayDate);
 
         // 데이터 가져오기
         todayDataReference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
