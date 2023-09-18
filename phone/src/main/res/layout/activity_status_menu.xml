@@ -17,37 +17,55 @@
         android:inputType="none"
         android:focusable="false" />
 
-    <SeekBar
-        android:id="@+id/moodSeekBar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:max="100"
-        android:progress="50" />
+        android:layout_margin="15dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text="Mood (기분)" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="기분"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <SeekBar
-        android:id="@+id/sleepQualitySeekBar"
+        <SeekBar
+            android:id="@+id/moodSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:max="100"
+            android:progress="50" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:max="100"
-        android:progress="50" />
+        android:layout_margin="15dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text="Sleep Quality (숙면 여부)" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="숙면 여부"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <SeekBar
+            android:id="@+id/sleepQualitySeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:max="100"
+            android:progress="50" />
+
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/saveButton"
