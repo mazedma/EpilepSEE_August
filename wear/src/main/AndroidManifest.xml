@@ -15,7 +15,7 @@
          앱 전체에서 일관된 Firebase 설정이 적용될 것입니다.
         -->
     <application
-        android:name=".kr.co.episode.epilepsee.MyApplication"
+        android:name="kr.co.episode.epilepsee.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
