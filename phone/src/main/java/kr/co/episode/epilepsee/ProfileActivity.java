@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -22,6 +25,9 @@ import kr.co.episode.epilepsee.databinding.ActivityProfileBinding;
 public class ProfileActivity extends AppCompatActivity {
 
 
+    private DatabaseReference databaseReference;
+    private EditText etName;
+    private Button btnUserDataSave;
 
     //Calendar
     Calendar myCalendar = Calendar.getInstance();
@@ -41,7 +47,29 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityProfileBinding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(activityProfileBinding.getRoot());
+        // Firebase Database 초기화
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        etName = findViewById(R.id.etName);
+        btnUserDataSave = findViewById(R.id.btnUserDataSave);
+
+        btnUserDataSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = etName.getText().toString();
+                // Firebase Database에 사용자 이름 저장
+                if (!userName.isEmpty()) {
+                    // "users"라는 노드 아래에 사용자 이름을 저장합니다.
+                    databaseReference.child("users").setValue(userName);
+
+
+                    Toast.makeText(ProfileActivity.this, "이름이 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ProfileActivity.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        });
         // 액션바 설정
         getSupportActionBar().setTitle("프로필 설정"); // 화면 제목 설정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼

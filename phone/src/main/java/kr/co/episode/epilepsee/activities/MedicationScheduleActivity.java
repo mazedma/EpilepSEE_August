@@ -18,14 +18,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
+import kr.co.episode.epilepsee.R;
 import kr.co.episode.epilepsee.databinding.ActivityMedicationScheduleBinding;
+
 
 public class MedicationScheduleActivity extends AppCompatActivity {
 
     ActivityMedicationScheduleBinding activityMedicationScheduleBinding;
     private DatabaseReference databaseReference;
+    private EditText editTextMedication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,7 @@ public class MedicationScheduleActivity extends AppCompatActivity {
         activityMedicationScheduleBinding = ActivityMedicationScheduleBinding.inflate(getLayoutInflater());
         setContentView(activityMedicationScheduleBinding.getRoot());
 
-        // Firebase 데이터베이스 루트 레퍼런스를 가져옵니다.
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        editTextMedication = findViewById(R.id.EditTextMedication);
 
         // 액션바 설정
         ActionBar actionBar = getSupportActionBar();
@@ -104,7 +105,7 @@ public class MedicationScheduleActivity extends AppCompatActivity {
         int numDosage = Integer.parseInt(activityMedicationScheduleBinding.editTextNumDosage.getText().toString());
         int numPills = Integer.parseInt(activityMedicationScheduleBinding.editTextNumPills.getText().toString());
         ArrayList<String> selectedTimings = getSelectedTimings();
-        String medicationName = activityMedicationScheduleBinding.editTextMedication.getText().toString();
+        String medicationName = activityMedicationScheduleBinding.EditTextMedication.getText().toString();
         String startDateStr = activityMedicationScheduleBinding.editTextStartDate.getText().toString();
         String endDateStr = activityMedicationScheduleBinding.editTextEndDate.getText().toString();
 

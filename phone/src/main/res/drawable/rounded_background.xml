@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#EDE4FF" /> <!-- 백그라운드 색상을 원하는 색으로 변경하세요 -->
+    <corners android:radius="10dp" /> <!-- 둥근 사각형의 반지름 (원하는 값으로 변경하세요) -->
+</shape>

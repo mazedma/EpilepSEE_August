@@ -9,13 +9,13 @@
     <uses-feature android:name="android.hardware.type.watch" />
 
     <!--
-         android:name=".MyApplication"
-         이렇게 하면 MyApplication 클래스가 앱의 진입점에서 실행되어 Firebase 초기화 및 설정 코드가 실행됩니다.
+         android:name=".kr.co.episode.epilepsee.MyApplication"
+         이렇게 하면 kr.co.episode.epilepsee.MyApplication 클래스가 앱의 진입점에서 실행되어 Firebase 초기화 및 설정 코드가 실행됩니다.
          이제 모든 액티비티에서 Firebase 초기화에 대해 신경쓰지 않아도 되며,
          앱 전체에서 일관된 Firebase 설정이 적용될 것입니다.
         -->
     <application
-        android:name=".MyApplication"
+        android:name=".kr.co.episode.epilepsee.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

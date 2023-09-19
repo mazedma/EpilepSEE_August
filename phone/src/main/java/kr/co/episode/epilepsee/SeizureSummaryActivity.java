@@ -36,7 +36,7 @@ public class SeizureSummaryActivity extends AppCompatActivity {
         String selectedKey = intent.getStringExtra("selectedKey");
         String selectedDate = intent.getStringExtra("selectedDate");
 
-
+        TextView seizureDateSummaryTextView = findViewById(R.id.seizureDateSummaryTextView);
         TextView seizureDurationSummaryTextView = findViewById(R.id.seizureDurationSummaryTextView);
         TextView seizureTimeSummaryTextView = findViewById(R.id.seizureTimeSummaryTextView);
         TextView seizureTypePrimaryView = findViewById(R.id.seizureTypePrimaryView);
@@ -64,15 +64,16 @@ public class SeizureSummaryActivity extends AppCompatActivity {
                             // 선택된 키에 해당하는 발작 데이터를 가져옵니다.
                             SeizureViewModel seizureData = dataSnapshot.getValue(SeizureViewModel.class);
                             if (seizureData != null) {
-                                // seizureDuration과 seizureTime을 가져와 TextView에 설정합니다.
-                                seizureDurationSummaryTextView.setText("발작 지속 시간: " + seizureData.getSeizureDuration());
+                                //
+                                seizureDateSummaryTextView.setText("발작 발생일: "+ selectedDate);
+                                seizureDurationSummaryTextView.setText("발작 지속 시간\n" +seizureData.getSeizureDuration());
                                 seizureTimeSummaryTextView.setText("발작 시각: " + seizureData.getSeizureTime());
-                                seizureTypePrimaryView.setText(seizureData.getSeizureTypePrimary());
+                                seizureTypePrimaryView.setText(seizureData.getSeizureTypePrimary()+" : ");
                                 seizureTypeSecondaryView.setText(seizureData.getSeizureTypeSecondary());
-                                seizurePredictedView.setText("발작 예측 여부: " + (seizureData.isSeizurePredicted() ? "예측됨" : "예측되지 않음"));
-                                seizureLocationView.setText("발생 장소: " + seizureData.getSeizureLocation());
-                                seizureDuringSleepView.setText("수면 중 발작 여부: " + (seizureData.isSeizureDuringSleep() ? "수면 중" : "일반 상태"));
-                                recoveryTimeSummaryView.setText("회복에 걸린 시간: " + seizureData.getRecoveryTime());
+                                seizurePredictedView.setText("발작 예측 여부\n" + (seizureData.isSeizurePredicted() ? "예측됨" : "예측되지 않음"));
+                                seizureLocationView.setText("발생 장소\n" + seizureData.getSeizureLocation());
+                                seizureDuringSleepView.setText("수면 중 발작 여부\n" + (seizureData.isSeizureDuringSleep() ? "수면 중" : "일반 상태"));
+                                recoveryTimeSummaryView.setText("회복에 걸린 시간\n" + seizureData.getRecoveryTime());
                                 List<String> emergencyMedications = seizureData.getEmergencyMedication();
                                 if (emergencyMedications != null && !emergencyMedications.isEmpty()) {
                                     StringBuilder emergencyMedicationText = new StringBuilder("사용된 긴급 약물:\n");
@@ -81,14 +82,21 @@ public class SeizureSummaryActivity extends AppCompatActivity {
                                     }
                                     emergencyMedicationView.setText(emergencyMedicationText.toString());
                                 }
-                                seizureReactionView.setText("발작 후 반응: " + seizureData.getSeizureReaction());
-                                symptomBodyView.setText("경련 증상(몸): " + seizureData.getSeizureSymptomBody());
-                                symptomMovementView.setText("경련 증상(움직임): " + seizureData.getSeizureSymptomMovement());
-                                symptomEyesView.setText("경련 증상(눈): " + seizureData.getSeizureSymptomEyes());
-                                symptomEyes2View.setText("경련 증상(눈2): " + seizureData.getSeizureSymptomEyes2());
-                                symptomMouthView.setText("경련 증상(입): " + seizureData.getSeizureSymptomMouth());
-                                symptomSkinColorView.setText("경련 증상(피부색): " + seizureData.getSeizureSymptomSkinColor());
-                                symptomSuddenUriView.setText("경련 증상(갑작스러운 배뇨): " + seizureData.getSeizureSymptomSuddenUrinationDefecation());
+                                String symptomEyes = seizureData.getSeizureSymptomEyes();
+                                if(symptomEyes != null){
+                                seizureReactionView.setText("발작 후 반응\n" + seizureData.getSeizureReaction());}
+                                    else {
+                                    symptomEyesView.setText("경련 증상(눈) 데이터가 입력되지 않았습니다.");
+                                     }
+                                symptomBodyView.setText("경련 증상(몸)\n" + seizureData.getSeizureSymptomBody());
+                                symptomMovementView.setText("경련 증상(움직임)\n" + seizureData.getSeizureSymptomMovement());
+                                symptomEyesView.setText("경련 증상(눈)\n" + seizureData.getSeizureSymptomEyes());
+                                symptomEyes2View.setText("경련 증상(눈2)\n" + seizureData.getSeizureSymptomEyes2());
+                                symptomMouthView.setText("경련 증상(입)\n" + seizureData.getSeizureSymptomMouth());
+                                symptomSkinColorView.setText("경련 증상(피부색)\n" + seizureData.getSeizureSymptomSkinColor());
+                                symptomSuddenUriView.setText("경련 증상(갑작스러운 배뇨)\n" + seizureData.getSeizureSymptomSuddenUrinationDefecation());
+
+
                             }
                         }
                     }

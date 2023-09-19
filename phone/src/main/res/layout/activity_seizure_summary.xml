@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE4FF"
+    android:background="@color/purple_200"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -12,127 +12,233 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/seizureTypePrimaryView"
-            android:layout_width="wrap_content"
+            android:id="@+id/seizureDateSummaryTextView"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans"
-            android:hint="발작 유형1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#D7BBF5" />
-
-        <TextView
-            android:id="@+id/seizureTypeSecondaryView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:fontFamily="@font/notosans2"
-            android:hint="발작 유형2"
+            android:hint="발작 날짜"
+            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#6528F7" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/seizureTimeSummaryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/notosans2"
             android:hint="발작 시각"
             android:textSize="18sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/seizureDurationSummaryTextView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="지속 시간: "
-        android:textColor="#000000"
-        android:textSize="18sp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/seizurePredictedView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="발작 예측 여부 : " />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/seizureLocationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="발생 장소 : " />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-    <TextView
-        android:id="@+id/seizureDuringSleepView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="수면 중 여부 : " />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/recoveryTimeSummaryView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="회복에 걸린 시간: " />
+                    <TextView
+                        android:id="@+id/seizureTypePrimaryView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans"
+                        android:hint="발작 유형1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/purple_500" />
 
-    <TextView
-        android:id="@+id/emergencyMedicationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="사용된 긴급약물 : " />
+                    <TextView
+                        android:id="@+id/seizureTypeSecondaryView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans3"
+                        android:hint="발작 유형2"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/purple_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/seizureReactionView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" 발작 후 반응 : " />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/symptomBodyView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="몸 경련 증상: " />
+                    <TextView
+                        android:id="@+id/seizureDurationSummaryTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/notosans2"
+                        android:hint="지속 시간"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/symptomMovementView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="움직임 : " />
+                    <TextView
+                        android:id="@+id/recoveryTimeSummaryView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/notosans2"
+                        android:hint="회복에 걸린 시간"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/symptomEyesView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="눈 경련 : " />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/symptomEyes2View"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="눈 증상 : " />
+            </LinearLayout>
 
-    <TextView
-        android:id="@+id/symptomMouthView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-    <TextView
-        android:id="@+id/symptomSkinColorView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+                <TextView
+                    android:id="@+id/seizureLocationView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="발생 장소 : "
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/symptomSuddenUriView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+                <TextView
+                    android:id="@+id/seizureDuringSleepView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="수면 중 여부 : "
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/seizurePredictedView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="발작 예측 여부 : "
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/emergencyMedicationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/notosans2"
+                    android:hint="사용된 긴급약물"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/seizureReactionView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/notosans2"
+                    android:hint=" 발작 후 반응"
+                    android:textAlignment="center"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/symptomBodyView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="몸 경련 증상: "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/symptomMovementView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="움직임 : "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/symptomEyesView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="눈 경련 발생 부위"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/symptomEyes2View"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="눈 증상"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/symptomMouthView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="입 증상"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/symptomSkinColorView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="피부색"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/symptomSuddenUriView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="갑작스러운 배뇨"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

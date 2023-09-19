@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.PeriodRecordActivity">
+    tools:context=".activities.PeriodRecordActivity"
+    android:background="@color/purple_100">
 
     <ScrollView
         android:layout_width="match_parent"
