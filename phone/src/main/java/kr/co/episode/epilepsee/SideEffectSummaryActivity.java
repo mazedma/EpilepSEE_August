@@ -40,6 +40,7 @@ public class SideEffectSummaryActivity extends AppCompatActivity {
 
         DatabaseReference sideEffectDataReference = databaseReference.child(selectedDate).child("sideEffectData").child(selectedKey);
 
+
         sideEffectDataReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -208,6 +208,7 @@ public class PeriodRecordActivity extends AppCompatActivity {
     }
 
 
+
     // 액션바의 백 버튼 클릭 이벤트 처리
     @Override
     public boolean onSupportNavigateUp() {
