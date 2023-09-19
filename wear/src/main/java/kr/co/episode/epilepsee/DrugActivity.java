@@ -57,6 +57,8 @@ public class DrugActivity extends Activity {
         // Firebase로부터 데이터 가져오기
         getDataFromFirebase();
 
+
+        //하..
         // 동적으로 생성한 RadioGroup 객체 초기화
         dynamicRadioGroup = new RadioGroup(this);
         // 라디오버튼 결과값 관련
